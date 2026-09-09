@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveline - Login B2B</title>
+    <!-- Phosphor Icons para manter a consistência da Landing Page -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+    <div class="auth-layout">
+        
+        <!-- Lado Esquerdo: Branding / Visual (Dark Glassmorphism Orbs) -->
+        <div class="auth-visual">
+            <div class="glow-orb orb-1"></div>
+            <div class="glow-orb orb-2"></div>
+            
+            <div class="visual-header">
+                <i class="ph-fill ph-airplane-tilt"></i> Traveline
+            </div>
+            
+            <div class="visual-content">
+                <h2>A próxima evolução da sua agência.</h2>
+                <p>Abandone as planilhas estáticas. Faça login no seu painel de inteligência e descubra padrões de consumo que a concorrência ainda não viu.</p>
+            </div>
+        </div>
+        
+        <!-- Lado Direito: Formulário Glassmorphism -->
+        <div class="auth-form-container">
+            <div class="glass-panel">
+                <div class="form-header">
+                    <h3>Acesso à Plataforma</h3>
+                    <p>Insira suas credenciais corporativas.</p>
+                </div>
+                
+                <!-- Toggle Login/Cadastro -->
+                <div class="auth-tabs">
+                    <button type="button" class="active" data-mode="login">Login</button>
+                    <button type="button" data-mode="register">Criar Conta</button>
+                </div>
+                
+                <form id="authForm"></form>
+                
+                <div class="oauth-divider"><span id="oauthDividerText">Ou conecte via</span></div>
+                
+                <div class="oauth-buttons">
+                    <button class="btn-oauth">
+                        <i class="ph-fill ph-google-logo"></i> Google
+                    </button>
+                    <button class="btn-oauth">
+                        <i class="ph-fill ph-microsoft-logo"></i> Microsoft
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="auth-toggle.js"></script>
+</body>
+</html>

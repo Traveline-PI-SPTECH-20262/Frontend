@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Traveline - Inteligência para Agências de Viagem</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,20 +18,23 @@
                 <span>Traveline</span>
             </a>
             <nav class="nav-links">
-                <a href="#solucoes">Soluções</a>
                 <a href="#recursos">Recursos</a>
                 <a href="#sobre">Sobre</a>
-                <a href="#contato">Contato</a>
+                <a href="mailto:giovanna.tomaz@sptech.school">Contato</a>
             </nav>
-            <a href="#" class="btn btn-primary">Entrar</a>
+            <a href="./traveline_login.html" class="btn btn-primary">Entrar</a>
         </div>
     </header>
 
     <main>
         <section class="hero container">
             <div class="hero-text">
-                <h1>Dados que guiam decisões <span class="highlight">melhores</span> para sua agência.</h1>
-                <p>O Traveline transforma a forma como sua agência atua com relatórios otimizados para você investir nos destinos certos e crescer com segurança.</p>
+                <div class="hero-badge">Inteligência B2B para Turismo</div>
+                <h1>Pare de adivinhar o seu próximo <span class="highlight">destino de sucesso.</span></h1>
+                <p>O histórico de vendas da sua agência esconde o seu próximo grande lucro. Transforme planilhas esquecidas em análises preditivas e descubra onde investir antes da concorrência.</p>
+                <div class="hero-actions">
+                    <a href="./traveline_login.html" class="btn btn-primary">Criar conta</a>
+                </div>
             </div>
             <div class="hero-visual">
                 <div class="blob"></div>
@@ -69,32 +72,59 @@
             </div>
         </section>
 
-        <section class="features container">
-            <div class="features-header">
-                <h2>Inteligência para agências de viagem</h2>
-                <p>Transforme seus dados em estratégias de sucesso direcionadas ao seu mercado.</p>
+        <section id="sobre" class="editorial-section">
+            <div class="container editorial-grid">
+                <div class="problem-box">
+                    <h2>Apostar no escuro custa caro. Cansado de investir às cegas?</h2>
+                    <p class="lead">Quantas vezes sua agência injetou recursos em pacotes para destinos saturados, enquanto oportunidades altamente rentáveis passaram despercebidas?</p>
+                    <p>Ter dados de clientes soltos em arquivos isolados não é estratégia, é um risco. A intuição não é mais suficiente para garantir o crescimento sustentável no mercado de turismo.</p>
+                </div>
+                
+                <div class="solution-box">
+                    <i class="ph-fill ph-quotes"></i>
+                    <h3>Seus dados já têm as respostas. Nós apenas mostramos o caminho.</h3>
+                    <p>O Traveline não cria gráficos bonitos apenas para enfeitar telas. Nossa plataforma cruza o histórico real dos seus passageiros e devolve inteligência comercial: <strong>rankings precisos de onde alocar seu capital e marketing amanhã.</strong></p>
+                </div>
             </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="icon-wrapper">
-                        <i class="ph ph-database"></i>
+        </section>
+
+        <section id="recursos" class="tech-features container">
+            <div class="tech-header">
+                <h2>O motor por trás da sua próxima venda</h2>
+                <p>Nossa arquitetura técnica foi pensada para quem precisa de resultados rápidos, sem complicação de TI.</p>
+            </div>
+            
+            <div class="numbered-grid">
+                <div class="num-card">
+                    <span class="big-num">01</span>
+                    <div class="num-content">
+                        <h3>Fim do Copy-Paste</h3>
+                        <p>Alimente o sistema com facilidade. Importe suas planilhas operacionais atuais (formato XLSX) sem precisar refazer nenhum processo interno.</p>
                     </div>
-                    <h3>Centralize seus dados</h3>
-                    <p>Reúna e integre as informações de viagens de forma fácil e segura em um só lugar.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-wrapper">
-                        <i class="ph ph-chart-line-up"></i>
+                
+                <div class="num-card">
+                    <span class="big-num">02</span>
+                    <div class="num-content">
+                        <h3>Processamento Robusto</h3>
+                        <p>Construído sob uma arquitetura Java de alta performance, o sistema trata, limpa e padroniza seus registros em segundos de forma segura.</p>
                     </div>
-                    <h3>Análise com profundidade</h3>
-                    <p>Identifique padrões e tendências valiosas para o mercado de turismo e negócios.</p>
                 </div>
-                <div class="feature-card">
-                    <div class="icon-wrapper">
-                        <i class="ph ph-target"></i>
+
+                <div class="num-card">
+                    <span class="big-num">03</span>
+                    <div class="num-content">
+                        <h3>Dashboards Vivos</h3>
+                        <p>Saia das células estáticas. Explore KPIs, aplique filtros em tempo real e identifique comportamentos de compra de forma visual e interativa.</p>
                     </div>
-                    <h3>Gestão com confiança</h3>
-                    <p>Descubra novas oportunidades e previsões direcionadas para a sua empresa.</p>
+                </div>
+
+                <div class="num-card">
+                    <span class="big-num">04</span>
+                    <div class="num-content">
+                        <h3>Rankings de Decisão</h3>
+                        <p>A entrega final: listas automatizadas apontando quais destinos possuem a maior demanda reprimida e a menor concorrência no seu portfólio.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -102,14 +132,14 @@
         <section class="banner container">
             <div class="banner-box">
                 <div class="banner-left">
-                    <i class="ph-fill ph-airplane-takeoff"></i>
+                    <i class="ph-fill ph-rocket-launch"></i>
                     <div class="banner-title">
-                        <h3>Mais estratégia.</h3>
-                        <h3>Mais resultados.</h3>
+                        <h3>O histórico da sua agência vale ouro.</h3>
+                        <h3>Comece a minerar hoje.</h3>
                     </div>
                 </div>
                 <div class="banner-right">
-                    <p>O parceiro ideal para o crescimento<br>da sua agência.</p>
+                    <a href="#" class="btn btn-primary" style="background-color: var(--white); color: var(--primary-color);">Falar com consultor</a>
                 </div>
             </div>
         </section>

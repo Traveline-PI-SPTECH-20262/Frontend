@@ -1,0 +1,317 @@
+/* --- Variáveis Modernas SaaS --- */
+        :root {
+            --primary: #7c3aed; /* Neon Purple/Indigo */
+            --primary-hover: #6d28d9;
+            --bg-dark: #090a0f; /* Fundo super escuro */
+            --bg-panel: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-family);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* --- Layout Split Screen Assimétrico --- */
+        .auth-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Esquerda levemente maior */
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* --- Esquerda: Visual / Branding (Dark Glassmorphism UI) --- */
+        .auth-visual {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+            background: #0b0d14;
+            overflow: hidden;
+            border-right: 1px solid var(--glass-border);
+        }
+
+        /* Efeito Blur/Glow (Glassmorphism de fundo) */
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(124, 58, 237, 0.25);
+        }
+        .orb-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: rgba(37, 99, 235, 0.15);
+        }
+
+        .visual-header {
+            z-index: 1;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .visual-header i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .visual-content {
+            z-index: 1;
+            max-width: 520px;
+            margin-bottom: 40px;
+        }
+
+        .visual-content h2 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
+            background: linear-gradient(to right, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .visual-content p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* --- Direita: Formulário de Autenticação --- */
+        .auth-form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Painel Glassmorphism Puro */
+        .glass-panel {
+            width: 100%;
+            max-width: 460px;
+            background: var(--bg-panel);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 56px 48px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+
+        .form-header {
+            margin-bottom: 40px;
+        }
+        .form-header h3 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Switcher Login / Cadastro */
+        .auth-tabs {
+            display: flex;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            padding: 6px;
+            margin-bottom: 32px;
+            border: 1px solid var(--glass-border);
+        }
+        .auth-tabs button {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .auth-tabs button.active {
+            background: rgba(255,255,255,0.08);
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .auth-tabs button:hover:not(.active) {
+            color: var(--text-main);
+        }
+
+        /* Inputs Modernos */
+        .input-group {
+            margin-bottom: 24px;
+        }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .input-group input {
+            width: 100%;
+            background: rgba(0,0,0,0.25);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        .input-group input:focus {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.03);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.15);
+        }
+        .input-group input::placeholder {
+            color: #475569;
+        }
+
+        /* Ações Secundárias */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            font-size: 0.9rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-label input {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+        }
+        .forgot-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .forgot-link:hover {
+            color: var(--primary);
+        }
+
+        /* Botão Principal com Efeito Neon Sutil */
+        .btn-primary {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.3);
+            margin-bottom: 32px;
+        }
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5);
+        }
+
+        /* Divisor Social Logins */
+        .oauth-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 24px;
+            color: #475569;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+        .oauth-divider::before, .oauth-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .oauth-divider span {
+            padding: 0 16px;
+        }
+
+        /* Botões OAuth */
+        .oauth-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn-oauth {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border);
+            color: var(--text-main);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+        .btn-oauth:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .btn-oauth i {
+            font-size: 1.3rem;
+        }
+
+        /* Responsividade */
+        @media (max-width: 1024px) {
+            .auth-layout { grid-template-columns: 1fr; }
+            .auth-visual { display: none; }
+            .glass-panel { padding: 40px 32px; max-width: 100%; border: none; border-radius: 0; background: transparent; box-shadow: none; }
+            .auth-form-container { align-items: flex-start; padding-top: 60px; }
+        }
