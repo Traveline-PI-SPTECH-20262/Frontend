@@ -1,4 +1,4 @@
-/* --- Variáveis Modernas SaaS --- */
+/* --- Variáveis --- */
         :root {
             --primary: #7c3aed; /* Neon Purple/Indigo */
             --primary-hover: #6d28d9;
@@ -25,7 +25,7 @@
             overflow: hidden;
         }
 
-        /* --- Layout Split Screen Assimétrico --- */
+        /* --- Layout Split Screen --- */
         .auth-layout {
             display: grid;
             grid-template-columns: 1.2fr 1fr; /* Esquerda levemente maior */
@@ -33,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* --- Esquerda: Visual / Branding (Dark Glassmorphism UI) --- */
+        /* --- Esquerda: Visual / Branding --- */
         .auth-visual {
             position: relative;
             display: flex;
@@ -45,7 +45,6 @@
             border-right: 1px solid var(--glass-border);
         }
 
-        /* Efeito Blur/Glow (Glassmorphism de fundo) */
         .glow-orb {
             position: absolute;
             border-radius: 50%;
@@ -115,7 +114,6 @@
             z-index: 1;
         }
 
-        /* Painel Glassmorphism Puro */
         .glass-panel {
             width: 100%;
             max-width: 460px;
@@ -172,7 +170,6 @@
             color: var(--text-main);
         }
 
-        /* Inputs Modernos */
         .input-group {
             margin-bottom: 24px;
         }

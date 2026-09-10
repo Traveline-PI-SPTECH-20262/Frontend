@@ -361,8 +361,6 @@ body {
     font-weight: 500;
 }
 
-/* --- Novas Seções Adicionadas --- */
-
 /* Secão Sobre / Problema */
 .about-section {
     padding: 60px 24px;
@@ -425,7 +423,6 @@ body {
     color: rgba(255, 255, 255, 0.85) !important;
 }
 
-/* Ajustes no Grid de Features para 4 itens */
 .features-grid.expanded {
     grid-template-columns: repeat(4, 1fr);
 }
@@ -460,7 +457,7 @@ body {
 }
 
 .hero-text h1 {
-    letter-spacing: -1px; /* Deixa a tipografia mais moderna e "apertada" */
+    letter-spacing: -1px;
 }
 
 .hero-actions {
@@ -475,9 +472,9 @@ body {
     color: var(--text-light);
 }
 
-/* --- Seção Editorial Assimétrica (Problema vs Solução) --- */
+/* --- Seção Editorial (Problema vs Solução) --- */
 .editorial-section {
-    background-color: #111827; /* Fundo escuro super elegante */
+    background-color: #111827;
     padding: 100px 0;
     margin: 60px 0;
     position: relative;
@@ -486,7 +483,7 @@ body {
 .editorial-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0; /* Tiramos o gap para criar a sobreposição */
+    gap: 0;
     align-items: center;
 }
 
@@ -519,7 +516,7 @@ body {
     border-radius: 16px;
     box-shadow: -20px 20px 40px rgba(0,0,0,0.3);
     color: var(--white);
-    transform: translateX(-30px); /* Efeito de sobreposição anti-genérico */
+    transform: translateX(-30px);
     position: relative;
 }
 
@@ -553,7 +550,7 @@ body {
 }
 
 .tech-header {
-    text-align: left; /* Quebra a expectativa do header centralizado */
+    text-align: left;
     margin-bottom: 60px;
     max-width: 600px;
     border-left: 4px solid var(--primary-color);
@@ -577,7 +574,7 @@ body {
     gap: 24px;
     padding: 30px;
     background: var(--white);
-    border: 1px solid #E5E7EB; /* Borda brutalista/clean */
+    border: 1px solid #E5E7EB;
     border-radius: 12px;
     transition: var(--transition);
 }
@@ -592,7 +589,7 @@ body {
     font-weight: 800;
     color: var(--primary-light);
     line-height: 1;
-    font-family: monospace; /* Dá um ar de dados/sistema */
+    font-family: monospace;
 }
 
 .num-content h3 {
@@ -606,7 +603,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* Responsividade das Novas Seções */
+/* Responsividade */
 @media (max-width: 992px) {
     .editorial-grid {
         grid-template-columns: 1fr;
@@ -633,7 +630,6 @@ body {
     }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .nav-links {
         display: none;
