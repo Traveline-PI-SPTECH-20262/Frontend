@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
         :root {
+            --main-purple: #5B2A86;
             --primary: #7c3aed; /* Neon Purple/Indigo */
             --primary-hover: #6d28d9;
             --bg-dark: #090a0f; /* Fundo super escuro */
@@ -7,6 +8,7 @@
             --glass-border: rgba(255, 255, 255, 0.06);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --text-dark: #161616;
             --font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
 
