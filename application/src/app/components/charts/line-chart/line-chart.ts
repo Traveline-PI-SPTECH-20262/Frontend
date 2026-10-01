@@ -1,15 +1,35 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChartConfiguration } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-line-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  standalone: true,
+  imports: [ BaseChartDirective ],
   templateUrl: './line-chart.html',
   styleUrl: './line-chart.css',
-  template: `<canvas id="lineChart" [data]="chartData" [labels]="chartLabels" [type]="chartType"></canvas>`,
 })
 export class LineChart {
-  chartData = [0, 10, 5, 2, 20, 30, 45];
   chartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  chartData: ChartConfiguration<'line'>['data'] = {
+    labels: this.chartLabels,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: [65, 59, 80, 81, 56, 55, 40],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      },
+      {
+        label: 'Dataset 2',
+        data: [28, 48, 40, 19, 86, 27, 90],
+        fill: false,
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.1
+      }
+    ]
+  } 
   chartType = 'line';
 }

@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { LineChart } from '../../charts/line-chart/line-chart';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [LineChart],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
