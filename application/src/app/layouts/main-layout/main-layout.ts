@@ -11,8 +11,8 @@ import { RouterOutlet } from '@angular/router';
 export class MainLayout {
   verificarLogin() {
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
+      const token = localStorage.getItem('token') || 'null';
+      if (token === 'null') {
         console.log('Usuário não está logado. Redirecionando para a página de login...');
         window.location.href = '/sign';
       } else {
@@ -26,6 +26,6 @@ export class MainLayout {
   }
 
   constructor() {
-    // this.verificarLogin();
+    this.verificarLogin();
   }
 }

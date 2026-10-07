@@ -15,11 +15,16 @@ export class Login {
   constructor(private authService: AuthService) {}
 
   login() {
+    console.log('Email:', this.email);
+    console.log('Senha:', this.senha);
     this.authService.loginEmail(this.email, this.senha).subscribe({
         next: (response) => {
-        const token = response.token;
+        const usuario = response.usuario;
+        console.log('Login bem-sucedido:', response.usuario);
+        console.log('ID do usuário:', usuario.idusuario);
+        const token = JSON.stringify({usuario});
 
-        if(token) {
+        if(response) {
           this.authService.salvarToken(token);
         }
         
@@ -27,8 +32,8 @@ export class Login {
       error: (error) => {
         console.error('Erro ao fazer login:', error);
       }
-    }
-    )
+    })
   }
 
+  
 }
