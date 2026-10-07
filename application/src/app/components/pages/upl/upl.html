@@ -1,1 +1,40 @@
-<p>upl works!</p>
+<main>
+    <app-header
+        titulo="Upload da base de dados"
+        descricao="Suba a sua base de dados para ser analizada.">
+    </app-header>
+
+        <div class="upload-container">
+<div class="zona-carregamento">
+    <h2>Clique ou arraste arquivos para upload</h2>
+    <br>
+    <p>ou</p>
+    <br>
+    <label for="fileInput" class="button-carregar">
+    Selecionar arquivo
+    </label>
+    <input
+        id="fileInput"
+        type="file"
+        accept=".xlsx,.xls"
+        (change)="onFileSelected($event)"
+        hidden
+    >
+
+</div>
+@if (selectedFile) {
+<div class="info-arquivo">
+    <div>
+    <strong>{{ selectedFile.name }}</strong>
+    </div>
+    <button (click)="removeFile()">
+    Remover
+    </button>
+</div>
+}
+<button class="button-enviar">
+    Enviar
+</button>
+
+</div>
+</main>
