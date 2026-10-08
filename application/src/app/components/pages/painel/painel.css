@@ -1,0 +1,41 @@
+main {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #f8f7fc;
+}
+
+.painel-func-contener{
+    padding: 40px;
+    background-color: rgba(226, 225, 224, 0.418);
+    border-radius: 10px;
+    align-items: center;
+}
+
+
+.func {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+}
+
+.func h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+}
+
+.func p {
+    margin: 0 0 0.5rem;
+    color: #666;
+}
+
+.func span {
+    font-size: 0.85rem;
+    color: #888;
+}

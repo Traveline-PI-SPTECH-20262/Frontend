@@ -1,0 +1,71 @@
+main {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #f8f7fc;
+}
+
+.relatorios-conteiner{
+    padding: 40px;
+    background-color: rgba(226, 225, 224, 0.418);
+    border-radius: 10px;
+    align-items: center;
+}
+
+.relatorio{
+    background-color: rgb(254, 254, 255);
+    padding: 33px;
+    border-radius: 25px;
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+
+.titulo-filtro{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.titulo-filtro select{
+    padding: 7px 25px 7px 25px;
+    border-radius: 10px;
+    color: blueviolet;
+
+}
+
+.oportunidade{
+    color: greenyellow;
+    background-color: rgb(3, 79, 3);
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+}
+.sazonalidade{
+    color: orange;
+    background-color: rgba(152, 99, 0, 0.704);
+    padding: 3px 10px 3px 10px;
+    border-radius: 10px;
+
+}
+.erro{
+    color: red;
+    background-color: rgb(107, 3, 3);
+    padding: 3px 10px 3px 10px;
+    border-radius: 10px;
+}
+
+.titulo{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.titulo h2{
+    display: flex;
+}
