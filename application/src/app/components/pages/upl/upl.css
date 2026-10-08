@@ -1,0 +1,56 @@
+main {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #f8f7fc;
+}
+
+.upload-container {
+    padding: 30px;
+}
+
+.zona-carregamento {
+    margin-top: 30px;
+    padding: 50px;
+    border: 2px dashed #aaa;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.button-carregar {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: #222;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.info-arquivo {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-arquivo p {
+    margin: 5px 0;
+    color: #777;
+}
+
+.button-enviar {
+    margin-top: 20px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    background-color: #222;
+    color: white;
+    cursor: pointer;
+}

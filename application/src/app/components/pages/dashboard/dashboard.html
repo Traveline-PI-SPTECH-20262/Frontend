@@ -1,17 +1,91 @@
 <main>
-    <div class="title">
-        <h1>Visão Geral</h1>
-    </div>
-    <div class="kpis">
-        <div class="kpi"><span>KPI 1</span></div>
-        <div class="kpi"><span>KPI 2</span></div>
-        <div class="kpi"><span>KPI 3</span></div>
-        <div class="kpi"><span>KPI 4</span></div>
-    </div>
-    <div class="charts">
-        <div class="chart">
+    <app-header
+        titulo="Visão geral"
+        descricao="Acompanhe os principais indicadores da sua agência.">
+    </app-header>
+
+    <section class="kpis">
+
+        <app-kpi-card
+            titulo="Total de viagens"
+            valor="1.248"
+            variacao="+12%"
+            icone="✈">
+        </app-kpi-card>
+
+        <app-kpi-card
+            titulo="Passageiros"
+            valor="28.615"
+            variacao="+8%"
+            icone="♙">
+        </app-kpi-card>
+
+        <app-kpi-card
+            titulo="Destinos visitados"
+            valor="156"
+            variacao="+5%"
+            icone="◎">
+        </app-kpi-card>
+
+        <app-kpi-card
+            titulo="Taxa de ocupação média"
+            valor="76%"
+            variacao="+4%"
+            icone="◔">
+        </app-kpi-card>
+
+    </section>
+
+    <section class="charts">
+
+        <div class="chart destinations">
+            <h2>Destinos mais procurados</h2>
+            <p>Orlando, EUA</p>
+            <p>Lisboa, Portugal</p>
+            <p>Santiago, Chile</p>
+            <p>Buenos Aires, Argentina</p>
+            <p>Cancún, México</p>
+        </div>
+
+        <div class="chart seasons">
+            <h2>Demanda por temporada</h2>
+
             <app-line-chart></app-line-chart>
         </div>
-        <div class="chart">Gráfico 2</div>
-    </div>
+
+    </section>
+
+    <section class="recommendations">
+
+        <div class="recommendations-header">
+            <h2>Recomendações de destinos</h2>
+            <button>Ver todas</button>
+        </div>
+
+        <div class="recommendation">
+            <span>Porto Seguro, Brasil</span>
+            <span>92</span>
+            <span>Alta</span>
+            <span>Baixa</span>
+            <button>Ver detalhes</button>
+        </div>
+
+        <div class="recommendation">
+            <span>Foz do Iguaçu, Brasil</span>
+            <span>87</span>
+            <span>Alta</span>
+            <span>Baixa</span>
+            <button>Ver detalhes</button>
+        </div>
+
+        <div class="recommendation">
+            <span>Queenstown, Nova Zelândia</span>
+            <span>81</span>
+            <span>Média</span>
+            <span>Média</span>
+            <button>Ver detalhes</button>
+        </div>
+
+    </section>
+
 </main>

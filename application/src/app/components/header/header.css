@@ -1,0 +1,30 @@
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
+.title p {
+    margin: 0.4rem 0 0;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+.period {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid #e5e1ef;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+}
