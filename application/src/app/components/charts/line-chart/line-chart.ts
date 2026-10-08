@@ -11,25 +11,31 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrl: './line-chart.css',
 })
 export class LineChart {
-  chartLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  chartOptions: ChartConfiguration<'line'>['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'x',
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: { grid: { display: true } },
+      y: { 
+        grid: { display: true }, 
+        }
+    }
+  };
+  chartLabels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
   chartData: ChartConfiguration<'line'>['data'] = {
     labels: this.chartLabels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        tension: 0.1
-      },
-      {
-        label: 'Dataset 2',
-        data: [28, 48, 40, 19, 86, 27, 90],
-        fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.1
-      }
-    ]
-  } 
-  chartType = 'line';
+    datasets: [{
+      label: 'Chegadas de turistas por mês',
+      data: [2500, 1800, 1500, 2500, 1800, 1500, 2500, 1800, 2500, 1000, 2000, 1250],
+      backgroundColor: '#351486',
+      borderColor:'#8c62f7', 
+    }]
+  };
+
+  chartType: ChartConfiguration<'line'>['type'] = 'line';
 }

@@ -1,0 +1,18 @@
+<main>
+    <app-header
+    titulo="Painel"
+    descricao="Veja todos os seus funcionarios aqui!!">
+</app-header>
+
+<section class="painel-func-contener">
+        @for (funcionario of funcionarios; track funcionario.id) {
+            <div class="func">
+                <h2>{{ funcionario.nome }}</h2>
+                <p>{{ funcionario.cargo }}</p>
+                <span>{{ funcionario.email }}</span>
+            </div>
+
+        }
+    </section>
+
+</main>

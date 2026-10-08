@@ -9,6 +9,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
+  /*
   verificarLogin() {
     try {
       const token = localStorage.getItem('token');
@@ -24,8 +25,10 @@ export class MainLayout {
       console.error('Erro ao verificar login:', error);
     }
   }
+  
 
   constructor() {
     // this.verificarLogin();
   }
+    */
 }
