@@ -19,10 +19,7 @@ export class DoughnutChart {
   };
   chartLabels = [
   "África",
-  "América do norte",
-  "América central",
-  "América do sul",
-  "Antártida",
+  "América",
   "Ásia",
   "Europa",
   "Oceania"
@@ -32,7 +29,7 @@ export class DoughnutChart {
     labels: this.chartLabels,
     datasets: [{
       label: 'Países Emissores',
-      data: [2500, 1800, 1500, 2500, 1800, 1500, 2500, 1800],
+      data: [2500, 1800, 1500, 2500, 1800],
       backgroundColor: ['#8c62f7','#caf762','#12c335','#de1717','#d61ebb','#090610','#7f4c21','#36a6ce'],
       borderRadius: 4
     }]

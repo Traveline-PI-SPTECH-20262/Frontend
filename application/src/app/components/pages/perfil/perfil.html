@@ -1,0 +1,48 @@
+<main>
+    <app-header
+    titulo="Seu perfil"
+    descricao="Veja as suas informações.">
+</app-header>
+
+<section class="conteiner-perfil">
+    <div class="foto">
+        <img src="" alt="foto-perfil">
+        <button>Alterar</button>
+    </div>
+
+    <div class="informações">
+        <h2>Nome: {{usuario.nome}}</h2>
+        <p><span>Cargo:</span> {{usuario.cargo}}</p>
+        <p><span>E-mail:</span> {{usuario.email}}</p>
+        <button>✎</button>
+    </div>
+</section>
+
+<section class="conteiner-edit">
+    <form action="">
+        <h2>Edite suas informações</h2>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" placeholder="Nome">
+
+        <label for="Cargo">Cargo:</label>
+        <input type="text" name="nome" id="Cargo" placeholder="Cargo">
+
+        <label for="Descrição">Descrição:</label>
+        <input type="text" name="nome" id="Descrição" placeholder="Descrição">
+
+        <label for="email">E-mail:</label>
+        <input type="text" name="nome" id="email" placeholder="E-mail">
+
+        <label for="Numero">Numero para contato:</label>
+        <input type="text" name="nome" id="Numero" placeholder="Numero">
+
+        <div class="buttons">
+            <button>Salvar</button>
+            <button>Cancelar</button>
+        </div>
+        
+    </form>
+</section>
+
+</main>
+

@@ -53,30 +53,43 @@
     <section class="charts">
 
         <div class="chart">
-            <h2>Top 10 Países emissores</h2>
-            <app-bar-chart></app-bar-chart>
+            <div class="titulo">
+                <h2>Participação por continente <span>(2019-2021)</span></h2>
+                <button id="mini-button">👆</button>
+            </div>
+                <app-doughnut-chart></app-doughnut-chart>
         </div>
 
         <div class="chart">
-            <h2>Participação por continente</h2>
-            <app-doughnut-chart></app-doughnut-chart>
+            <div class="titulo">
+                <h2>Top 10 Países emissores <span>(2019-2021)</span></h2>
+                <button id="mini-button">👆</button>
+            </div>
+                <app-bar-chart></app-bar-chart>
         </div>
 
-        <div class="chart">
-            <h2>Chegadas por UF de entrada</h2>
-            <app-bar-standing-chart></app-bar-standing-chart>
-        </div>
 
         <div class="chart">
-            <h2>Sazonalidade das chegadas</h2>
+            <div class="titulo">
+                <h2>Chegadas por UF de entrada <span>(2019-2021)</span></h2>
+                <button id="mini-button">👆</button>
+            </div>
+                <app-bar-standing-chart></app-bar-standing-chart>
+            </div>
+
+        <div class="chart">
+            <div class="titulo">
+                <h2>Sazonalidade das chegadas <span>(2019-2021)</span></h2>
+                <button id="mini-button">👆</button>
+            </div>
             <app-line-chart></app-line-chart>
         </div>
 
 
         <div class="graphic-table">
             <div class="titulo">
-                <h2>Oportunidades por mercado emissor</h2>
-                <button>Ver todas</button>
+                <h2>Oportunidades por mercado emissor <span>(2019-2021)</span></h2>
+                <button>Ir para Recomendações</button>
             </div>
 
             <table>

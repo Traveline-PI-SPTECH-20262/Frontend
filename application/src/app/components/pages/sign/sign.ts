@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Login } from '../../forms/login/login';
 import { Register } from '../../forms/register/register';
+import { AuthService } from '../../../services/userservices/auth.service';
 
 @Component({
   selector: 'app-sign',
