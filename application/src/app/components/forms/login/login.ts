@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService } from '../../../services/userservices/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class Login {
   senha: string = '';
   email: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
   login() {
     console.log('Email:', this.email);
@@ -21,6 +22,7 @@ export class Login {
         next: (response) => {
         const usuario = response.usuario;
         console.log('Login bem-sucedido:', response.usuario);
+        this.router.navigate(['/dashboard'])
         console.log('ID do usuário:', usuario.idusuario);
         const token = JSON.stringify({usuario});
 

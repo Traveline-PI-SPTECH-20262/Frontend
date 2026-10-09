@@ -5,6 +5,8 @@ import { Upl } from './components/pages/upl/upl';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Relatorios } from './components/pages/relatorios/relatorios';
 import { Painel } from './components/pages/painel/painel';
+import {Perfil} from './components/pages/perfil/perfil';
+
 
 export const routes: Routes = [
     {
@@ -29,6 +31,10 @@ export const routes: Routes = [
         {
                 path: 'painel',
                 component: Painel
+            },
+        {
+                path: 'perfil',
+                component: Perfil
             }]
     }
 ];

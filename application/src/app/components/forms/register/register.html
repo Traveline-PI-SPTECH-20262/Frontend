@@ -1,18 +1,22 @@
 <div class="input-group">
-    <label>Nome da agência</label>
-    <input type="text" name="companyName" placeholder="Traveline Agência" required>
+    <label>Codigo da agência</label>
+    <input type="text" name="companyName" [(ngModel)]="codigoAtivacao" placeholder="Traveline001" required>
+</div>
+<div class="input-group">
+    <label>Nome do funcionário:</label>
+    <input type="text" name="nome" [(ngModel)]="nome" placeholder="Nome" required>
+</div>
+<div class="input-group">
+    <label>Cargo</label>
+    <input type="text" name="cargo" [(ngModel)]="cargo" placeholder="Analista" required>
 </div>
 <div class="input-group">
     <label>Email de trabalho</label>
-    <input type="email" name="email" placeholder="nome@suaagencia.com.br" required>
+    <input type="email" name="email" [(ngModel)]="email" placeholder="nome@suaagencia.com.br" required>
 </div>
 <div class="input-group">
     <label>Senha</label>
-    <input type="password" name="password" placeholder="Crie uma senha forte" required>
-</div>
-<div class="input-group">
-    <label>Confirmar senha</label>
-    <input type="password" name="confirmPassword" placeholder="Repita sua senha" required>
+    <input type="password" name="password" [(ngModel)]="senha" placeholder="Crie uma senha forte" required>
 </div>
 
-<button type="button" class="btn-primary">Criar Conta</button>
+<button type="button" class="btn-primary" (click)="register()">Criar Conta</button>

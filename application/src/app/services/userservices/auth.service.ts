@@ -6,24 +6,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {
+  private endpoint: string = 'http://localhost:3000/user/auth'; 
 
-  }
+  constructor(private http: HttpClient) {}
 
-  endpoint: string = 'http://localhost:3000/user/auth';
-
-  loginEmail(email: string, password: string): Observable<any> {
+  loginEmail(email: string, senha: string): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    const body = { email, password, tipoLogin: 'auth' };
+    const body = { email, password: senha, tipoLogin: 'auth' }; 
     return this.http.post(this.endpoint, body, { headers });
-  }
-
-  loginGoogle(): Observable<any> {
-    return this.http.get(this.endpoint + '/google');
-  }
-
-  loginMicrosoft(): Observable<any> {
-    return this.http.get(this.endpoint + '/microsoft');
   }
 
   salvarToken(token: string): void {

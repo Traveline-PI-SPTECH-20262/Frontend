@@ -1,0 +1,104 @@
+main {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #f8f7fc;
+}
+
+.conteiner-perfil{
+    background-color: rgba(226, 225, 224, 0.418);
+    width: 100%;
+    height: auto;
+    padding: 16px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5px;
+}
+
+.foto{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    gap: 1rem;
+}
+
+.conteiner-perfil img{
+    border-radius: 50%;
+    background-color: black;
+    border: solid white 1px;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.conteiner-perfil .foto button{
+    width: 90%;
+    color: purple;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+    border: black solid 1px;
+}
+
+.informações p{
+    margin-bottom: 10px;
+    
+}
+
+.informações h2{
+    margin-bottom: 10px;
+}
+.informações p span{
+    color: purple;
+}
+
+.informações button{
+    padding: 3px;
+    color: purple;
+}
+
+.conteiner-edit{
+    background-color: rgba(226, 225, 224, 0.418);
+    width: 50%;
+    height: auto;
+    padding: 16px;
+    border-radius: 15px;
+    display: flex;
+    gap: 1.5px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.conteiner-edit form{
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 16px;
+    padding-bottom: 0px;
+    width: 100%;
+}
+
+form input{
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buttons button{
+    padding: 3px;
+    color: purple;
+    border-radius: 10px;
+}

@@ -39,21 +39,21 @@ main {
 }
 
 .oportunidade{
-    color: greenyellow;
-    background-color: rgb(3, 79, 3);
+    color: white;
+    background-color: rgb(3, 115, 3);
     padding: 5px 10px 5px 10px;
     border-radius: 10px;
 }
 .sazonalidade{
-    color: orange;
-    background-color: rgba(152, 99, 0, 0.704);
+    color: white;
+    background-color: rgb(116, 77, 4);
     padding: 3px 10px 3px 10px;
     border-radius: 10px;
 
 }
 .erro{
-    color: red;
-    background-color: rgb(107, 3, 3);
+    color: white;
+    background-color: rgb(145, 8, 8);
     padding: 3px 10px 3px 10px;
     border-radius: 10px;
 }
