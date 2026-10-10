@@ -26,6 +26,12 @@ export class Painel {
       nome: 'Carlos Oliveira',
       cargo: 'Gerente',
       email: 'carlos@email.com'
+    },
+    {
+      id: 4,
+      nome: 'Guilherme Oliveira Oliveira Oliveira Oliveira',
+      cargo: 'Estagiario',
+      email: 'guilherme@email.com'
     }
   ];
 }

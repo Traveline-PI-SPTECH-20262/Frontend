@@ -4,15 +4,51 @@
     descricao="Veja todos os seus funcionarios aqui!!">
 </app-header>
 
-<section class="painel-func-contener">
-        @for (funcionario of funcionarios; track funcionario.id) {
-            <div class="func">
-                <h2>{{ funcionario.nome }}</h2>
-                <p>{{ funcionario.cargo }}</p>
-                <span>{{ funcionario.email }}</span>
-            </div>
+<section class="painel">
+    <div class="filtros">
+        <input type="text" name="" id="" placeholder="Pesquise o funcionario:">
+        <select name="" id="">
+            <option value="">Filtre por departamento:</option>
+            <option value=""></option>
+            <option value=""></option>
+        </select>
+        <select name="" id="">
+            <option value="">Filtre por status:</option>
+            <option value=""></option>
+            <option value=""></option>
+        </select>
+    </div>
 
-        }
-    </section>
+    <section class="painel-func-contener">
+    
+            @for (funcionario of funcionarios; track funcionario.id) {
+    
+                <div class="func">
+    
+                    <img src="" alt="foto" class="img-funcionario">
+                    <div class="inf-funcionario">
+    
+                        <h2>{{ funcionario.nome }}</h2>
+                        <p>{{ funcionario.cargo }}</p>
+                        <span>{{ funcionario.email }}</span>
+    
+    
+    
+                        <div class="acoes">
+                            <div class="acoes-alinhador">
+                                <h5>Ações:</h5>
+                                <span class="acoes-buttons">
+                                    <button id="edit">✎</button>
+                                    <button id="delete">🗑️</button>
+                                    <button id="view">👁️</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            }
+        </section>
+</section>
 
 </main>

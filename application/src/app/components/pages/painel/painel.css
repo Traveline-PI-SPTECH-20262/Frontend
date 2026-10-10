@@ -8,26 +8,75 @@ main {
     background-color: #f8f7fc;
 }
 
-.painel-func-contener{
+.painel{
     padding: 40px;
     background-color: rgba(226, 225, 224, 0.418);
     border-radius: 10px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros{
+    display: flex;
+    width: 100%;
+    padding-bottom: 10px;
+    gap: 5px;
+}
+
+.filtros input{
+    display: flex;
+    width: 40%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.filtros select{
+    display: flex;
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+}
+
+
+.painel-func-contener{
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
 }
 
 
 .func {
-    width: 100%;
+    display: grid;
+    grid-template-columns: 80px 1fr;
     padding: 1.5rem;
     border-radius: 10px;
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 15px;
+    gap: 10px;
+    height: 100%;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.img-funcionario{
+    background-color: #666;
+    border-radius: 10px;
+    height: 80px;
+    width: 80px;
+}
+
+.inf-funcionario{
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
 }
 
 .func h2 {
     margin: 0 0 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1.1rem;  
 }
 
 .func p {
@@ -38,4 +87,46 @@ main {
 .func span {
     font-size: 0.85rem;
     color: #888;
+}
+
+.acoes{
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 5px;
+}
+
+.acoes-alinhador{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.acoes-buttons{
+    gap: 3px;
+    display: flex;
+}
+
+.acoes-buttons button{
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.acoes-buttons button:hover{
+    transform: translate(-2px);
+}
+
+#edit{
+    background-color: rgba(185, 218, 247, 0.736);
+}
+#view{
+    background-color: rgba(185, 218, 247, 0.736);
+}
+#delete{
+    background-color: rgba(255, 2, 2, 0.383);
 }
