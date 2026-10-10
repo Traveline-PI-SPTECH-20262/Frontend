@@ -106,13 +106,45 @@
     outline-offset: 3px;
 }
 
+@media (max-width: 900px) {
+    :host {
+        width: 100%;
+    }
+
+    .input-group {
+        margin-bottom: 18px;
+    }
+
+    .input-group input {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 640px) {
+    .input-group {
+        margin-bottom: 16px;
+    }
+
+    .input-group label {
+        font-size: 0.72rem;
+    }
+
+    .input-group input {
+        padding: 12px 14px;
+        font-size: 16px;
+    }
+
     .form-actions {
         flex-direction: column;
         align-items: flex-start;
+        margin-bottom: 20px;
     }
 
     .forgot-link {
         align-self: flex-end;
+    }
+
+    .checkbox-label {
+        font-size: 0.85rem;
     }
 }
