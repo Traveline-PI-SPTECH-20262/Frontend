@@ -1,0 +1,35 @@
+<main>
+    <app-header
+        titulo = "Recomendacoes";
+        descricao = "Veja as suas Recomendacoes...">
+    </app-header>   
+
+    <section class="conteiner-recomendacoes">
+            <div id="tabela-coteiner">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>País</th>
+                            <th>Variação 2021/2020</th>
+                            <th>Participação 2021</th>
+                            <th>Tendência</th>
+                            <th>Oportunidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(recomendacoesAtual of recomendacoes; track recomendacoesAtual.id){
+                            <tr>
+                                <td>{{recomendacoesAtual.pais}}</td>
+                                <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                <td>{{recomendacoesAtual.participacao_2021}}</td>
+                                <td class="subiu">{{recomendacoesAtual.tendencia}}</td>
+                                <td><span class="alta">{{recomendacoesAtual.oportunidade}}</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                        </table>
+            </div>
+    </section>
+
+
+</main>

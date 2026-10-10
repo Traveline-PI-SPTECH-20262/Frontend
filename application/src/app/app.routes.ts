@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { Sign } from './components/pages/sign/sign';
 import { Dashboard } from './components/pages/dashboard/dashboard';
 import { Upl } from './components/pages/upl/upl';
+import { Recomendacoes } from './components/pages/recomendacoes/recomendacoes';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Relatorios } from './components/pages/relatorios/relatorios';
 import { Painel } from './components/pages/painel/painel';
@@ -35,6 +36,10 @@ export const routes: Routes = [
         {
                 path: 'perfil',
                 component: Perfil
-            }]
+            },
+        {
+                path: 'recomendacoes',
+                component: Recomendacoes
+        }]
     }
 ];
