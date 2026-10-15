@@ -11,4 +11,5 @@ export class KpiCard {
   @Input() valor = '';
   @Input() variacao = '';
   @Input() icone = '';
+  @Input() detalhe = ''; 
 }

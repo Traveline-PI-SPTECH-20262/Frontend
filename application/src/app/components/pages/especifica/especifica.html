@@ -1,0 +1,64 @@
+<main>
+    <app-header
+        titulo="Dashboard específica"
+        descricao="Onde sua agência vende, quanto rende e quando cada destino esquenta.">
+    </app-header>
+
+    @if (erro()) {
+        <p class="erro">{{ erro() }}</p>
+    }
+
+    @if (dados(); as d) {
+
+        <section class="kpis">
+            @for (kpi of d.kpis; track kpi.titulo) {
+                <app-kpi-card
+                    [titulo]="kpi.titulo"
+                    [valor]="kpi.valor"
+                    [detalhe]="kpi.detalhe"
+                    [icone]="kpi.icone">
+                </app-kpi-card>
+            }
+        </section>
+
+        <section class="charts">
+
+            <div class="chart">
+                <div class="titulo">
+                    <h2>Receita por trimestre e modal <span>(R$ mil)</span></h2>
+                </div>
+                <app-stacked-bar-chart [chartData]="receitaChart()"></app-stacked-bar-chart>
+            </div>
+
+            <div class="chart chart-calendario">
+                <div class="titulo">
+                    <h2>Calendário de sazonalidade</h2>
+                </div>
+
+                <div class="calendario">
+                    <span></span>
+                    @for (mes of d.calendario.meses; track mes) {
+                        <span class="mes">{{ mes }}</span>
+                    }
+
+                    @for (linha of d.calendario.destinos; track linha.destino) {
+                        <span class="destino">{{ linha.destino }}</span>
+                        @for (nivel of linha.niveis; track $index) {
+                            <div [class]="'celula nivel-' + nivel" [attr.title]="linha.destino + ': ' + nivel"></div>
+                        }
+                    }
+                </div>
+
+                <div class="legenda">
+                    <span><i class="cor nivel-alta"></i>Alta</span>
+                    <span><i class="cor nivel-media"></i>Média</span>
+                    <span><i class="cor nivel-baixa"></i>Baixa</span>
+                </div>
+            </div>
+
+        </section>
+
+    } @else if (!erro()) {
+        <p class="carregando">Carregando...</p>
+    }
+</main>

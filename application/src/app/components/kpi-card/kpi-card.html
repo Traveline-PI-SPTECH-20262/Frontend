@@ -12,8 +12,12 @@
         {{ valor }}
     </strong>
 
-    <span class="kpi-variation">
-        ↑ {{ variacao }} vs. período anterior
-    </span>
+        @if (detalhe) {
+        <span class="kpi-detalhe">{{ detalhe }}</span>
+    } @else {
+        <span class="kpi-variation">
+            ↑ {{ variacao }} vs. período anterior
+        </span>
+    }
 
 </div>

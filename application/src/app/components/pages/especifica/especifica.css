@@ -1,0 +1,109 @@
+main {
+    width: 100%;
+    min-height: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: #f8f7fc;
+}
+
+.kpis {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.charts {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.60rem;
+    width: 100%;
+}
+
+.chart {
+    min-height: 275px;
+    min-width: 400px;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.chart-calendario {
+    flex: 1;
+    min-width: 560px;
+    overflow-x: auto;
+}
+
+.chart h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+h2 span {
+    color: #9a9999;
+}
+
+.titulo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.erro {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    background-color: #ffebee;
+    color: #d32f2f;
+}
+
+.carregando {
+    color: #777;
+}
+
+/* ---------- Calendário de sazonalidade ---------- */
+.calendario {
+    display: grid;
+    grid-template-columns: 110px repeat(12, 1fr);
+    gap: 4px;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #666;
+    margin-top: 1rem;
+}
+
+.mes {
+    text-align: center;
+}
+
+.celula {
+    height: 34px;
+    border-radius: 6px;
+}
+
+.nivel-alta  { background: #8c62f7; }
+.nivel-media { background: #c9bdfa; }
+.nivel-baixa { background: #f1eeff; border: 1px solid #ddd8f3; }
+
+.legenda {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.cor {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 6px;
+}

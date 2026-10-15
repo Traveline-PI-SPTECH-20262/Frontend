@@ -7,6 +7,7 @@ import { MainLayout } from './layouts/main-layout/main-layout';
 import { Relatorios } from './components/pages/relatorios/relatorios';
 import { Painel } from './components/pages/painel/painel';
 import {Perfil} from './components/pages/perfil/perfil';
+import { Especifica } from './components/pages/especifica/especifica';
 
 
 export const routes: Routes = [
@@ -40,6 +41,10 @@ export const routes: Routes = [
         {
                 path: 'recomendacoes',
                 component: Recomendacoes
-        }]
+        },
+            {
+                path: 'especifica',
+                component: Especifica
+            }]
     }
 ];
