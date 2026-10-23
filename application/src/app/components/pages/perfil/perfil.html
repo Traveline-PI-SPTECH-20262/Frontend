@@ -1,48 +1,170 @@
 <main>
     <app-header
-    titulo="Seu perfil"
-    descricao="Veja as suas informações.">
-</app-header>
+        titulo="Seu perfil"
+        descricao="Gerencie suas informações e acompanhe um resumo da sua conta.">
+    </app-header>
 
-<section class="conteiner-perfil">
-    <div class="foto">
-        <img src="" alt="foto-perfil">
-        <button>Alterar</button>
-    </div>
+    <section class="card-perfil">
+        <div class="perfil-usuario">
+            <div class="avatar">
+                {{ usuario.nome?.charAt(0)?.toUpperCase() || 'U' }}
+            </div>
 
-    <div class="informações">
-        <h2>Nome: {{usuario.nome}}</h2>
-        <p><span>Cargo:</span> {{usuario.cargo}}</p>
-        <p><span>E-mail:</span> {{usuario.email}}</p>
-        <button>✎</button>
-    </div>
-</section>
+            <div class="perfil-dados">
+                <h2>{{ usuario.nome }}</h2>
+                <span class="etiqueta-cargo">{{ usuario.cargo }}</span>
 
-<section class="conteiner-edit">
-    <form action="">
-        <h2>Edite suas informações</h2>
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" placeholder="Nome">
+                <p>
+                    <span class="icone-dado">✉</span>
+                    {{ usuario.email }}
+                </p>
 
-        <label for="Cargo">Cargo:</label>
-        <input type="text" name="nome" id="Cargo" placeholder="Cargo">
-
-        <label for="Descrição">Descrição:</label>
-        <input type="text" name="nome" id="Descrição" placeholder="Descrição">
-
-        <label for="email">E-mail:</label>
-        <input type="text" name="nome" id="email" placeholder="E-mail">
-
-        <label for="Numero">Numero para contato:</label>
-        <input type="text" name="nome" id="Numero" placeholder="Numero">
-
-        <div class="buttons">
-            <button>Salvar</button>
-            <button>Cancelar</button>
+                <p>
+                    <span class="icone-dado">▣</span>
+                    {{ agencia?.nome || 'Agência não informada' }}
+                </p>
+            </div>
         </div>
-        
-    </form>
-</section>
 
+        <button type="button" class="botao-principal" (click)="abrirEdicao()">
+            ✎ Alterar informações
+        </button>
+    </section>
+
+    <section class="indicadores">
+        <div class="card-indicador">
+        <div class="indicador-icone roxo">▤</div>
+        <div>
+            <p>Planilhas enviadas</p>
+            <h2>{{ totalPlanilhas ?? '—' }}</h2>
+            <span>Arquivos da agência</span>
+        </div>
+        </div>
+
+        <div class="card-indicador">
+        <div class="indicador-icone verde">▥</div>
+        <div>
+            <p>Relatórios gerados</p>
+            <h2>{{ totalRelatorios ?? '—' }}</h2>
+            <span>Relatórios do usuário</span>
+        </div>
+        </div>
+    </section>
+
+    <section class="grade-informacoes">
+        <div class="card-informacoes">
+        <div class="titulo-card">
+            <span class="icone-titulo">♙</span>
+            <h2>Minhas informações</h2>
+        </div>
+
+        <div class="linha-informacao">
+            <span>Nome</span>
+            <strong>{{ usuario.nome }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>E-mail</span>
+            <strong>{{ usuario.email }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>Cargo</span>
+            <strong>{{ usuario.cargo || 'Não informado' }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>ID do usuário</span>
+            <strong>{{ usuario.idusuario || '—' }}</strong>
+        </div>
+        </div>
+
+        <div class="card-informacoes">
+        <div class="titulo-card">
+            <span class="icone-titulo">▣</span>
+            <h2>Informações da agência</h2>
+        </div>
+
+        <div class="linha-informacao">
+            <span>Agência</span>
+            <strong>{{ agencia?.nome || 'Não informado' }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>CNPJ</span>
+            <strong>{{ agencia?.cnpj || 'Não informado' }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>E-mail</span>
+            <strong>{{ agencia?.email || 'Não informado' }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>Telefone</span>
+            <strong>{{ agencia?.telefone || 'Não informado' }}</strong>
+        </div>
+
+        <div class="linha-informacao">
+            <span>Cadastro</span>
+            <strong>
+            {{
+                agencia?.dataCadastro ? (agencia?.dataCadastro | date: 'dd/MM/yyyy') : 'Não informado'
+            }}
+            </strong>
+        </div>
+        </div>
+    </section>
+
+    @if (editando) {
+    <div class="fundo-modal" (click)="cancelarEdicao()">
+        <section
+        class="modal-edicao"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="titulo-edicao"
+        (click)="$event.stopPropagation()"
+        >
+        <div class="cabecalho-modal">
+            <div>
+            <h2 id="titulo-edicao">Editar informações</h2>
+            <p>Atualize os dados do seu perfil.</p>
+            </div>
+
+            <button type="button" class="botao-fechar" (click)="cancelarEdicao()">×</button>
+        </div>
+
+        <form (ngSubmit)="salvarEdicao()">
+            <div class="campo">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" [(ngModel)]="formulario.nome" required />
+            </div>
+
+            <div class="campo">
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo" name="cargo" [(ngModel)]="formulario.cargo" />
+            </div>
+
+            <div class="campo">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" [(ngModel)]="formulario.email" required />
+            </div>
+
+            <div class="mensagem-formulario">
+            {{ mensagemEdicao }}
+            </div>
+
+            <div class="acoes-modal">
+            <button type="button" class="botao-secundario" (click)="cancelarEdicao()">
+                Cancelar
+            </button>
+
+            <button type="submit" class="botao-principal" [disabled]="salvando">
+                {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+            </button>
+            </div>
+        </form>
+        </section>
+    </div>
+    }
 </main>
-

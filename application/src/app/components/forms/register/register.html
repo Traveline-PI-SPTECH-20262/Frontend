@@ -1,22 +1,71 @@
-<div class="input-group">
-    <label>Codigo da agência</label>
-    <input type="text" name="companyName" [(ngModel)]="codigoAtivacao" placeholder="Traveline001" required>
-</div>
-<div class="input-group">
-    <label>Nome do funcionário:</label>
-    <input type="text" name="nome" [(ngModel)]="nome" placeholder="Nome" required>
-</div>
-<div class="input-group">
-    <label>Cargo</label>
-    <input type="text" name="cargo" [(ngModel)]="cargo" placeholder="Analista" required>
-</div>
-<div class="input-group">
-    <label>Email de trabalho</label>
-    <input type="email" name="email" [(ngModel)]="email" placeholder="nome@suaagencia.com.br" required>
-</div>
-<div class="input-group">
-    <label>Senha</label>
-    <input type="password" name="password" [(ngModel)]="senha" placeholder="Crie uma senha forte" required>
-</div>
 
-<button type="button" class="btn-primary" (click)="register()">Criar Conta</button>
+<div class="formulario-cadastro">
+
+    <div class="campo-formulario">
+        <label for="codigoAgencia">Código da agência</label>
+
+        <input
+            id="codigoAgencia"
+            type="text"
+            name="codigoAtivacao"
+            [(ngModel)]="codigoAtivacao"
+            placeholder="Ex.: TRV-A7K92"
+            required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="nomeFuncionario">Nome do funcionário</label>
+
+        <input
+            id="nomeFuncionario"
+            type="text"
+            name="nome"
+            [(ngModel)]="nome"
+            placeholder="Seu nome completo"
+            required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="cargoFuncionario">Cargo</label>
+
+        <input
+            id="cargoFuncionario"
+            type="text"
+            name="cargo"
+            [(ngModel)]="cargo"
+            placeholder="Ex.: Analista"
+            required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="emailCadastro">E-mail corporativo</label>
+
+        <input
+            id="emailCadastro"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="nome@suaagencia.com.br"
+            required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="senhaCadastro">Senha</label>
+
+        <input
+            id="senhaCadastro"
+            type="password"
+            name="senha"
+            [(ngModel)]="senha"
+            placeholder="Crie uma senha forte"
+            required>
+    </div>
+
+    <button
+        type="button"
+        class="botao-cadastro"
+        (click)="register()">
+        Criar conta
+    </button>
+
+</div>

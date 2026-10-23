@@ -1,17 +1,46 @@
-<div class="input-group">
-    <label>Email de trabalho</label>
-    <input type="email" [(ngModel)]="email" name="email" placeholder="nome@suaagencia.com.br" required>
-</div>
-<div class="input-group">
-    <label>Senha</label>
-    <input type="password" [(ngModel)]="senha" name="password" placeholder="••••••••" required>
-</div>
 
-<div class="form-actions">
-    <label class="checkbox-label">
-        <input type="checkbox" name="remember"> Lembrar dispositivo
-    </label>
-    <a href="#" class="forgot-link">Esqueci minha senha</a>
-</div>
+<div class="formulario-login">
 
-<button type="button" (click)="login()" class="btn-primary">Entrar no Dashboard</button>
+    <div class="campo-formulario">
+        <label for="emailLogin">E-mail corporativo</label>
+
+        <input
+            id="emailLogin"
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="nome@suaagencia.com.br"
+            required>
+    </div>
+
+    <div class="campo-formulario">
+        <label for="senhaLogin">Senha</label>
+
+        <input
+            id="senhaLogin"
+            type="password"
+            name="senha"
+            [(ngModel)]="senha"
+            placeholder="Digite sua senha"
+            required>
+    </div>
+
+    <div class="opcoes-login">
+        <label class="lembrar-dispositivo">
+            <input type="checkbox" name="remember">
+            <span>Lembrar dispositivo</span>
+        </label>
+
+        <a class="recuperar-senha" href="#">
+            Esqueci minha senha
+        </a>
+    </div>
+
+    <button
+        type="button"
+        class="botao-login"
+        (click)="login()">
+        Entrar no Dashboard
+    </button>
+
+</div>

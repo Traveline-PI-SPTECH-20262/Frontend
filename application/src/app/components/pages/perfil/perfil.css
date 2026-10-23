@@ -1,104 +1,350 @@
+
 main {
     width: 100%;
     min-height: 100%;
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem;
     background-color: #f8f7fc;
+    color: #172033;
 }
 
-.conteiner-perfil{
-    background-color: rgba(226, 225, 224, 0.418);
+/* PERFIL PRINCIPAL */
+
+.card-perfil {
     width: 100%;
-    height: auto;
-    padding: 16px;
-    border-radius: 15px;
+    padding: 1.5rem;
     display: flex;
-    flex-direction: row;
-    gap: 1.5px;
-}
-
-.foto{
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    gap: 1rem;
-}
-
-.conteiner-perfil img{
-    border-radius: 50%;
-    background-color: black;
-    border: solid white 1px;
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-}
-
-.conteiner-perfil .foto button{
-    width: 90%;
-    color: purple;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
     background-color: white;
-    border-radius: 10px;
-    padding: 5px;
-    border: black solid 1px;
+    border: 1px solid #eceaf3;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(35, 25, 75, 0.04);
 }
 
-.informações p{
-    margin-bottom: 10px;
-    
-}
-
-.informações h2{
-    margin-bottom: 10px;
-}
-.informações p span{
-    color: purple;
-}
-
-.informações button{
-    padding: 3px;
-    color: purple;
-}
-
-.conteiner-edit{
-    background-color: rgba(226, 225, 224, 0.418);
-    width: 50%;
-    height: auto;
-    padding: 16px;
-    border-radius: 15px;
+.perfil-usuario {
     display: flex;
-    gap: 1.5px;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    gap: 1.25rem;
 }
 
-.conteiner-edit form{
+.avatar {
+    width: 90px;
+    height: 90px;
+    min-width: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #25184b, #6d28d9);
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.perfil-dados h2 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+    color: #172033;
+}
+
+.etiqueta-cargo {
+    display: inline-block;
+    padding: 5px 12px;
+    margin-bottom: 10px;
+    border-radius: 30px;
+    background-color: #f0eaff;
+    color: #6426d9;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.perfil-dados p {
+    margin: 6px 0;
+    color: #647087;
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+}
+
+.icone-dado {
+    margin-right: 8px;
+    color: #6d28d9;
+    font-size: 17px;
+}
+
+/* BOTÕES */
+
+.botao-principal {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(110deg, #6d28d9, #5422cf);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.botao-principal:hover {
+    background: linear-gradient(110deg, #5b21b6, #4519b0);
+    box-shadow: 0 5px 16px rgba(109, 40, 217, 0.22);
+}
+
+.botao-principal:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.botao-secundario {
+    padding: 12px 20px;
+    border: 1px solid #ddd8e9;
+    border-radius: 10px;
+    background-color: white;
+    color: #4b4261;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* INDICADORES */
+
+.indicadores {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.card-indicador {
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    background-color: white;
+    border: 1px solid #eceaf3;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(35, 25, 75, 0.03);
+}
+
+.indicador-icone {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 25px;
+}
+
+.roxo {
+    background-color: #f0eaff;
+    color: #6d28d9;
+}
+
+.verde {
+    background-color: #e8f9f0;
+    color: #16a36a;
+}
+
+.laranja {
+    background-color: #fff4e2;
+    color: #e99815;
+}
+
+.card-indicador p {
+    margin: 0 0 6px;
+    color: #647087;
+    font-size: 0.8125rem;
+}
+
+.card-indicador h2 {
+    margin: 0 0 4px;
+    color: #17152a;
+    font-size: 1.7rem;
+}
+
+.card-indicador span {
+    color: #8a91a1;
+    font-size: 0.75rem;
+}
+
+/* INFORMAÇÕES */
+
+.grade-informacoes {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.card-informacoes {
+    padding: 1.5rem;
+    background-color: white;
+    border: 1px solid #eceaf3;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(35, 25, 75, 0.03);
+}
+
+.titulo-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.titulo-card h2 {
+    margin: 0;
+    font-size: 1.125rem;
+    color: #172033;
+}
+
+.icone-titulo {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #f0eaff;
+    color: #6d28d9;
+    font-size: 20px;
+}
+
+.linha-informacao {
+    padding: 13px 0;
+    display: grid;
+    grid-template-columns: 35% 1fr;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid #f0eef5;
+    font-size: 0.875rem;
+}
+
+.linha-informacao:last-child {
+    border-bottom: none;
+}
+
+.linha-informacao span {
+    color: #7a8293;
+}
+
+.linha-informacao strong {
+    color: #30364b;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+/* MODAL */
+
+.fundo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(16, 15, 35, 0.55);
+    z-index: 1000;
+}
+
+.modal-edicao {
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+}
+
+.cabecalho-modal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.cabecalho-modal h2 {
+    margin: 0 0 6px;
+    font-size: 1.4rem;
+}
+
+.cabecalho-modal p {
+    margin: 0;
+    color: #7a8293;
+    font-size: 0.875rem;
+}
+
+.botao-fechar {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 8px;
+    background-color: #f5f3fa;
+    color: #6b647c;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal-edicao form {
     display: flex;
     flex-direction: column;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 16px;
-    padding-bottom: 0px;
-    width: 100%;
+    gap: 18px;
 }
 
-form input{
-    border-radius: 10px;
-    border: none;
-    padding: 10px;
-}
-
-.buttons{
+.campo {
     display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.buttons button{
-    padding: 3px;
-    color: purple;
+.campo label {
+    color: #353047;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.campo input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid #e1deeb;
     border-radius: 10px;
+    background-color: white;
+    outline: none;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.campo input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.mensagem-formulario {
+    color: #b42318;
+    font-size: 0.8125rem;
+}
+
+.mensagem-formulario:empty {
+    display: none;
+}
+
+.acoes-modal {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #eeeaf4;
 }
