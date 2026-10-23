@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 
 enum Pagina {
   Dashboard = 'dashboard',
@@ -13,5 +13,11 @@ enum Pagina {
   styleUrl: './navbar.css',
 })
 export class Navbar {
-
+  constructor(private router: Router) {}
+  Logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    sessionStorage.clear(); 
+    this.router.navigate(['/sign']);
+  }
 }

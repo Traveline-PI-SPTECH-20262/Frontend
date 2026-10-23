@@ -53,3 +53,21 @@ a.active {
     background-color: #5b2a8626;
 
 }
+
+nav button {
+    margin-top: auto;
+    width: 100%;
+    padding: 1.25rem 1rem;
+    border: none;
+    background-color: transparent;
+    color: #d32f2f;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+nav button:hover {
+    background-color: #ffebee;
+}
