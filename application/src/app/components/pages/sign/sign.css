@@ -4,8 +4,6 @@
     min-height: 100vh;
 }
 
-/* PÁGINA */
-
 .pagina-autenticacao {
     min-height: 100vh;
     background: #f5f7ff;
@@ -17,8 +15,6 @@
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     min-height: 100vh;
 }
-
-/* PAINEL INSTITUCIONAL */
 
 .painel-institucional {
     position: relative;
@@ -41,7 +37,6 @@
     box-sizing: border-box;
 }
 
-/* EFEITOS */
 
 .efeito-fundo {
     position: absolute;
@@ -67,7 +62,6 @@
     background: #bfdbfe;
 }
 
-/* MARCA */
 
 .marca-traveline {
     position: relative;
@@ -86,8 +80,6 @@
     font-size: 2rem;
     color: #7c3aed;
 }
-
-/* APRESENTAÇÃO */
 
 .apresentacao-plataforma {
     position: relative;
@@ -134,8 +126,6 @@
     color: #94a3b8;
 }
 
-/* ÁREA DE AUTENTICAÇÃO */
-
 .area-autenticacao {
     display: flex;
     align-items: center;
@@ -149,7 +139,6 @@
     box-sizing: border-box;
 }
 
-/* CARTÃO */
 
 .cartao-autenticacao {
     width: 100%;
@@ -164,7 +153,6 @@
     box-sizing: border-box;
 }
 
-/* CABEÇALHO */
 
 .cabecalho-autenticacao {
     margin-bottom: 22px;
@@ -184,8 +172,6 @@
     line-height: 1.5;
     color: #64748b;
 }
-
-/* ABAS */
 
 .abas-autenticacao {
     display: flex;
@@ -226,14 +212,10 @@
     box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
 }
 
-/* FORMULÁRIO */
-
 .conteudo-formulario {
     width: 100%;
     min-width: 0;
 }
-
-/* SEPARADOR */
 
 .separador-autenticacao {
     display: flex;
@@ -297,8 +279,6 @@
 .botao-login-social i {
     font-size: 1.25rem;
 }
-
-/* RESPONSIVIDADE */
 
 @media (max-width: 1100px) {
     .painel-institucional {
