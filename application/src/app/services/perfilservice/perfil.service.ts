@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 
     constructor(private http: HttpClient) {}
 
-    getPerfil(idUsuario: number): Observable<any> {
-        return this.http.get(`${this.endpoint}/${idUsuario}`);
+    getPerfil(idUsuario: number,idAgencia: Number): Observable<any> {
+        return this.http.get(`${this.endpoint}/${idUsuario}/${idAgencia}`);
     }
 }

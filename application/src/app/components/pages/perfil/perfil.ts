@@ -14,14 +14,7 @@ export class Perfil {
 
   usuario: any = {};
 
-  agencia = {
-    idAgencia: 1,
-    nome: 'Traveline Turismo',
-    cnpj: '12.345.678/0001-90',
-    email: 'contato@travelineturismo.com',
-    telefone: '(11) 99999-1111',
-    dataCadastro: '2026-10-15'
-  };
+  agencia: any = {};
 
   totalPlanilhas: number = 3;
   totalRelatorios: number = 5;
@@ -50,6 +43,7 @@ export class Perfil {
       localStorage.getItem('usuario');
 
     let idUsuario = 0;
+    let idAgencia = 0;
 
     if (dadosSalvos) {
       try {
@@ -58,6 +52,7 @@ export class Perfil {
         idUsuario = objetoSessao.usuario
           ? objetoSessao.usuario.idusuario
           : objetoSessao.idusuario;
+          idAgencia = objetoSessao.usuario.idAgencia;
 
       } catch (erro) {
         console.error('Erro ao ler os dados da sessão:', erro);
@@ -67,11 +62,12 @@ export class Perfil {
     console.log('ID extraído para o perfil:', idUsuario);
 
     if (idUsuario) {
-      this.perfilService.getPerfil(idUsuario).subscribe({
+      this.perfilService.getPerfil(idUsuario,idAgencia).subscribe({
         next: (dados) => {
           console.log('Dados que chegaram do backend:', dados);
 
-          this.usuario = dados;
+          this.usuario = dados?.usuario || {};
+          this.agencia = dados?.agencia || {};
           this.cdr.detectChanges();
         },
         error: (erro) => {
@@ -82,6 +78,8 @@ export class Perfil {
       console.warn('Nenhum ID válido encontrado!');
     }
   }
+
+
 
   abrirEdicao() {
     this.formulario = {

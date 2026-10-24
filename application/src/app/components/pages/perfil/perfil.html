@@ -7,16 +7,16 @@
     <section class="card-perfil">
         <div class="perfil-usuario">
             <div class="avatar">
-                {{ usuario.nome?.charAt(0)?.toUpperCase() || 'U' }}
+                {{ usuario?.nome?.charAt(0)?.toUpperCase() || 'U' }}
             </div>
 
             <div class="perfil-dados">
-                <h2>{{ usuario.nome }}</h2>
-                <span class="etiqueta-cargo">{{ usuario.cargo }}</span>
+                <h2>{{ usuario?.nome }}</h2>
+                <span class="etiqueta-cargo">{{ usuario?.cargo }}</span>
 
                 <p>
                     <span class="icone-dado">✉</span>
-                    {{ usuario.email }}
+                    {{ usuario?.email }}
                 </p>
 
                 <p>
@@ -36,7 +36,7 @@
         <div class="indicador-icone roxo">▤</div>
         <div>
             <p>Planilhas enviadas</p>
-            <h2>{{ totalPlanilhas ?? '—' }}</h2>
+            <h2>{{ totalPlanilhas }}</h2>
             <span>Arquivos da agência</span>
         </div>
         </div>
@@ -45,7 +45,7 @@
         <div class="indicador-icone verde">▥</div>
         <div>
             <p>Relatórios gerados</p>
-            <h2>{{ totalRelatorios ?? '—' }}</h2>
+            <h2>{{ totalRelatorios }}</h2>
             <span>Relatórios do usuário</span>
         </div>
         </div>
@@ -60,22 +60,22 @@
 
         <div class="linha-informacao">
             <span>Nome</span>
-            <strong>{{ usuario.nome }}</strong>
+            <strong>{{ usuario?.nome }}</strong>
         </div>
 
         <div class="linha-informacao">
             <span>E-mail</span>
-            <strong>{{ usuario.email }}</strong>
+            <strong>{{ usuario?.email }}</strong>
         </div>
 
         <div class="linha-informacao">
             <span>Cargo</span>
-            <strong>{{ usuario.cargo || 'Não informado' }}</strong>
+            <strong>{{ usuario?.cargo || 'Não informado' }}</strong>
         </div>
 
         <div class="linha-informacao">
             <span>ID do usuário</span>
-            <strong>{{ usuario.idusuario || '—' }}</strong>
+            <strong>{{ usuario?.idusuario || '—' }}</strong>
         </div>
         </div>
 
