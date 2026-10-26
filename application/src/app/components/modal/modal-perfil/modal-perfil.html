@@ -1,0 +1,67 @@
+
+<app-modal
+    [aberto]="aberto"
+    titulo="Editar informações"
+    descricao="Atualize os dados do seu perfil."
+    (fechar)="cancelarEdicao()"
+>
+    <form (ngSubmit)="salvarEdicao()">
+
+        <div class="campo">
+            <label for="nome">Nome</label>
+            <input
+                type="text"
+                id="nome"
+                name="nome"
+                [(ngModel)]="formulario.nome"
+                required
+            />
+        </div>
+
+        <div class="campo">
+            <label for="cargo">Cargo</label>
+            <input
+                type="text"
+                id="cargo"
+                name="cargo"
+                [(ngModel)]="formulario.cargo"
+            />
+        </div>
+
+        <div class="campo">
+            <label for="email">E-mail</label>
+            <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="formulario.email"
+                required
+            />
+        </div>
+
+        @if (mensagemEdicao) {
+            <div class="mensagem-formulario">
+                {{ mensagemEdicao }}
+            </div>
+        }
+
+        <div class="acoes-modal">
+            <button
+                type="button"
+                class="botao-secundario"
+                (click)="cancelarEdicao()"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="submit"
+                class="botao-principal"
+                [disabled]="salvando"
+            >
+                {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+            </button>
+        </div>
+
+    </form>
+</app-modal>

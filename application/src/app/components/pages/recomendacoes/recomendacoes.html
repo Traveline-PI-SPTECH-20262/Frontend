@@ -17,15 +17,39 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for(recomendacoesAtual of recomendacoes; track recomendacoesAtual.id){
-                            <tr>
+                    @for(recomendacoesAtual of recomendacoes; track recomendacoesAtual.id){
+                        @if(recomendacoesAtual.id%2==0){
+                            <tr style="background-color: rgba(168, 167, 167, 0.559);">
                                 <td>{{recomendacoesAtual.pais}}</td>
                                 <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
                                 <td>{{recomendacoesAtual.participacao_2021}}</td>
-                                <td class="subiu">{{recomendacoesAtual.tendencia}}</td>
-                                <td><span class="alta">{{recomendacoesAtual.oportunidade}}</span></td>
+
+                                @if (recomendacoesAtual.tendencia === 'Alta') {
+                                    <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
+                                } @else if (recomendacoesAtual.tendencia === 'Estável') {
+                                    <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
+                                } @else {
+                                    <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
+                                }
+                                <td><span>{{recomendacoesAtual.oportunidade}}</span></td>
                             </tr>
-                        }
+                            }@else{
+                                <tr>
+                                    <td>{{recomendacoesAtual.pais}}</td>
+                                    <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                    <td>{{recomendacoesAtual.participacao_2021}}</td>
+
+                                    @if (recomendacoesAtual.tendencia === 'Alta') {
+                                        <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
+                                    } @else if (recomendacoesAtual.tendencia === 'Estável') {
+                                        <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
+                                    } @else {
+                                        <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
+                                    }
+                                    <td><span>{{recomendacoesAtual.oportunidade}}</span></td>
+                                </tr>
+                            }
+                    }
                     </tbody>
                         </table>
             </div>

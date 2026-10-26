@@ -1,0 +1,39 @@
+
+@if (aberto) {
+  <div class="fundo-modal" (click)="fecharModal()">
+
+    <section
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="titulo"
+      (click)="$event.stopPropagation()"
+    >
+
+      <div class="cabecalho-modal">
+        <div>
+          <h2>{{ titulo }}</h2>
+
+          @if (descricao) {
+            <p>{{ descricao }}</p>
+          }
+        </div>
+
+        <button
+          type="button"
+          class="botao-fechar"
+          aria-label="Fechar"
+          (click)="fecharModal()"
+        >
+          ×
+        </button>
+      </div>
+
+      <div class="conteudo-modal">
+        <ng-content></ng-content>
+      </div>
+
+    </section>
+
+  </div>
+}

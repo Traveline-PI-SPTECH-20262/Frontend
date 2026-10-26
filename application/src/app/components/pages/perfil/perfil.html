@@ -116,55 +116,13 @@
         </div>
     </section>
 
-    @if (editando) {
-    <div class="fundo-modal" (click)="cancelarEdicao()">
-        <section
-        class="modal-edicao"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="titulo-edicao"
-        (click)="$event.stopPropagation()"
-        >
-        <div class="cabecalho-modal">
-            <div>
-            <h2 id="titulo-edicao">Editar informações</h2>
-            <p>Atualize os dados do seu perfil.</p>
-            </div>
-
-            <button type="button" class="botao-fechar" (click)="cancelarEdicao()">×</button>
-        </div>
-
-        <form (ngSubmit)="salvarEdicao()">
-            <div class="campo">
-            <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" [(ngModel)]="formulario.nome" required />
-            </div>
-
-            <div class="campo">
-            <label for="cargo">Cargo</label>
-            <input type="text" id="cargo" name="cargo" [(ngModel)]="formulario.cargo" />
-            </div>
-
-            <div class="campo">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" name="email" [(ngModel)]="formulario.email" required />
-            </div>
-
-            <div class="mensagem-formulario">
-            {{ mensagemEdicao }}
-            </div>
-
-            <div class="acoes-modal">
-            <button type="button" class="botao-secundario" (click)="cancelarEdicao()">
-                Cancelar
-            </button>
-
-            <button type="submit" class="botao-principal" [disabled]="salvando">
-                {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
-            </button>
-            </div>
-        </form>
-        </section>
-    </div>
-    }
+<app-modal-editar-perfil
+    [aberto]="editando"
+    [formulario]="formulario"
+    [salvando]="salvando"
+    [mensagemEdicao]="mensagemEdicao"
+    (cancelar)="cancelarEdicao()"
+    (salvar)="salvarEdicao($event)"
+>
+</app-modal-editar-perfil>
 </main>

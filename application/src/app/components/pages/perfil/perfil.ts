@@ -1,19 +1,22 @@
+
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Header } from '../../header/header';
 import { PerfilService } from '../../../services/perfilservice/perfil.service';
+import {
+  ModalEditarPerfil,
+  FormularioPerfil
+} from '../../modal/modal-perfil/modal-perfil';
 
 @Component({
   selector: 'app-perfil',
-  imports: [Header, CommonModule, FormsModule],
+  imports: [Header, CommonModule, ModalEditarPerfil],
   templateUrl: './perfil.html',
   styleUrl: './perfil.css',
 })
 export class Perfil {
 
   usuario: any = {};
-
   agencia: any = {};
 
   totalPlanilhas: number = 3;
@@ -23,7 +26,7 @@ export class Perfil {
   salvando: boolean = false;
   mensagemEdicao: string = '';
 
-  formulario = {
+  formulario: FormularioPerfil = {
     nome: '',
     email: '',
     cargo: ''
@@ -52,7 +55,8 @@ export class Perfil {
         idUsuario = objetoSessao.usuario
           ? objetoSessao.usuario.idusuario
           : objetoSessao.idusuario;
-          idAgencia = objetoSessao.usuario.idAgencia;
+
+        idAgencia = objetoSessao.usuario.idAgencia;
 
       } catch (erro) {
         console.error('Erro ao ler os dados da sessão:', erro);
@@ -62,7 +66,7 @@ export class Perfil {
     console.log('ID extraído para o perfil:', idUsuario);
 
     if (idUsuario) {
-      this.perfilService.getPerfil(idUsuario,idAgencia).subscribe({
+      this.perfilService.getPerfil(idUsuario, idAgencia).subscribe({
         next: (dados) => {
           console.log('Dados que chegaram do backend:', dados);
 
@@ -78,8 +82,6 @@ export class Perfil {
       console.warn('Nenhum ID válido encontrado!');
     }
   }
-
-
 
   abrirEdicao() {
     this.formulario = {
@@ -97,7 +99,10 @@ export class Perfil {
     this.mensagemEdicao = '';
   }
 
-  salvarEdicao() {
+  salvarEdicao(dados: FormularioPerfil) {
+
+    this.formulario = dados;
+
     if (!this.formulario.nome || !this.formulario.email) {
       this.mensagemEdicao = 'Preencha o nome e o e-mail.';
       return;
