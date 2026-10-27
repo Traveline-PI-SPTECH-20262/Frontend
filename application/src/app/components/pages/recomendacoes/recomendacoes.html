@@ -1,7 +1,7 @@
 <main>
     <app-header
-        titulo = "Recomendacoes";
-        descricao = "Veja as suas Recomendacoes...">
+        titulo = "Recomendações";
+        descricao = "Veja as suas recomendações...">
     </app-header>   
 
     <section class="conteiner-recomendacoes">
@@ -21,7 +21,13 @@
                         @if(recomendacoesAtual.id%2==0){
                             <tr style="background-color: rgba(168, 167, 167, 0.559);">
                                 <td>{{recomendacoesAtual.pais}}</td>
-                                <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                
+                                @if(recomendacoesAtual.variacao_2021_2020.includes('+')){
+                                    <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                }@else{
+                            <td     class="desceu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                }
+
                                 <td>{{recomendacoesAtual.participacao_2021}}</td>
 
                                 @if (recomendacoesAtual.tendencia === 'Alta') {
@@ -36,7 +42,13 @@
                             }@else{
                                 <tr>
                                     <td>{{recomendacoesAtual.pais}}</td>
-                                    <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                    
+                                    @if(recomendacoesAtual.variacao_2021_2020.includes('+')){
+                                        <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                    }@else{
+                                        <td class="desceu">{{recomendacoesAtual.variacao_2021_2020}}</td>
+                                    }
+
                                     <td>{{recomendacoesAtual.participacao_2021}}</td>
 
                                     @if (recomendacoesAtual.tendencia === 'Alta') {
