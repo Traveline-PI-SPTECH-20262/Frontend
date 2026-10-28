@@ -17,35 +17,4 @@ export class Sign {
   switchMode(mode: string) {
     this.mode = mode;
   }
-
-  loginGoogle() {
-    this.authService.loginGoogle().subscribe({
-      next: (response) => {
-        const token = JSON.stringify(response.token);
-
-        if(token) {
-          this.authService.salvarToken(token);
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao fazer login com Google:', error);
-      }
-    })
-  }
-
-  loginMicrosoft() {
-    this.authService.loginMicrosoft().subscribe({
-      next: (response) => {
-        const token = response.token;
-
-        if(token) {
-          this.authService.salvarToken(token)
-        }
-      },
-      error: (error) => {
-        console.error('Erro ao fazer login com Microsoft:', error);
-      }
-    })
-  }
-
 }

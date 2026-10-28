@@ -242,43 +242,6 @@
     white-space: nowrap;
 }
 
-/* LOGIN GOOGLE */
-
-.opcoes-login-social {
-    display: flex;
-    flex-direction: column;
-}
-
-.botao-login-social {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-
-    width: 100%;
-    padding: 13px 18px;
-
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-
-    background: #ffffff;
-    color: #334155;
-
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-
-    transition: all 0.2s ease;
-}
-
-.botao-login-social:hover {
-    background: #f8fafc;
-    border-color: #c4b5fd;
-}
-
-.botao-login-social i {
-    font-size: 1.25rem;
-}
 
 @media (max-width: 1100px) {
     .painel-institucional {

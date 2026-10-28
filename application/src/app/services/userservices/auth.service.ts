@@ -16,10 +16,6 @@ export class AuthService {
     return this.http.post(this.endpoint, body, { headers });
   }
 
-  loginGoogle(): Observable<any> {
-    return this.http.get(this.endpoint + '/google');
-  }
-
   loginMicrosoft(): Observable<any> {
     return this.http.get(this.endpoint + '/microsoft');
   }
