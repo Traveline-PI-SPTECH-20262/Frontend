@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import API_URL from '../../config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private endpoint: string = 'http://localhost:3000/user/auth'; 
+  private endpoint: string = `${API_URL}/user/auth`;
 
   constructor(private http: HttpClient) {}
 
