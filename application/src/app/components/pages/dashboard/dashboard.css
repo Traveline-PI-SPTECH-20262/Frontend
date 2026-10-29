@@ -117,3 +117,140 @@ td span {
 .alta  { background: #e1f5fe; color: #0288d1; }
 .media { background: #fff3e0; color: #f57c00; }
 .baixa { background: #ffebee; color: #d32f2f; }
+
+.filtros-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filtros-modal label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #172033;
+  margin-top: 8px;
+}
+
+.filtros-modal input,
+.filtros-modal select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #ddd6e8;
+  border-radius: 8px;
+  background-color: #fff;
+  color: #172033;
+  font-size: 14px;
+  outline: none;
+}
+
+.filtros-modal input:focus,
+.filtros-modal select:focus {
+  border-color: #5b2a86;
+}
+
+
+
+
+
+
+
+/* PAINEL DE FILTROS */
+.painel-filtros {
+    box-sizing: border-box;
+    padding: 12px;
+    background: #f0f0f0;
+    border: 1px solid #e3e0e8;
+    border-radius: 10px;
+}
+
+.painel-filtros h3 {
+    margin: 0 0 14px;
+    color: #222;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+/* GRUPOS DE FILTROS */
+.painel-filtros .grupo-filtro {
+    margin-bottom: 14px;
+}
+
+.painel-filtros .grupo-filtro > label {
+    display: block;
+    margin-bottom: 6px;
+    color: #444;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* CAMPOS DE SELEÇÃO E TEXTO */
+.painel-filtros .grupo-filtro select,
+.painel-filtros .grupo-filtro input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 34px;
+    padding: 7px 9px;
+    border: 1px solid #d7cde5;
+    border-radius: 7px;
+    background: #fff;
+    color: #333;
+    font-family: inherit;
+    font-size: 12px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.painel-filtros .grupo-filtro select:focus,
+.painel-filtros .grupo-filtro input[type="text"]:focus {
+    border-color: #8c62f7;
+    box-shadow: 0 0 0 2px rgba(140, 98, 247, 0.12);
+}
+
+/* SUB-REGIÕES */
+.painel-filtros .lista-subregioes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.painel-filtros .lista-subregioes label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #444;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.painel-filtros .lista-subregioes input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    accent-color: #8c62f7;
+    cursor: pointer;
+}
+
+/* BOTÃO ATUALIZAR */
+.painel-filtros .botao-atualizar {
+    width: 100%;
+    min-height: 36px;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 7px;
+    background: #8c62f7;
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.painel-filtros .botao-atualizar:hover {
+    background: #7137c8;
+    transform: translateY(-1px);
+}
+
+.painel-filtros .botao-atualizar:active {
+    transform: translateY(0);
+}

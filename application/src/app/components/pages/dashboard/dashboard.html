@@ -55,34 +55,74 @@
         <div class="chart">
             <div class="titulo">
                 <h2>Participação por continente <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button
+                    id="mini-button"
+                    type="button"
+                    (click)="abrirFiltros('continente')">
+                    👆
+                </button>
             </div>
-                <app-doughnut-chart></app-doughnut-chart>
+                <app-doughnut-chart
+                    [anoFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.ano : 'todos'"
+                    [regiaoFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.regiao : 'todas'"
+                    [metricaFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.metrica : 'chegadas'"
+                    [subRegioesFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.subRegioes : []">
+                </app-doughnut-chart>
         </div>
 
         <div class="chart">
             <div class="titulo">
                 <h2>Top 10 Países emissores <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button
+                    id="mini-button"
+                    type="button"
+                    (click)="abrirFiltros('paises')">
+                    👆
+                </button>
             </div>
-                <app-bar-chart></app-bar-chart>
+            <app-bar-chart
+                [paisFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.pais : ''"
+                [anoFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.ano : 'todos'"
+                [regiaoFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.regiao : 'todas'"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.metrica : 'chegadas'"
+                [subRegioesFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.subRegioes : []">
+            </app-bar-chart>
         </div>
 
 
         <div class="chart">
             <div class="titulo">
                 <h2>Chegadas por UF de entrada <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button
+                    id="mini-button"
+                    type="button"
+                    (click)="abrirFiltros('uf')">
+                    👆
+                </button>
             </div>
-                <app-bar-standing-chart></app-bar-standing-chart>
+                <app-bar-standing-chart
+                    [anoFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.ano : 'todos'"
+                    [regiaoFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.regiao : 'todas'"
+                    [ufFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.uf : ''"
+                    [metricaFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.metrica : 'chegadas'">
+                </app-bar-standing-chart>
             </div>
 
         <div class="chart">
             <div class="titulo">
                 <h2>Sazonalidade das chegadas <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button
+                    id="mini-button"
+                    type="button"
+                    (click)="abrirFiltros('sazonalidade')">
+                    👆
+                </button>
             </div>
-            <app-line-chart></app-line-chart>
+            <app-line-chart
+                [anoFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.ano : 'todos'"
+                [mesFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.mes : 'todos'"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.metrica : 'chegadas'">
+            </app-line-chart>
         </div>
 
 
@@ -143,11 +183,277 @@
             
         </div>
 
-
-
-
     </section>
 
-    
+<app-modal
+  [aberto]="modalAberto"
+  [titulo]="'Análise Detalhada: ' + (
+    graficoSelecionado === 'continente' ? 'Participação por continente' :
+    graficoSelecionado === 'paises' ? 'Top 10 Países emissores' :
+    graficoSelecionado === 'uf' ? 'Chegadas por UF de entrada' :
+    'Sazonalidade das chegadas'
+  ) + ' (2019-2021)'"
+  descricao="Explore os dados utilizando os filtros disponíveis."
+  (fechar)="fecharModal()">
+
+  <div class="layout-analise">
+
+    <!-- PAINEL DE FILTROS -->
+    <aside class="painel-filtros">
+      <h3>Filtros e Opções</h3>
+
+      <div class="grupo-filtro">
+        <label for="ano-analise">Ano:</label>
+        <select id="ano-analise" [(ngModel)]="anoSelecionado">
+          <option value="todos">Todos</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+        </select>
+      </div>
+
+      @if (graficoSelecionado !== 'sazonalidade') {
+        <div class="grupo-filtro">
+          <label for="regiao-analise">Região:</label>
+          <select id="regiao-analise" [(ngModel)]="regiaoSelecionada">
+            <option value="todas">Todas</option>
+
+            @if (graficoSelecionado === 'uf') {
+              <option value="Norte">Norte</option>
+              <option value="Nordeste">Nordeste</option>
+              <option value="Centro-Oeste">Centro-Oeste</option>
+              <option value="Sudeste">Sudeste</option>
+              <option value="Sul">Sul</option>
+            } @else {
+              <option value="África">África</option>
+              <option value="América">América</option>
+              <option value="Ásia">Ásia</option>
+              <option value="Europa">Europa</option>
+              <option value="Oceania">Oceania</option>
+            }
+          </select>
+        </div>
+      }
+
+      @if (graficoSelecionado === 'sazonalidade') {
+        <div class="grupo-filtro">
+          <label for="mes-analise">Mês:</label>
+          <select id="mes-analise" [(ngModel)]="mesSelecionado">
+            <option value="todos">Todos os meses</option>
+            <option value="1">Janeiro</option>
+            <option value="2">Fevereiro</option>
+            <option value="3">Março</option>
+            <option value="4">Abril</option>
+            <option value="5">Maio</option>
+            <option value="6">Junho</option>
+            <option value="7">Julho</option>
+            <option value="8">Agosto</option>
+            <option value="9">Setembro</option>
+            <option value="10">Outubro</option>
+            <option value="11">Novembro</option>
+            <option value="12">Dezembro</option>
+          </select>
+        </div>
+      }
+
+      @if (graficoSelecionado === 'paises') {
+        <div class="grupo-filtro">
+          <label for="pais-analise">País emissor:</label>
+          <input
+            id="pais-analise"
+            type="text"
+            placeholder="Digite o país"
+            [(ngModel)]="paisSelecionado">
+        </div>
+      }
+
+      @if (graficoSelecionado === 'uf') {
+        <div class="grupo-filtro">
+          <label for="uf-analise">UF de entrada:</label>
+          <select id="uf-analise" [(ngModel)]="ufSelecionada">
+            <option value="">Todas as UFs</option>
+            <option value="AC">Acre</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PR">Paraná</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+          </select>
+        </div>
+      }
+
+      <div class="grupo-filtro">
+        <label for="metrica-analise">Métrica:</label>
+        <select id="metrica-analise" [(ngModel)]="metricaSelecionada">
+          <option value="chegadas">Chegadas</option>
+          <option value="receita">Receita</option>
+        </select>
+      </div>
+
+      @if (graficoSelecionado === 'continente' ||
+           graficoSelecionado === 'paises') {
+        <div class="grupo-filtro">
+          <label>Sub-regiões</label>
+
+          <div class="lista-subregioes">
+            @for (regiao of opcoesSubRegioes; track regiao) {
+              <label>
+                <input
+                  type="checkbox"
+                  [checked]="subRegioesSelecionadas.includes(regiao)"
+                  (change)="alternarSubRegiao(regiao, $event)">
+                {{ regiao }}
+              </label>
+            }
+          </div>
+        </div>
+      }
+
+      <button
+        type="button"
+        class="botao-atualizar"
+        (click)="aplicarFiltros()">
+        Atualizar gráfico
+      </button>
+    </aside>
+
+    <!-- GRÁFICO E TABELA -->
+    <div class="painel-resultados">
+
+      <section class="painel-grafico">
+        <h3>
+          @if (graficoSelecionado === 'continente') {
+            Participação por continente
+          } @else if (graficoSelecionado === 'paises') {
+            Top 10 Países emissores
+          } @else if (graficoSelecionado === 'uf') {
+            Chegadas por UF de entrada
+          } @else {
+            Sazonalidade das chegadas
+          }
+          ({{ anoSelecionado === 'todos' ? '2019-2021' : anoSelecionado }})
+        </h3>
+
+        <div class="area-grafico">
+          @if (graficoSelecionado === 'continente') {
+            <app-doughnut-chart
+                [anoFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.ano : 'todos'"
+                [regiaoFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.regiao : 'todas'"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.metrica : 'chegadas'"
+                [subRegioesFiltro]="filtrosAplicados?.grafico === 'continente' ? filtrosAplicados.subRegioes : []">
+            </app-doughnut-chart>
+          } @else if (graficoSelecionado === 'paises') {
+            <app-bar-chart
+                [paisFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.pais : ''"
+                [anoFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.ano : 'todos'"
+                [regiaoFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.regiao : 'todas'"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.metrica : 'chegadas'"
+                [subRegioesFiltro]="filtrosAplicados?.grafico === 'paises' ? filtrosAplicados.subRegioes : []">
+            </app-bar-chart>
+          } @else if (graficoSelecionado === 'uf') {
+            <app-bar-standing-chart
+                [anoFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.ano : 'todos'"
+                [regiaoFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.regiao : 'todas'"
+                [ufFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.uf : ''"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'uf' ? filtrosAplicados.metrica : 'chegadas'">
+            </app-bar-standing-chart>
+          } @else {
+            <app-line-chart
+                [anoFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.ano : 'todos'"
+                [mesFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.mes : 'todos'"
+                [metricaFiltro]="filtrosAplicados?.grafico === 'sazonalidade' ? filtrosAplicados.metrica : 'chegadas'">
+            </app-line-chart>
+          }
+        </div>
+      </section>
+
+      <section class="painel-tabela">
+        <h3>
+          @if (graficoSelecionado === 'continente') {
+            Detalhes por Região
+          } @else if (graficoSelecionado === 'paises') {
+            Países emissores (Ranking)
+          } @else if (graficoSelecionado === 'uf') {
+            Detalhes por Estado
+          } @else {
+            Detalhes por Mês
+          }
+        </h3>
+
+        @if (graficoSelecionado === 'continente') {
+          <table class="tabela-analise">
+            <thead>
+              <tr>
+                <th>Região</th>
+                <th>Chegadas</th>
+                <th>Variação</th>
+                <th>Participação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>América</td><td>Dados demonstrativos</td><td>+12,4%</td><td>38%</td></tr>
+              <tr><td>Europa</td><td>Dados demonstrativos</td><td>+8,7%</td><td>30%</td></tr>
+              <tr><td>Ásia</td><td>Dados demonstrativos</td><td>+6,1%</td><td>15%</td></tr>
+              <tr><td>África</td><td>Dados demonstrativos</td><td>-5,3%</td><td>10%</td></tr>
+              <tr><td>Oceania</td><td>Dados demonstrativos</td><td>-3,7%</td><td>7%</td></tr>
+            </tbody>
+          </table>
+        } @else if (graficoSelecionado === 'paises') {
+          <table class="tabela-analise">
+            <thead>
+              <tr>
+                <th>Ranking</th>
+                <th>País</th>
+                <th>Região</th>
+                <th>Chegadas</th>
+                <th>Variação</th>
+                <th>Participação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>Estados Unidos</td><td>América</td><td>140.000</td><td>+12,4%</td><td>10,8%</td></tr>
+              <tr><td>2</td><td>Chile</td><td>América</td><td>120.000</td><td>+8,7%</td><td>6,2%</td></tr>
+              <tr><td>3</td><td>Paraguai</td><td>América</td><td>80.000</td><td>+6,1%</td><td>5,6%</td></tr>
+              <tr><td>4</td><td>Uruguai</td><td>América</td><td>60.000</td><td>+6,1%</td><td>5,6%</td></tr>
+              <tr><td>5</td><td>França</td><td>Europa</td><td>40.000</td><td>-5,3%</td><td>2,7%</td></tr>
+            </tbody>
+          </table>
+        } @else if (graficoSelecionado === 'uf') {
+          <table class="tabela-analise">
+            <thead>
+              <tr><th>UF</th><th>Estado</th><th>Chegadas</th><th>Variação</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>SP</td><td>São Paulo</td><td>Dados demonstrativos</td><td>+12,4%</td></tr>
+              <tr><td>RJ</td><td>Rio de Janeiro</td><td>Dados demonstrativos</td><td>+8,7%</td></tr>
+              <tr><td>BA</td><td>Bahia</td><td>Dados demonstrativos</td><td>+6,1%</td></tr>
+              <tr><td>PR</td><td>Paraná</td><td>Dados demonstrativos</td><td>-5,3%</td></tr>
+            </tbody>
+          </table>
+        } @else {
+          <table class="tabela-analise">
+            <thead>
+              <tr><th>Mês</th><th>Chegadas</th><th>Variação</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Janeiro</td><td>Dados demonstrativos</td><td>+12,4%</td></tr>
+              <tr><td>Fevereiro</td><td>Dados demonstrativos</td><td>+8,7%</td></tr>
+              <tr><td>Março</td><td>Dados demonstrativos</td><td>+6,1%</td></tr>
+              <tr><td>Abril</td><td>Dados demonstrativos</td><td>-5,3%</td></tr>
+            </tbody>
+          </table>
+        }
+      </section>
+    </div>
+  </div>
+
+  <p class="fonte-dados">
+    Fonte: Dados demonstrativos do Traveline Analytics.
+  </p>
+</app-modal>
 
 </main>
