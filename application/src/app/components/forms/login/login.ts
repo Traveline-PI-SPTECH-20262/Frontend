@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/userservices/auth.service';
 import { Router } from '@angular/router';
+import { ModalErro } from '../../modal/modal-erro/modal-erro';
+
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule,ModalErro],
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
@@ -13,7 +15,19 @@ export class Login {
   senha: string = '';
   email: string = '';
 
-  constructor(private authService: AuthService,private router: Router) {}
+  modalErroAberto = false;
+  mensagemErro = '';
+
+  mostrarErro(mensagem: string) {
+    this.mensagemErro = mensagem;
+    this.modalErroAberto = true;
+  }
+
+  fecharErro() {
+    this.modalErroAberto = false;
+  }
+
+  constructor(private authService: AuthService,private router: Router,private cdr: ChangeDetectorRef) {}
 
   login() {
     console.log('Email:', this.email);
@@ -32,7 +46,9 @@ export class Login {
         
       },
       error: (error) => {
-        console.error('Erro ao fazer login:', error);
+        this.mensagemErro = error.error.message;
+        this.modalErroAberto = true;
+        this.cdr.detectChanges();
       }
     })
   }

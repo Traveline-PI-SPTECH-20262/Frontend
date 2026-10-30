@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RegisterService } from '../../../services/userservices/register.service';
+import { ModalErro } from '../../modal/modal-erro/modal-erro';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule],
+  imports: [FormsModule,ModalErro],
   templateUrl: './register.html',
   styleUrl: './register.css',
 })
@@ -14,8 +15,21 @@ export class Register {
   senha: string = '';
   codigoAtivacao: string = '';
   cargo: string = '';
+
+
+  modalErroAberto = false;
+  mensagemErro = '';
+
+  mostrarErro(mensagem: string) {
+    this.mensagemErro = mensagem;
+    this.modalErroAberto = true;
+  }
+
+  fecharErro() {
+    this.modalErroAberto = false;
+  }
   
-  constructor(private registerService: RegisterService) {}
+  constructor(private registerService: RegisterService, private cdr: ChangeDetectorRef) {}
 
   register() {
     const userData = {
@@ -33,6 +47,8 @@ export class Register {
 
     },
     error: (error) => {
+      this.mensagemErro = error.error.message 
+      this.modalErroAberto = true;
       console.error('Erro ao registrar usuário:', error);
     }
   });

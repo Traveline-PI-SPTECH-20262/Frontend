@@ -1,0 +1,8 @@
+@if (aberto) {
+  <div class="alerta_erro">
+    <div class="card_erro" id="cardErro">
+      <span id="fechar" (click)="fecharModalErro()">&times;</span>
+      <span id="mensagem_erro">{{ mensagemErro }}</span>
+    </div>
+  </div>
+}
