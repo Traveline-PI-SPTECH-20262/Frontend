@@ -19,7 +19,7 @@ export class Painel implements OnInit {
     if (token) {
       const tipoUsuario: string | null = token.cargo || null;
 
-      if (tipoUsuario !== 'Analista' && tipoUsuario !== 'Gerente') {
+      if (tipoUsuario !== 'Gerente') {
         window.location.href = '/dashboard';
       }
     }
