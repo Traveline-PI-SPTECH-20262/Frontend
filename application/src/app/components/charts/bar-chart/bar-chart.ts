@@ -110,7 +110,15 @@ export class BarChart implements OnChanges {
     scales: {
       x: {
         beginAtZero: true
-      }
+      },
+      y: {
+        ticks: {
+          autoSkip: false,
+          font: {
+            size: 11
+          }
+        }
+      }      
     }
   };
 
@@ -177,9 +185,25 @@ export class BarChart implements OnChanges {
             ? 'Receita estimada'
             : 'Chegadas de turistas',
           data: paisesFiltrados.map(p => p.valor),
-          backgroundColor: '#5B2A86'
+          backgroundColor: paises.map(p =>
+            this.obterCorContinente(p.regiao)
+          )
         }
       ]
     };
   }
+
+  private obterCorContinente(regiao: string): string {
+  const cores: { [key: string]: string } = {
+    'África': '#8c62f7',
+    'América do Norte': '#caf762',
+    'América do Sul': '#12c335',
+    'Ásia': '#de1717',
+    'Europa': '#d61ebb',
+    'Oceania': '#36a6ce'
+  };
+
+  return cores[regiao] || '#5B2A86';
 }
+}
+
