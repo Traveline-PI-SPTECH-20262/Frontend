@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '../../services/userservices/auth.service';
+import { UsuarioModel } from '../../models/usuario.model';
 
 enum Pagina {
   Dashboard = 'dashboard',
@@ -14,10 +16,11 @@ enum Pagina {
 })
 export class Navbar {
   constructor(private router: Router) {}
+  token: UsuarioModel | null = AuthService.prototype.getToken();
+  tipoUsuario: string | null = this.token?.cargo || null;
+
   Logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    sessionStorage.clear(); 
+    AuthService.prototype.logout();
     this.router.navigate(['/sign']);
   }
 }

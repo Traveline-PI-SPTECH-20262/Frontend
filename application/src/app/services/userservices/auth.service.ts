@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import API_URL from '../../config';
+import { UsuarioModel } from '../../models/usuario.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,15 +22,27 @@ export class AuthService {
     return this.http.get(this.endpoint + '/microsoft');
   }
 
-  salvarToken(token: string): void {
+  public salvarToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  public getToken(): UsuarioModel | null {
+    const tokenString = localStorage.getItem('token');
+    const token = tokenString ? JSON.parse(tokenString) : null;
+
+    const usuario: UsuarioModel | null = {
+      id: token?.usuario.id || 0,
+      nome: token?.usuario.nome || '',
+      email: token?.usuario.email || '',
+      senha: token?.usuario.senha || '',
+      cargo: token?.usuario.cargo || '',
+      idAgencia: token?.usuario.idAgencia || 0,
+    }
+
+    return usuario;
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('token');
   }
 }

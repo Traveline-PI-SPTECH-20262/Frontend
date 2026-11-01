@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Header } from '../../header/header';
 import {PainelService} from '../../../services/painelservice/painel.service';
+import { UsuarioModel } from '../../../models/usuario.model';
+import { AuthService } from '../../../services/userservices/auth.service';
 
 @Component({
   selector: 'app-painel',
@@ -10,7 +12,18 @@ import {PainelService} from '../../../services/painelservice/painel.service';
 })
 
 
-export class Painel {
+export class Painel implements OnInit {
+
+  ngOnInit(): void {
+    const token: UsuarioModel | null = AuthService.prototype.getToken();
+    if (token) {
+      const tipoUsuario: string | null = token.cargo || null;
+
+      if (tipoUsuario !== 'Analista' && tipoUsuario !== 'Gerente') {
+        window.location.href = '/dashboard';
+      }
+    }
+  }
   
   funcionarios = [
     {
