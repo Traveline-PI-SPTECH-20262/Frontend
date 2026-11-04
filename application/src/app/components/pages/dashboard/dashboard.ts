@@ -5,13 +5,25 @@ import {DoughnutChart} from '../../charts/doughnut-chart/doughnut-chart';
 import {BarStandingChart} from '../../charts/bar-standing-chart/bar-standing-chart';
 import { KpiCard } from '../../kpi-card/kpi-card';
 import { Header } from '../../header/header';
+import { ModalAnalise, TipoAnalise } from '../../modal/modal-analise/modal-analise';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [LineChart,KpiCard,Header,BarChart,DoughnutChart,BarStandingChart],
+  imports: [LineChart,KpiCard,Header,BarChart,DoughnutChart,BarStandingChart, ModalAnalise],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
   
+analiseAberta = false;
+tipoAnalise: TipoAnalise = 'paises';
+
+abrirAnalise(tipo: TipoAnalise) {
+  this.tipoAnalise = tipo;
+  this.analiseAberta = true;
+}
+
+fecharAnalise() {
+  this.analiseAberta = false;
+}
 }

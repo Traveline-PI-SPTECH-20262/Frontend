@@ -55,7 +55,7 @@
         <div class="chart">
             <div class="titulo">
                 <h2>Participação por continente <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button id="mini-button"  (click)="abrirAnalise('continentes')">👆</button>
             </div>
                 <app-doughnut-chart></app-doughnut-chart>
         </div>
@@ -63,7 +63,7 @@
         <div class="chart">
             <div class="titulo">
                 <h2>Top 10 Países emissores <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button id="mini-button"  (click)="abrirAnalise('paises')">👆</button>
             </div>
                 <app-bar-chart></app-bar-chart>
         </div>
@@ -72,7 +72,7 @@
         <div class="chart">
             <div class="titulo">
                 <h2>Chegadas por UF de entrada <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button id="mini-button"  (click)="abrirAnalise('ufs')">👆</button>
             </div>
                 <app-bar-standing-chart></app-bar-standing-chart>
             </div>
@@ -80,7 +80,7 @@
         <div class="chart">
             <div class="titulo">
                 <h2>Sazonalidade das chegadas <span>(2019-2021)</span></h2>
-                <button id="mini-button">👆</button>
+                <button id="mini-button" (click)="abrirAnalise('sazonalidade')">👆</button>
             </div>
             <app-line-chart></app-line-chart>
         </div>
@@ -148,6 +148,11 @@
 
     </section>
 
-    
 
 </main>
+
+<app-modal-analise
+  [aberto]="analiseAberta"
+  [tipo]="tipoAnalise"
+  (fechar)="fecharAnalise()">
+</app-modal-analise>

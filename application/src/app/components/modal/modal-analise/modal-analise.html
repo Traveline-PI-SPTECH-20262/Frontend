@@ -1,0 +1,122 @@
+@if (aberto) {
+  <div class="analise-fundo" (click)="fechar.emit()">
+    <section class="analise-modal" role="dialog" aria-modal="true" [attr.aria-label]="titulo" (click)="$event.stopPropagation()">
+      <header class="analise-cabecalho">
+        <div class="cabecalho-texto">
+            
+          <h2>{{ titulo }}</h2>
+          <p>{{ descricao }}</p>
+        </div>
+        <button class="fechar" type="button" aria-label="Fechar análise" (click)="fechar.emit()">✕</button>
+      </header>
+
+      <div class="analise-filtros">
+        <label>Ano
+          <select [(ngModel)]="ano" (ngModelChange)="atualizar()">
+            <option value="todos">Todos os anos</option>
+            @for (item of anos; track item) { <option [value]="item">{{ item }}</option> }
+          </select>
+        </label>
+        @if (tipo === 'paises' || tipo === 'continentes') {
+          <label>Continente
+            <select [(ngModel)]="continente" (ngModelChange)="atualizar()">
+              <option value="todos">Todos</option>
+              @for (item of continentes; track item) { <option [value]="item">{{ item }}</option> }
+            </select>
+          </label>
+        }
+        @if (tipo === 'paises') {
+          <label class="busca">Buscar país
+            <input [(ngModel)]="busca" (ngModelChange)="atualizar()" placeholder="Ex.: Argentina" />
+          </label>
+        }
+        @if (tipo === 'ufs' || tipo === 'sazonalidade') {
+          <label>UF de entrada
+            <select [(ngModel)]="uf" (ngModelChange)="atualizar()">
+              <option value="todas">Todas as UFs</option>
+              @for (item of ufs; track item) { <option [value]="item">{{ item }}</option> }
+            </select>
+          </label>
+        }
+        @if (tipo === 'paises' || tipo === 'ufs') {
+          <label>Ordenação
+            <select [(ngModel)]="ordenacao" (ngModelChange)="atualizar()">
+              <option value="maior">Mais chegadas</option>
+              <option value="menor">Menos chegadas</option>
+              <option value="alfabetica">Alfabética</option>
+            </select>
+          </label>
+        }
+        <button class="limpar" type="button" (click)="limpar()">Limpar filtros</button>
+      </div>
+
+      <div class="analise-conteudo">
+        <div class="analise-topo">
+          <div class="indicadores">
+            <div class="indicador"><span>Chegadas no período</span><strong>{{ total | number:'1.0-0' }}</strong></div>
+            <div class="indicador"><span>{{ tipo === 'sazonalidade' ? 'Meses analisados' : tipo === 'paises' ? 'Países encontrados' : tipo === 'ufs' ? 'UFs encontradas' : 'Continentes' }}</span><strong>{{ linhas.length }}</strong></div>
+            @if (tipo === 'sazonalidade' && !semDados) {
+              <div class="indicador"><span>Mês de maior movimento</span><strong>{{ maiorMes?.nome }}</strong></div>
+            }
+          </div>
+        </div>
+
+        @if (tipo === 'paises') {
+          <div class="secao-titulo">
+            <div><h3>Ranking de países emissores</h3><p>Compare os mercados com maior participação.</p></div>
+            <div class="alternancia">
+              <button type="button" [class.ativo]="visualizacao === 'top10'" (click)="visualizacao = 'top10'; atualizar()">Top 10</button>
+              <button type="button" [class.ativo]="visualizacao === 'todos'" (click)="visualizacao = 'todos'; atualizar()">Todos ({{ linhas.length }})</button>
+            </div>
+          </div>
+        }
+
+        @if (semDados) {
+          <div class="vazio">Nenhum resultado encontrado. Experimente limpar os filtros.</div>
+        } @else {
+          <div class="analise-grid" [class.layout-lado]="tipo === 'continentes' || tipo === 'ufs'" [class.layout-empilhado]="tipo === 'paises' || tipo === 'sazonalidade'">
+            <div class="painel painel-grafico">
+              <div class="painel-titulo">
+                <h3>{{ tipo === 'continentes' ? 'Distribuição das chegadas' : tipo === 'sazonalidade' ? 'Evolução mensal' : 'Visualização das chegadas' }}</h3>
+                <span>Dados demonstrativos</span>
+              </div>
+              <div class="grafico" [class.grafico-rolagem]="tipo === 'paises' && visualizacao === 'todos'">
+                <div class="grafico-interno" [style.height.px]="tipo === 'paises' ? (linhasVisiveis.length > 10 ? linhasVisiveis.length * 29 + 45 : 350) : tipo === 'continentes' ? 300 : 330">
+                  <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="chartType"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="painel painel-tabela">
+              <div class="painel-titulo">
+                <h3>Dados detalhados</h3>
+                <span>{{ linhasVisiveis.length }} registros</span>
+              </div>
+              <div class="tabela-rolagem">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>{{ tipo === 'paises' ? 'País' : tipo === 'continentes' ? 'Continente' : tipo === 'ufs' ? 'UF' : 'Mês' }}</th>
+                      <th>Chegadas</th>
+                      <th>Part. %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (linha of linhasVisiveis; track linha.nome) {
+                      <tr>
+                        <td><span class="nome-linha">@if (tipo === 'continentes') { <i class="bolinha" [style.background]="cores[linha.nome] || roxo"></i> }{{ linha.nome }}</span></td>
+                        <td>{{ linha.valor | number:'1.0-0' }}</td>
+                        <td><span class="porcentagem">{{ linha.participacao | number:'1.1-1' }}%</span></td>
+                      </tr>
+                    }
+                  </tbody>
+                  <tfoot><tr><th>Total filtrado</th><th>{{ total | number:'1.0-0' }}</th><th>100%</th></tr></tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+}
