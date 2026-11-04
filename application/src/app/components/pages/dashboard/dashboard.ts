@@ -5,6 +5,7 @@ import {DoughnutChart} from '../../charts/doughnut-chart/doughnut-chart';
 import {BarStandingChart} from '../../charts/bar-standing-chart/bar-standing-chart';
 import { KpiCard } from '../../kpi-card/kpi-card';
 import { Header } from '../../header/header';
+import { ConfiguracoesService } from '../../../services/services/configuracoes';
 import { ModalAnalise, TipoAnalise } from '../../modal/modal-analise/modal-analise';
 
 @Component({
@@ -14,7 +15,9 @@ import { ModalAnalise, TipoAnalise } from '../../modal/modal-analise/modal-anali
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
-  
+  constructor(
+  public configuracoes: ConfiguracoesService
+) {}
 analiseAberta = false;
 tipoAnalise: TipoAnalise = 'paises';
 

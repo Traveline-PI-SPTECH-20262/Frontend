@@ -5,4 +5,12 @@
     </div>
 
 
+    <button (click)="abrirModal()">
+  Personalizar
+</button>
+
+<app-custom
+  [aberto]="aberto"
+  (fechar)="fecharModal()">
+</app-custom>
 </section>
