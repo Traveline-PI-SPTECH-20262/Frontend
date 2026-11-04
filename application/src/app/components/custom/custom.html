@@ -1,0 +1,180 @@
+
+@if (aberto) {
+  <div class="custom-overlay">
+
+    <div class="custom-modal">
+
+      <div class="custom-header">
+        <div>
+          <h2>Configurações da Conta</h2>
+          <p>Personalize sua experiência no Traveline.</p>
+        </div>
+
+        <button class="fechar" (click)="cancelar()">×</button>
+      </div>
+
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span class="section-icon">◉</span>
+
+          <div>
+            <h3>Aparência</h3>
+            <p>Escolha o tema da interface.</p>
+          </div>
+        </div>
+
+        <div class="temas">
+
+          <button
+            [class.selecionado]="temaSelecionado === 'claro'"
+            (click)="selecionarTema('claro')">
+            ☀
+            <span>Claro</span>
+          </button>
+
+          <button
+            [class.selecionado]="temaSelecionado === 'escuro'"
+            (click)="selecionarTema('escuro')">
+            ☾
+            <span>Escuro</span>
+          </button>
+
+          <button
+            [class.selecionado]="temaSelecionado === 'automatico'"
+            (click)="selecionarTema('automatico')">
+            ◐
+            <span>Automático</span>
+          </button>
+
+        </div>
+      </section>
+
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span class="section-icon">A</span>
+
+          <div>
+            <h3>Tamanho da fonte</h3>
+            <p>Altere o tamanho dos textos do sistema.</p>
+          </div>
+        </div>
+
+        <select
+          [value]="fonteSelecionada"
+          (change)="selecionarFonte($event)">
+
+          <option value="pequena">Pequena</option>
+          <option value="media">Média</option>
+          <option value="grande">Grande</option>
+
+        </select>
+
+      </section>
+
+      <section class="custom-section">
+
+        <div class="section-title">
+          <span class="section-icon">⚙</span>
+
+          <div>
+            <h3>Preferências</h3>
+            <p>Escolha quais indicadores deseja visualizar.</p>
+          </div>
+        </div>
+
+        <div class="kpi-list">
+
+          <label class="kpi-item">
+            <span>
+              <strong>Total de turistas</strong>
+              <small>Indicador geral de turistas.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.totalTuristas"
+              (change)="alterarKpi('totalTuristas', $event)">
+          </label>
+
+          <label class="kpi-item">
+            <span>
+              <strong>Via aérea</strong>
+              <small>Quantidade de turistas por via aérea.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.viaAerea"
+              (change)="alterarKpi('viaAerea', $event)">
+          </label>
+
+          <label class="kpi-item">
+            <span>
+              <strong>Via terrestre</strong>
+              <small>Quantidade de turistas por via terrestre.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.viaTerrestre"
+              (change)="alterarKpi('viaTerrestre', $event)">
+          </label>
+
+          <label class="kpi-item">
+            <span>
+              <strong>Via marítima</strong>
+              <small>Quantidade de turistas por via marítima.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.viaMaritima"
+              (change)="alterarKpi('viaMaritima', $event)">
+          </label>
+
+          <label class="kpi-item">
+            <span>
+              <strong>Via fluvial</strong>
+              <small>Quantidade de turistas por via fluvial.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.viaFluvial"
+              (change)="alterarKpi('viaFluvial', $event)">
+          </label>
+
+          <label class="kpi-item">
+            <span>
+              <strong>Paises Emissores</strong>
+              <small>Paises que mais emitem turistas.</small>
+            </span>
+
+            <input
+              type="checkbox"
+              [checked]="kpisSelecionados.paisesEmissores"
+              (change)="alterarKpi('paisesEmissores', $event)">
+          </label>
+
+        
+
+        </div>
+      </section>
+
+      <div class="custom-footer">
+
+        <button class="btn-cancelar" (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button class="btn-salvar" (click)="salvar()">
+          Salvar alterações
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+}
