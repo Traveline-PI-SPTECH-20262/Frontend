@@ -14,4 +14,4 @@ app.use(express.static('landing', {
 }));
 
 app.listen(PORT, () => {
-});9
+});
