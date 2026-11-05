@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = 4000;
-const API_URL = 'http://localhost'
+const API_URL2 = require('./src/app/config.ts');
 
 app.use(express.static(path.join(__dirname, 'landing')));
 app.use(express.static('landing', {
@@ -14,5 +14,4 @@ app.use(express.static('landing', {
 }));
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em ${API_URL}:${PORT}`);
-});
+});9
