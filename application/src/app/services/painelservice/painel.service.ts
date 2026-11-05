@@ -7,7 +7,7 @@ import API_URL from '../../config';
     providedIn: 'root',
     })
     export class PainelService {
-    private endpoint: string = `${API_URL}/painel`;
+    private endpoint: string = `${API_URL}:3000/painel`;
 
     constructor(private http: HttpClient) {}
     

@@ -26,7 +26,7 @@ export interface EspecificaDados {
   providedIn: 'root',
 })
 export class EspecificaService {
-  private endpoint: string = `${API_URL}/especifica`;
+  private endpoint: string = `${API_URL}:3000/especifica`;
 
   constructor(private http: HttpClient) {}
 

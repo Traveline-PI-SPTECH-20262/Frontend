@@ -7,7 +7,7 @@ import API_URL from '../../config';
   providedIn: 'root'
 })
 export class RegisterService {
-  private endpoint: string = `${API_URL}/user/register`;
+  private endpoint: string = `${API_URL}:3000/user/register`;
 
   constructor(private http: HttpClient) {}
 
