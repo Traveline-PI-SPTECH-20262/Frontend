@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
         :root {
             --main-purple: #5B2A86;
-            --primary: #7c3aed; /* Neon Purple/Indigo */
+            --primary: #7c3aed;
             --primary-hover: #6d28d9;
-            --bg-dark: #090a0f; /* Fundo super escuro */
+            --bg-dark: #090a0f; 
             --bg-panel: rgba(255, 255, 255, 0.02);
             --glass-border: rgba(255, 255, 255, 0.06);
             --text-main: #f8fafc;
@@ -32,6 +32,7 @@
 
   --accent-color: #7040d5;
   --accent-soft: #f0eaff;
+  --graph-line: #6b6b6b7e;
 }
 
 :root[data-theme="escuro"] {
@@ -46,6 +47,7 @@
 
   --accent-color: #a78bfa;
   --accent-soft: #39304f;
+  --graph-line: #aaa5bb70;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -57,7 +59,7 @@
     --text-primary: #f4f1fc;
     --text-secondary: #aaa5bb;
 
-    --border-color: #403d50;
+    --border-color: #e9e8ec;
 
     --accent-color: #a78bfa;
     --accent-soft: #39304f;
@@ -70,3 +72,9 @@ body {
   font-size: 1rem;
   transition: background-color 0.2s, color 0.2s;
 }
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--text-secondary) var(--bg-primary);
+}
+

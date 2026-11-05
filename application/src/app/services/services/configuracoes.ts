@@ -1,6 +1,7 @@
 
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { Chart } from 'chart.js';
 
 export type Tema = 'claro' | 'escuro' | 'automatico';
 
@@ -48,6 +49,7 @@ export class ConfiguracoesService {
 
     this.aplicarTema();
     this.aplicarFonte();
+    this.atualizarGraficos();
 
     localStorage.setItem('traveline-config', JSON.stringify({
       tema: this.tema,
@@ -59,6 +61,8 @@ export class ConfiguracoesService {
   private aplicarTema() {
     this.document.documentElement.setAttribute('data-theme', this.tema);
   }
+
+ 
 
   private aplicarFonte() {
     const tamanhos = {
@@ -100,4 +104,33 @@ export class ConfiguracoesService {
     this.aplicarTema();
     this.aplicarFonte();
   }
+
+  
+private atualizarGraficos() {
+  const corTexto = getComputedStyle(this.document.documentElement)
+    .getPropertyValue('--text-primary')
+    .trim();
+
+  Object.values(Chart.instances).forEach((instancia) => {
+    const chart = instancia as Chart;
+
+    // Atualiza a cor geral dos textos do gráfico
+    chart.options.color = corTexto;
+
+    // Atualiza os eixos X e Y
+    Object.values(chart.options.scales ?? {}).forEach((escala: any) => {
+
+      escala.ticks.color = corTexto;
+
+      escala.grid.color = corTexto;
+
+      if (escala.title) {
+        escala.title.color = corTexto;
+      }
+
+    });
+    chart.update();
+  });
+}
+
 }

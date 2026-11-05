@@ -1,16 +1,19 @@
+
 <section class="header">
-    <div class="title">
-        <h1>{{ titulo }}</h1>
-        <p>{{ descricao }}</p>
-    </div>
+  <div class="title">
+    <h1>{{ titulo }}</h1>
+    <p>{{ descricao }}</p>
+  </div>
 
-
-    <button (click)="abrirModal()">
-  Personalizar
-</button>
+  <div class="header-actions">
+    <button class="btn-personalizar" (click)="abrirModal()">
+      <span class="icone">⚙</span>
+      Personalizar
+    </button>
+  </div>
+</section>
 
 <app-custom
   [aberto]="aberto"
   (fechar)="fecharModal()">
 </app-custom>
-</section>

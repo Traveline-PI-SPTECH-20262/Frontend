@@ -1,5 +1,6 @@
 :host {
     font-family: inherit;
+    color: var(--text-primary);
 }
 
 * {
@@ -22,7 +23,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: #fff;
+    background: var(--bg-card);
     border-radius: 18px;
     box-shadow: 0 24px 80px rgba(24, 16, 46, .25);
 }
@@ -34,7 +35,7 @@
     justify-content: space-between;
     gap: 16px;
     flex-shrink: 0;
-    border-bottom: 1px solid #eeeaf4;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .sobretitulo {
@@ -48,31 +49,31 @@
 
 .analise-cabecalho h2 {
     margin: 0 0 5px;
-    color: #20192f;
+    color: var(--text-primary);
     font-size: 23px;
     font-weight: 750;
 }
 
 .analise-cabecalho p {
     margin: 0;
-    color: #827a8e;
+    color: var(--text-secondary);
     font-size: 13px;
 }
 
 .fechar {
     width: 34px;
     height: 34px;
-    border: 1px solid #ebe6f2;
+    border: 1px solid var(--border-color);
     border-radius: 9px;
-    background: #fff;
-    color: #756d80;
+    background: var(--bg-card);
+    color: var(--text-secondary);
     font-size: 16px;
     cursor: pointer;
     flex-shrink: 0;
 }
 
 .fechar:hover {
-    background: #f7f4ff;
+    background: var(--bg-primary);
     color: #7c3aed;
 }
 
@@ -82,8 +83,8 @@
     flex-wrap: wrap;
     align-items: end;
     gap: 10px;
-    background: #fcfbfe;
-    border-bottom: 1px solid #eeeaf4;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
     flex-shrink: 0;
 }
 
@@ -94,7 +95,7 @@
     gap: 6px;
     font-size: 11px;
     font-weight: 700;
-    color: #5a5266;
+    color: var(--text-secondary);
 }
 
 .analise-filtros label.busca {
@@ -106,13 +107,13 @@
 .analise-filtros input {
     height: 38px;
     padding: 0 11px;
-    border: 1px solid #e2ddea;
+    border: 1px solid var(--border-color);
     border-radius: 9px;
-    background: #fff;
+    background: var(--bg-card);
     font: inherit;
     font-size: 12px;
     font-weight: 500;
-    color: #30263d;
+    color: var(--text-primary);
     outline-color: #895cf5;
 }
 
@@ -121,7 +122,7 @@
     padding: 0 13px;
     border: 0;
     border-radius: 9px;
-    background: #f1edf9;
+    background: var(--bg-primary);
     color: #7243b9;
     font-size: 12px;
     cursor: pointer;
@@ -150,31 +151,31 @@
 .indicador {
     min-width: 154px;
     padding: 12px 17px;
-    border: 1px solid #eee9f4;
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    background: #fff;
+    background: var(--bg-card);
 }
 
 .indicador span {
     font-size: 11px;
-    color: #8b8495;
+    color: var(--text-secondary);
 }
 
 .indicador strong {
     font-size: 20px;
-    color: #21192f;
+    color: var(--text-primary);
 }
 
 .exportar {
     height: 37px;
     padding: 0 14px;
-    border: 1px solid #d9caf6;
+    border: 1px solid var(--border-color);
     border-radius: 9px;
     color: #713bc5;
-    background: #fff;
+    background: var(--bg-card);
     font-weight: 600;
     font-size: 12px;
     cursor: pointer;
@@ -197,13 +198,13 @@
 
 .secao-titulo h3 {
     margin: 0 0 4px;
-    color: #21192f;
+    color: var(--text-primary);
     font-size: 16px;
 }
 
 .secao-titulo p {
     margin: 0;
-    color: #8b8495;
+    color: var(--text-secondary);
     font-size: 12px;
 }
 
@@ -211,21 +212,21 @@
     display: flex;
     padding: 4px;
     border-radius: 10px;
-    background: #f3f0f9;
+    background: var(--bg-primary);
 }
 
 .alternancia button {
     border: 0;
     border-radius: 7px;
     background: transparent;
-    color: #756b84;
+    color: var(--text-secondary);
     padding: 8px 12px;
     font-size: 12px;
     cursor: pointer;
 }
 
 .alternancia button.ativo {
-    background: #fff;
+    background: var(--bg-card);
     color: #713bc5;
     box-shadow: 0 1px 5px rgba(60, 35, 100, .13);
     font-weight: 700;
@@ -246,11 +247,11 @@
 }
 
 .painel {
-    border: 1px solid #eeeaf4;
+    border: 1px solid var(--border-color);
     border-radius: 13px;
     padding: 16px;
     min-width: 0;
-    background: #fff;
+    background: var(--bg-card);
 }
 
 .painel-titulo {
@@ -264,12 +265,12 @@
 .painel-titulo h3 {
     margin: 0;
     font-size: 14px;
-    color: #251d32;
+    color: var(--text-primary);
 }
 
 .painel-titulo span {
     font-size: 11px;
-    color: #938a9e;
+    color: var(--text-secondary);
 }
 
 .grafico {
@@ -307,20 +308,20 @@ table {
 th,
 td {
     padding: 11px 10px;
-    border-bottom: 1px solid #f1eef5;
+    border-bottom: 1px solid var(--border-color);
     white-space: nowrap;
 }
 
 thead {
     position: sticky;
     top: 0;
-    background: #f8f6fb;
-    color: #746c80;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
     z-index: 1;
 }
 
 td {
-    color: #41374f;
+    color: var(--text-primary);
 }
 
 td:nth-child(2),
@@ -331,12 +332,12 @@ th:nth-child(3) {
 }
 
 tbody tr:hover {
-    background: #faf8ff;
+    background: var(--bg-primary);
 }
 
 tfoot {
-    background: #faf9fc;
-    color: #4a3e5c;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .nome-linha {
@@ -368,14 +369,14 @@ tfoot {
     flex: 1;
     padding: 12px;
     border-radius: 9px;
-    background: #f8f5ff;
+    background: var(--bg-primary);
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
 .resumo-meses small {
-    color: #8a8097;
+    color: var(--text-secondary);
 }
 
 .resumo-meses strong {
@@ -386,15 +387,15 @@ tfoot {
 .vazio {
     padding: 60px 15px;
     text-align: center;
-    background: #faf8fd;
+    background: var(--bg-primary);
     border-radius: 12px;
-    color: #7f748c;
+    color: var(--text-secondary);
 }
 
 .rodape-aviso {
     margin: 14px 0 0;
     font-size: 11px;
-    color: #a19aa9;
+    color: var(--text-secondary);
 }
 
 @media(max-width:850px) {

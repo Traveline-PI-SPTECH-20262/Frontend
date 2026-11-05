@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -11,6 +11,9 @@ import { BaseChartDirective } from 'ng2-charts';
   styleUrl: './bar-chart.css',
 })
 export class BarChart {
+private corTexto = getComputedStyle(document.documentElement)
+  .getPropertyValue('--graph-line').trim();
+
 
   coresContinentes: Record<string, string> = {
     'América': '#1c9b5f',
@@ -41,12 +44,19 @@ export class BarChart {
       legend: { display: false }
     },
     scales: {
+      x: {
+        ticks: {
+          color: this.corTexto
+        }
+      },
+
       y: {
         grid: { display: false },
         ticks: {
+          color: this.corTexto,
           autoSkip: false
         }
-      }
+      }      
     }
   };
 
@@ -88,3 +98,4 @@ export class BarChart {
 
   chartType: ChartConfiguration<'bar'>['type'] = 'bar';
 }
+

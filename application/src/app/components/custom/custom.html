@@ -38,40 +38,13 @@
             (click)="selecionarTema('escuro')">
             ☾
             <span>Escuro</span>
-          </button>
+         </button>
 
-          <button
-            [class.selecionado]="temaSelecionado === 'automatico'"
-            (click)="selecionarTema('automatico')">
-            ◐
-            <span>Automático</span>
-          </button>
 
         </div>
       </section>
 
-      <section class="custom-section">
 
-        <div class="section-title">
-          <span class="section-icon">A</span>
-
-          <div>
-            <h3>Tamanho da fonte</h3>
-            <p>Altere o tamanho dos textos do sistema.</p>
-          </div>
-        </div>
-
-        <select
-          [value]="fonteSelecionada"
-          (change)="selecionarFonte($event)">
-
-          <option value="pequena">Pequena</option>
-          <option value="media">Média</option>
-          <option value="grande">Grande</option>
-
-        </select>
-
-      </section>
 
       <section class="custom-section">
 
