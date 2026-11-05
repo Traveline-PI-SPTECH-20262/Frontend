@@ -26,6 +26,10 @@ abrirAnalise(tipo: TipoAnalise) {
   this.analiseAberta = true;
 }
 
+irRecomendacao(){
+  window.location.href = '/recomendacoes'
+}
+
 fecharAnalise() {
   this.analiseAberta = false;
 }

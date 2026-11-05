@@ -61,10 +61,15 @@ main {
     align-items: start;
 }
 
-.img-funcionario{
-    background-color: #666;
+.avatar{
+    display: flex;
+    background: linear-gradient(135deg, #25184b, #6d28d9);
+    color: white;
     border-radius: 10px;
     height: 80px;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
     width: 80px;
 }
 

@@ -14,4 +14,11 @@ import API_URL from '../../config';
     getPerfil(idUsuario: number,idAgencia: Number): Observable<any> {
         return this.http.get(`${this.endpoint}/${idUsuario}/${idAgencia}`);
     }
+
+    posteditarPerfil(idusuario: number, nome: string, email: string) {
+    return this.http.post(`${this.endpoint}/${idusuario}`, {
+        nome,
+        email
+    });
+}
 }

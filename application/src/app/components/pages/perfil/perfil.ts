@@ -3,10 +3,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../header/header';
 import { PerfilService } from '../../../services/perfilservice/perfil.service';
-import {
-  ModalEditarPerfil,
-  FormularioPerfil
-} from '../../modal/modal-perfil/modal-perfil';
+import {ModalEditarPerfil,FormularioPerfil} from '../../modal/modal-perfil/modal-perfil';
 
 @Component({
   selector: 'app-perfil',
@@ -100,15 +97,36 @@ export class Perfil {
   }
 
   salvarEdicao(dados: FormularioPerfil) {
+    const idusuario = this.usuario.idusuario;
 
-    this.formulario = dados;
-
-    if (!this.formulario.nome || !this.formulario.email) {
-      this.mensagemEdicao = 'Preencha o nome e o e-mail.';
+    if (!idusuario) {
       return;
     }
 
-    this.mensagemEdicao =
-      'A atualização ainda precisa ser conectada ao backend.';
+    this.salvando = true;
+
+    this.perfilService.posteditarPerfil(
+      idusuario,
+      dados.nome,
+      dados.email
+    ).subscribe({
+      next: () => {
+        this.usuario.nome = dados.nome;
+        this.usuario.email = dados.email;
+
+        this.salvando = false;
+        this.editando = false;
+
+        this.cdr.detectChanges();
+      },
+      error: (erro) => {
+        console.error('Erro ao editar perfil:', erro);
+
+        this.mensagemEdicao = 'Erro ao salvar informações';
+        this.salvando = false;
+
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

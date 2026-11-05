@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
 import { Header } from '../../header/header';
-import {PainelService} from '../../../services/painelservice/painel.service';
+import { PainelService } from '../../../services/painelservice/painel.service';
 import { UsuarioModel } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/userservices/auth.service';
 
@@ -10,12 +11,11 @@ import { AuthService } from '../../../services/userservices/auth.service';
   templateUrl: './painel.html',
   styleUrl: './painel.css',
 })
-
-
 export class Painel implements OnInit {
 
   ngOnInit(): void {
-    const token: UsuarioModel | null = AuthService.prototype.getToken();
+    const token: UsuarioModel | null = this.authService.getToken();
+
     if (token) {
       const tipoUsuario: string | null = token.cargo || null;
 
@@ -24,55 +24,44 @@ export class Painel implements OnInit {
       }
     }
   }
-  
-  funcionarios = [
-    {
-      id: 1,
-      nome: 'João Silva',
-      cargo: 'Desenvolvedor',
-      email: 'joao@email.com'
-    },
-    {
-      id: 2,
-      nome: 'Maria Santos',
-      cargo: 'Analista',
-      email: 'maria@email.com'
-    },
-    {
-      id: 3,
-      nome: 'Carlos Oliveira',
-      cargo: 'Gerente',
-      email: 'carlos@email.com'
-    },
-    {
-      id: 4,
-      nome: 'Guilherme Oliveira Oliveira Oliveira Oliveira',
-      cargo: 'Estagiario',
-      email: 'guilherme@email.com'
-    }
-  ];
-  
-  /*  PREPARAÇÃO PARA O BACK DA TELA DO PAINEL
-  constructor(private painelService: PainelService) {}
 
-  
-  carregarfuncionairos(): void{
-    const dados = localStorage.getItem('usuario') 
-    let idAgencia: number = 0;
-  if (dados) {
-      try {
-          const objetoSessao = JSON.parse(dados);
-          idAgencia = objetoSessao.usuario.idAgencia;
+  funcionarios: any[] = [];
+  constructor(
+    private painelService: PainelService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.carregarfuncionairos();
+  }
+ carregarfuncionairos(): void {
+  const dadosSalvos = localStorage.getItem('token');
+  let idAgencia;
 
-      } catch (erro) {
-        console.error('Erro ao ler os dados da sessão:', erro);
-      }
+  if (dadosSalvos) {
+    try {
+      const objetoSessao = JSON.parse(dadosSalvos);
+      idAgencia = objetoSessao.usuario
+        ? objetoSessao.usuario.idAgencia
+        : objetoSessao.idAgencia;
+
+    } catch (erro) {
+      console.error( erro);
     }
-    this.painelService.getfunc(idAgencia).subscribe({
-      next: (dados: any) => {
-        
+  }
+  if (!idAgencia) {
+    console.error('ID não encontrado');
+    return;
+  }
+
+  this.painelService.getfunc(idAgencia).subscribe({
+    next: (dados: any) => {
+      console.log('Funcionários:', dados[0]);
+      this.funcionarios = dados[0];
+      this.cdr.detectChanges();
     },
-  })
+    error: (erro) => {
+      console.error('Erro ao carregar funcionários:', erro);
+    }
+  });
 }
-  */
 }
