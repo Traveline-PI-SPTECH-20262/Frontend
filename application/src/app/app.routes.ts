@@ -8,6 +8,7 @@ import { Relatorios } from './components/pages/relatorios/relatorios';
 import { Painel } from './components/pages/painel/painel';
 import {Perfil} from './components/pages/perfil/perfil';
 import { Especifica } from './components/pages/especifica/especifica';
+import { LandingLayout } from './layouts/landing-layout/landing-layout';
 
 
 export const routes: Routes = [
@@ -17,7 +18,7 @@ export const routes: Routes = [
     },
     {
         path: '',
-        component: MainLayout,
+        component: LandingLayout,
         children: [{
             path: 'dashboard',
             component: Dashboard
