@@ -7,7 +7,7 @@ import API_URL from '../../config';
     providedIn: 'root',
     })
     export class PerfilService {
-    private endpoint: string = `${API_URL}/perfil`;
+    private endpoint: string = `${API_URL}:3000/perfil`;
 
     constructor(private http: HttpClient) {}
 

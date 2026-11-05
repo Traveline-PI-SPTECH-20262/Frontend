@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Navbar } from '../../components/navbar/navbar';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import API_URL from '../../config';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,7 +9,20 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.css',
 })
-export class MainLayout {
+export class MainLayout implements OnInit {
+
+  constructor(private router: Router) {
+
+  }
+
+  ngOnInit(): void {
+    if (this.router.url === '/') {
+      window.location.href = `${API_URL}:4000`;
+    }
+  }
+
+  
+
   /*
   verificarLogin() {
     try {

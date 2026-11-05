@@ -8,7 +8,7 @@ import { UsuarioModel } from '../../models/usuario.model';
   providedIn: 'root',
 })
 export class AuthService {
-  private endpoint: string = `${API_URL}/user/auth`;
+  private endpoint: string = `${API_URL}:3000/user/auth`;
 
   constructor(private http: HttpClient) {}
 
