@@ -30,14 +30,20 @@
 
                                 <td>{{recomendacoesAtual.participacao_2021}}</td>
 
-                                @if (recomendacoesAtual.tendencia === 'Alta') {
+                                @if (recomendacoesAtual.tendencia === 'Subir') {
                                     <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
-                                } @else if (recomendacoesAtual.tendencia === 'Estável') {
+                                } @else if (recomendacoesAtual.tendencia === 'Manter') {
                                     <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
                                 } @else {
                                     <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
                                 }
-                                <td><span>{{recomendacoesAtual.oportunidade}}</span></td>
+                                    @if (recomendacoesAtual.oportunidade === 'Alta') {
+                                        <td><span class="alta">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    } @else if (recomendacoesAtual.oportunidade === 'Média') {
+                                        <td><span class="media">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    } @else if (recomendacoesAtual.oportunidade === 'Baixa') {
+                                        <td><span class="baixa">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    }
                             </tr>
                             }@else{
                                 <tr>
@@ -51,14 +57,20 @@
 
                                     <td>{{recomendacoesAtual.participacao_2021}}</td>
 
-                                    @if (recomendacoesAtual.tendencia === 'Alta') {
+                                    @if (recomendacoesAtual.tendencia === 'Subir') {
                                         <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
-                                    } @else if (recomendacoesAtual.tendencia === 'Estável') {
+                                    } @else if (recomendacoesAtual.tendencia === 'Manter') {
                                         <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
                                     } @else {
                                         <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
                                     }
-                                    <td><span>{{recomendacoesAtual.oportunidade}}</span></td>
+                                    @if (recomendacoesAtual.oportunidade === 'Alta') {
+                                        <td><span class="alta">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    } @else if (recomendacoesAtual.oportunidade === 'Média') {
+                                        <td><span class="media">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    } @else if (recomendacoesAtual.oportunidade === 'Baixa') {
+                                        <td><span class="baixa">{{ recomendacoesAtual.oportunidade }}</span></td>
+                                    }
                                 </tr>
                             }
                     }

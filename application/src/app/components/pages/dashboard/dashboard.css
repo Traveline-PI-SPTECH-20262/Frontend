@@ -110,6 +110,7 @@ th { color: var(--text-secondary); font-weight: normal; }
 
 .subiu { color: #1c9b5f; font-weight: 500; }
 .desceu { color: #e54b4b; font-weight: 500; }
+.manteve { color: #0288d1; font-weight: 500; }
 
 td span {
     display: inline-block; padding: 4px 10px; border-radius: 6px; font-weight: bold; font-size: 0.75rem; text-align: center; min-width: 50px;
