@@ -29,7 +29,8 @@ table {
     font-size: 0.85rem;
 }
 
-th, td {
+th,
+td {
     padding: 5px;
     text-align: left;
 }
@@ -43,7 +44,7 @@ tr {
     border-bottom: solid 1px rgba(100, 100, 100, 0.629);
 }
 
-thead{
+thead {
     padding: 10px;
 }
 
@@ -51,7 +52,7 @@ thead th {
     position: sticky;
     top: 0;
     z-index: 10;
-    padding: 12px 5px 12px 5px; 
+    padding: 12px 5px 12px 5px;
     font-size: larger;
     font-weight: bolder;
     background-color: #ffffff;
@@ -76,6 +77,44 @@ tbody td {
     color: #4baae5;
     font-weight: 500;
 }
+
+
+.alta {
+    background: #e1f5fe;
+    color: #0288d1;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-align: center;
+    min-width: 50px;
+}
+
+.media {
+    background: #fff3e0;
+    color: #f57c00;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-align: center;
+    min-width: 50px;
+}
+
+.baixa {
+    background: #ffebee;
+    color: #d32f2f;
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.75rem;
+    text-align: center;
+    min-width: 50px;
+}
+
 
 td span {
     display: inline-block;
