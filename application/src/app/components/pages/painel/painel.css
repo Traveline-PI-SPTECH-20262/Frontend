@@ -135,3 +135,45 @@ main {
 #delete{
     background-color: rgba(255, 2, 2, 0.383);
 }
+
+
+
+.informacoes-funcionario p {
+  margin-bottom: 15px;
+  font-size: 15px;
+}
+
+.informacoes-funcionario strong {
+  color: #24143f;
+}
+
+.exclusao-funcionario p {
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.botoes-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.botoes-modal button {
+  padding: 12px 18px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.botoes-modal .botao-excluir {
+  background: #dc2626;
+  color: white;
+  border: none;
+}
+
+.botoes-modal .botao-excluir:hover {
+  background: #b91c1c;
+}

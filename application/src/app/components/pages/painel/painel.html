@@ -31,9 +31,15 @@
                         <div class="acoes-alinhador">
                             <h5>Ações:</h5>
                             <span class="acoes-buttons">
-                                <button id="edit">✎</button>
-                                <button id="delete">🗑️</button>
-                                <button id="view">👁️</button>
+                                <button id="edit" title="Editar" (click)="abrirEdicao(funcionario)">✎</button>
+
+                                <button id="delete" title="Excluir" (click)="abrirExclusao(funcionario)">
+                                    🗑️
+                                </button>
+
+                                <button id="view" title="Visualizar" (click)="abrirVisualizacao(funcionario)">
+                                    👁️
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -42,4 +48,74 @@
             }
         </section>
     </section>
+    <app-modal-editar-perfil [aberto]="editando" [formulario]="formulario" [salvando]="salvando"
+        [mensagemEdicao]="mensagemEdicao" (cancelar)="cancelarEdicao()" (salvar)="salvarEdicao($event)">
+    </app-modal-editar-perfil>
+
+
+    <!-- MODAL DE VISUALIZAÇÃO -->
+
+    <app-modal [aberto]="visualizando" titulo="Informações do funcionário"
+        descricao="Visualize os dados do funcionário." (fechar)="fecharVisualizacao()">
+
+        <div class="informacoes-funcionario">
+
+            <p>
+                <strong>ID:</strong>
+                {{ funcionarioSelecionado.idusuario }}
+            </p>
+
+            <p>
+                <strong>Nome:</strong>
+                {{ funcionarioSelecionado.nome }}
+            </p>
+
+            <p>
+                <strong>E-mail:</strong>
+                {{ funcionarioSelecionado.email }}
+            </p>
+
+            <p>
+                <strong>Cargo:</strong>
+                {{ funcionarioSelecionado.cargo }}
+            </p>
+
+            <div class="botoes-modal">
+                <button (click)="fecharVisualizacao()">
+                    Fechar
+                </button>
+            </div>
+
+        </div>
+
+    </app-modal>
+
+    <app-modal [aberto]="excluindo" titulo="Excluir funcionário" descricao="Confirme a exclusão do funcionário."
+        (fechar)="cancelarExclusao()">
+
+        <div class="exclusao-funcionario">
+
+            <p>
+                Tem certeza que deseja excluir
+                <strong>{{ funcionarioSelecionado.nome }}</strong>?
+            </p>
+
+            <p>Essa ação não poderá ser desfeita.</p>
+
+            <div class="botoes-modal">
+
+                <button (click)="cancelarExclusao()">
+                    Cancelar
+                </button>
+
+                <button class="botao-excluir" (click)="confirmarExclusao()">
+                    Excluir funcionário
+                </button>
+
+            </div>
+
+        </div>
+
+    </app-modal>
+
 </main>
