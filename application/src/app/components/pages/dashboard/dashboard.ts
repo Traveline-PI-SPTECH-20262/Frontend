@@ -27,7 +27,7 @@ abrirAnalise(tipo: TipoAnalise) {
 }
 
 irRecomendacao(){
-  window.location.href = '/recomendacoes'
+  window.location.href = '/main/recomendacoes'
 }
 
 fecharAnalise() {
