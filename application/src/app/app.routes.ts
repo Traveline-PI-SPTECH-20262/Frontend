@@ -18,34 +18,40 @@ export const routes: Routes = [
     },
     {
         path: '',
-        component: LandingLayout,
-        children: [{
+        component: LandingLayout
+    },
+    {
+        path: 'main',
+        component: MainLayout,
+        children: [
+            {
             path: 'dashboard',
-            component: Dashboard
-        }, 
-        {
+            component: Dashboard,
+            }, 
+            {
                 path: 'upl',
                 component: Upl
             },
-        {
+            {
                 path: 'relatorios',
                 component: Relatorios
             },
-        {
+            {
                 path: 'painel',
                 component: Painel
             },
-        {
+            {
                 path: 'perfil',
                 component: Perfil
             },
-        {
+            {
                 path: 'recomendacoes',
                 component: Recomendacoes
-        },
+            },
             {
                 path: 'especifica',
                 component: Especifica
-            }]
+            }
+        ]
     }
 ];

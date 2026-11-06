@@ -36,7 +36,7 @@ export class Login {
         next: (response) => {
         const usuario = response.usuario;
         console.log('Login bem-sucedido:', response.usuario);
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/main/dashboard'])
         console.log('ID do usuário:', usuario.idusuario);
         const token = JSON.stringify({usuario});
 
