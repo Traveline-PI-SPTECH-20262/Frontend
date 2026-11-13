@@ -31,7 +31,7 @@ export class AuthService {
     const token = tokenString ? JSON.parse(tokenString) : null;
 
     const usuario: UsuarioModel | null = {
-      id: token?.usuario.id || 0,
+      id: token?.usuario.idusuario || 0,
       nome: token?.usuario.nome || '',
       email: token?.usuario.email || '',
       senha: token?.usuario.senha || '',

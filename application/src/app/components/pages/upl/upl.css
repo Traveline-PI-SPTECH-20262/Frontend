@@ -1,56 +1,126 @@
+:host {
+    display: block;
+    height: 100dvh;
+    min-width: 0;
+    overflow: hidden;
+}
+
 main {
     width: 100%;
-    min-height: 100%;
-    padding: 2rem;
+    height: 100%;
+    min-height: 0;
+    padding: 20px 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    background-color: #f8f7fc;
+    gap: 1rem;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+
+app-header, .upload-container {
+    flex-shrink: 0;
 }
 
 .upload-container {
-    padding: 30px;
+    padding: 0 30px;
 }
 
 .zona-carregamento {
-    margin-top: 30px;
-    padding: 50px;
+    padding: 20px;
     border: 2px dashed #aaa;
     border-radius: 12px;
     text-align: center;
 }
 
-.button-carregar {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #222;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
+.zona-carregamento h2 {
+    font-size: 1.1rem;
 }
 
-.info-arquivo {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.zona-carregamento p {
+    margin: 8px 0;
 }
 
-.info-arquivo p {
-    margin: 5px 0;
-    color: #777;
-}
-
-.button-enviar {
-    margin-top: 20px;
+.button-carregar, .button-enviar {
     padding: 12px 25px;
     border: none;
     border-radius: 8px;
     background-color: #222;
     color: white;
     cursor: pointer;
+}
+
+.button-carregar {
+    display: inline-block;
+}
+
+.button-enviar {
+    margin-top: 10px;
+}
+
+.info-arquivo {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-card);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-arquivo div {
+    min-width: 0;
+}
+
+.info-arquivo strong {
+    overflow-wrap: anywhere;
+}
+
+.button-remover {
+    padding: 8px 16px;
+    border: 1px solid #e54b4b;
+    border-radius: 8px;
+    background-color: #ffebee;
+    color: #b42332;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.button-remover:hover {
+    background-color: #b42332;
+    color: white;
+}
+
+.button-remover:focus-visible {
+    outline: 2px solid #b42332;
+    outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 12px 16px;
+    }
+
+    .upload-container {
+        padding: 0;
+    }
+}
+
+@media (max-height: 700px) {
+    main {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        gap: 10px;
+    }
+
+    .zona-carregamento {
+        padding: 10px;
+    }
+
+    .button-carregar, .button-enviar {
+        padding: 8px 18px;
+    }
 }

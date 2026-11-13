@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Header } from '../../header/header';
+import { HistoricoUpload } from '../../historico-upload/historico-upload';
 
 
 @Component({
   selector: 'app-apl',
-  imports: [Header],
+  imports: [Header, HistoricoUpload],
   templateUrl: './upl.html',
   styleUrl: './upl.css'
 })
@@ -19,8 +20,9 @@ export class Upl {
       this.selectedFile = input.files[0];
     }
   }
-  removeFile() {
+  removeFile(input: HTMLInputElement) {
     this.selectedFile = null;
+    input.value = '';
   }
 
 }

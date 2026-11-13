@@ -1,0 +1,31 @@
+<section class="historico" aria-labelledby="titulo-historico">
+    <div class="titulo-historico">
+        <div>
+            <h2 id="titulo-historico">Histórico de carregamentos</h2>
+            <p>Confira os arquivos enviados e os responsáveis por cada carregamento.</p>
+        </div>
+        <span class="contador">{{carregamentos.length}} arquivos</span>
+    </div>
+    <p class="aviso-exemplo">Dados de exemplo</p>
+
+    <ul class="lista-carregamentos" tabindex="0" aria-label="Histórico de arquivos enviados">
+        @for(carregamentoAtual of carregamentos; track carregamentoAtual.id){
+            <li class="card-carregamento">
+                <div class="arquivo-info">
+                    <span>Nome do arquivo</span>
+                    <h3>{{carregamentoAtual.arquivo}}</h3>
+                </div>
+                <div class="responsavel-info">
+                    <span>Enviado por</span>
+                    <p>{{carregamentoAtual.responsavel}}</p>
+                </div>
+                <div class="data-info">
+                    <span>Data do carregamento</span>
+                    <p>{{carregamentoAtual.data}}</p>
+                </div>
+            </li>
+        } @empty {
+            <li class="historico-vazio">Nenhum arquivo carregado ainda.</li>
+        }
+    </ul>
+</section>

@@ -49,7 +49,7 @@ export class Painel implements OnInit {
     const token: UsuarioModel | null = this.authService.getToken();
 
     if (token && token.cargo !== 'Gerente') {
-      window.location.href = '/dashboard';
+      window.location.href = '/main/dashboard';
     }
   }
 

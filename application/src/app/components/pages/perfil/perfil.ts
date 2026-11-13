@@ -113,6 +113,7 @@ export class Perfil {
       next: () => {
         this.usuario.nome = dados.nome;
         this.usuario.email = dados.email;
+        localStorage.setItem('token', JSON.stringify({usuario: this.usuario}));
 
         this.salvando = false;
         this.editando = false;

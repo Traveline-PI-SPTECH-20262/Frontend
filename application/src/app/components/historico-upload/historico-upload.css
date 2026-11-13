@@ -1,0 +1,121 @@
+:host {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.historico {
+    width: 100%;
+    min-height: 0;
+    padding: 0 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-historico {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    flex-shrink: 0;
+}
+
+.titulo-historico h2 {
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.titulo-historico p, .aviso-exemplo, .card-carregamento span {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.contador {
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.aviso-exemplo {
+    margin: 15px 0;
+    flex-shrink: 0;
+}
+
+.lista-carregamentos {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 6px;
+    list-style: none;
+}
+
+.card-carregamento {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 24px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-card);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.arquivo-info {
+    flex: 2;
+    min-width: 0;
+}
+
+.responsavel-info, .data-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.card-carregamento span {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.card-carregamento h3, .card-carregamento p {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    overflow-wrap: anywhere;
+}
+
+.historico-vazio {
+    padding: 25px;
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 900px) {
+    .card-carregamento {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .historico {
+        padding: 0;
+    }
+
+    .titulo-historico {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .card-carregamento {
+        padding: 16px;
+    }
+}

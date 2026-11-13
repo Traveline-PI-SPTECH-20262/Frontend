@@ -1,18 +1,17 @@
 <main>
     <app-header
         titulo="Upload da base de dados"
-        descricao="Suba a sua base de dados para ser analizada."
+        descricao="Suba a sua base de dados para ser analisada."
     >
     </app-header>
 
     <div class="upload-container">
         <div class="zona-carregamento">
         <h2>Clique ou arraste arquivos para upload</h2>
-        <br />
         <p>ou</p>
-        <br />
         <label for="fileInput" class="button-carregar"> Selecionar arquivo </label>
         <input
+            #fileInput
             id="fileInput"
             type="file"
             accept=".xlsx,.xls"
@@ -25,9 +24,10 @@
             <div>
             <strong>{{ selectedFile.name }}</strong>
             </div>
-            <button (click)="removeFile()">Remover</button>
+            <button type="button" class="button-remover" (click)="removeFile(fileInput)">Remover</button>
         </div>
         }
         <button class="button-enviar">Enviar</button>
     </div>
+    <app-historico-upload></app-historico-upload>
 </main>
