@@ -19,8 +19,8 @@ export class Perfil {
   usuario: any = {};
   agencia: any = {};
 
-  totalPlanilhas: number = 3;
-  totalRelatorios: number = 5;
+  totalPlanilhas: string = localStorage.getItem('planilhas')|| '0';
+  totalRelatorios: string = localStorage.getItem('relatorios')|| '0';
 
   editando: boolean = false;
   salvando: boolean = false;
@@ -73,7 +73,9 @@ export class Perfil {
       this.perfilService.getPerfil(idUsuario, idAgencia).subscribe({
         next: (dados) => {
           console.log('Dados que chegaram do backend:', dados);
-
+          
+          localStorage.setItem('planilhas', dados.planilha?.length);
+          localStorage.setItem('relatorios', dados.relatorio?.length);
           this.usuario = dados?.usuario || {};
           this.agencia = dados?.agencia || {};
           this.cdr.detectChanges();
