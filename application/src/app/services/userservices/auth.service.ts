@@ -26,6 +26,10 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+  public salvarPreferencias(preferencias: string): void {
+    localStorage.setItem('preferencias', preferencias);
+  }
+
   public getToken(): UsuarioModel | null {
     const tokenString = localStorage.getItem('token');
     const token = tokenString ? JSON.parse(tokenString) : null;
@@ -45,4 +49,6 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('token');
   }
+
+  
 }

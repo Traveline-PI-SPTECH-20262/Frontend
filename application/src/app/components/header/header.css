@@ -26,7 +26,7 @@
   justify-content: center;
   gap: 8px;
 
-  padding: 10px 18px;
+  padding: 10px 10px;
 
   background: var(--accent-color, #7040d5);
   color: #ffffff;
@@ -34,7 +34,7 @@
   border: none;
   border-radius: 8px;
 
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   font-weight: 600;
 
   cursor: pointer;
@@ -70,4 +70,8 @@
   .btn-personalizar {
     align-self: flex-end;
   }
+}
+
+.ph .ph-paint-brush {
+  height: 20px;
 }

@@ -36,12 +36,15 @@ export class Login {
         next: (response) => {
         const usuario = response.usuario;
         console.log('Login bem-sucedido:', response.usuario);
-        this.router.navigate(['/main/dashboard'])
+        console.log('teste:', response);
+        this.router.navigate(['/main/dashboard'])   
         console.log('ID do usuário:', usuario.idusuario);
-        const token = JSON.stringify({usuario});
+        const token = JSON.stringify({usuario,});
+        const preferencias = JSON.stringify({preferencias: response.preferencias});
 
         if(response) {
           this.authService.salvarToken(token);
+          this.authService.salvarPreferencias(preferencias);
         }
         
       },

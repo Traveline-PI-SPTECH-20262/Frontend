@@ -1,17 +1,20 @@
-
 @if (aberto) {
-  <div class="custom-overlay">
+<div class="custom-overlay">
 
-    <div class="custom-modal">
+  <div class="custom-modal">
 
-      <div class="custom-header">
-        <div>
-          <h2>Configurações da Conta</h2>
-          <p>Personalize sua experiência no Traveline.</p>
-        </div>
-
-        <button class="fechar" (click)="cancelar()">×</button>
+    <div class="custom-header">
+      <div>
+        <h2>Configurações da Conta</h2>
+        <p>Personalize sua experiência no Traveline.</p>
       </div>
+
+      <button class="fechar" (click)="cancelar()">×</button>
+    </div>
+
+    <div class="custom-conteudo">
+
+
 
       <section class="custom-section">
 
@@ -26,22 +29,19 @@
 
         <div class="temas">
 
-          <button
-            [class.selecionado]="temaSelecionado === 'claro'"
-            (click)="selecionarTema('claro')">
+          <button [class.selecionado]="temaSelecionado === 'claro'" (click)="selecionarTema('claro')">
             ☀
             <span>Claro</span>
           </button>
 
-          <button
-            [class.selecionado]="temaSelecionado === 'escuro'"
-            (click)="selecionarTema('escuro')">
+          <button [class.selecionado]="temaSelecionado === 'escuro'" (click)="selecionarTema('escuro')">
             ☾
             <span>Escuro</span>
-         </button>
+          </button>
 
 
         </div>
+
       </section>
 
 
@@ -65,9 +65,7 @@
               <small>Indicador geral de turistas.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.totalTuristas"
+            <input type="checkbox" [checked]="kpisSelecionados.totalTuristas"
               (change)="alterarKpi('totalTuristas', $event)">
           </label>
 
@@ -77,10 +75,7 @@
               <small>Quantidade de turistas por via aérea.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.viaAerea"
-              (change)="alterarKpi('viaAerea', $event)">
+            <input type="checkbox" [checked]="kpisSelecionados.viaAerea" (change)="alterarKpi('viaAerea', $event)">
           </label>
 
           <label class="kpi-item">
@@ -89,9 +84,7 @@
               <small>Quantidade de turistas por via terrestre.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.viaTerrestre"
+            <input type="checkbox" [checked]="kpisSelecionados.viaTerrestre"
               (change)="alterarKpi('viaTerrestre', $event)">
           </label>
 
@@ -101,9 +94,7 @@
               <small>Quantidade de turistas por via marítima.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.viaMaritima"
+            <input type="checkbox" [checked]="kpisSelecionados.viaMaritima"
               (change)="alterarKpi('viaMaritima', $event)">
           </label>
 
@@ -113,10 +104,7 @@
               <small>Quantidade de turistas por via fluvial.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.viaFluvial"
-              (change)="alterarKpi('viaFluvial', $event)">
+            <input type="checkbox" [checked]="kpisSelecionados.viaFluvial" (change)="alterarKpi('viaFluvial', $event)">
           </label>
 
           <label class="kpi-item">
@@ -125,29 +113,89 @@
               <small>Paises que mais emitem turistas.</small>
             </span>
 
-            <input
-              type="checkbox"
-              [checked]="kpisSelecionados.paisesEmissores"
+            <input type="checkbox" [checked]="kpisSelecionados.paisesEmissores"
               (change)="alterarKpi('paisesEmissores', $event)">
           </label>
 
-        
+
 
         </div>
       </section>
 
-      <div class="custom-footer">
+      <section class="custom-section">
 
-        <button class="btn-cancelar" (click)="cancelar()">
-          Cancelar
-        </button>
+        <div class="section-title">
 
-        <button class="btn-salvar" (click)="salvar()">
-          Salvar alterações
-        </button>
+          <span class="section-icon">♧</span>
 
-      </div>
+          <div>
+            <h3>Notificações</h3>
+            <p>Escolha como deseja receber alertas e atualizações.</p>
+          </div>
+
+        </div>
+
+
+        <!-- Ativar ou desativar notificações -->
+
+        <label class="kpi-item">
+
+          <span>
+            <strong>Receber notificações?</strong>
+            <small>Ative ou desative os avisos da plataforma.</small>
+          </span>
+
+          <input type="checkbox" [checked]="notificacoesAtivas" (change)="alterarNotificacoes($event)">
+
+        </label>
+
+
+        <!-- Frequência -->
+
+        <div class="frequencia-item">
+
+          <div>
+            <strong>Qual a frequência das notificações?</strong>
+            <small>Defina quando deseja receber os avisos.</small>
+          </div>
+
+          <select [value]="frequenciaNotificacao" (change)="alterarFrequencia($event)" [disabled]="!notificacoesAtivas">
+
+            <option value="diaria">Diária</option>
+
+            <option value="semanal">Semanal</option>
+
+            <option value="mensal">Mensal</option>
+
+          </select>
+
+          @if (erroNotificacao) {
+          <p class="erro-notificacao">
+            {{ erroNotificacao }}
+          </p>
+}
+
+        </div>
+
+      </section>
+    </div>
+    <div class="custom-footer">
+
+      <button class="btn-cancelar" (click)="cancelar()">
+        Cancelar
+      </button>
+
+      <button
+    class="btn-salvar"
+    (click)="salvar()"
+    [disabled]="salvando">
+
+    {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+
+</button>
 
     </div>
+
   </div>
+</div>
 }

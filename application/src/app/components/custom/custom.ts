@@ -11,9 +11,11 @@ import {
 import {
   ConfiguracoesService,
   Tema,
-  TamanhoFonte,
   KpiVisibilidade
 } from '../../services/services/configuracoes';
+
+import { PerfilService } from '../../services/perfilservice/perfil.service';
+import { AuthService } from '../../services/userservices/auth.service';
 
 @Component({
   selector: 'app-custom',
@@ -31,7 +33,13 @@ export class CustomComponent implements OnChanges {
 
   temaSelecionado: Tema = 'claro';
 
-  fonteSelecionada: TamanhoFonte = 'media';
+  notificacoesAtivas: boolean = true;
+
+  frequenciaNotificacao: string = 'diaria';
+
+  salvando: boolean = false;
+
+  erroNotificacao: string = '';
 
   kpisSelecionados: KpiVisibilidade = {
     totalTuristas: true,
@@ -43,7 +51,9 @@ export class CustomComponent implements OnChanges {
   };
 
   constructor(
-    public configuracoes: ConfiguracoesService
+    public configuracoes: ConfiguracoesService,
+    private authService: AuthService,
+    private perfilService: PerfilService
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -55,21 +65,34 @@ export class CustomComponent implements OnChanges {
   carregarRascunho() {
     this.temaSelecionado = this.configuracoes.tema;
 
-    this.fonteSelecionada = this.configuracoes.tamanhoFonte;
 
     this.kpisSelecionados = {
       ...this.configuracoes.kpis
     };
+
+    const dados = localStorage.getItem('preferencias');
+
+    if (dados) {
+
+      const resposta = JSON.parse(dados);
+
+      const preferencias = resposta.preferencias;
+
+     if (preferencias) {
+
+          this.notificacoesAtivas =
+             Boolean(preferencias.notificacoesAtivas);
+
+          this.frequenciaNotificacao =
+              preferencias.frequencia || 'diaria';
+
+     }
+
+    }
   }
 
   selecionarTema(tema: Tema) {
     this.temaSelecionado = tema;
-  }
-
-  selecionarFonte(event: Event) {
-    const valor = (event.target as HTMLSelectElement).value;
-
-    this.fonteSelecionada = valor as TamanhoFonte;
   }
 
   alterarKpi(chave: keyof KpiVisibilidade, event: Event) {
@@ -79,16 +102,80 @@ export class CustomComponent implements OnChanges {
   }
 
   salvar() {
-    this.configuracoes.salvarPreferencias(
-      this.temaSelecionado,
-      this.fonteSelecionada,
-      this.kpisSelecionados
-    );
 
-    this.fechar.emit();
-  }
+    const usuario = this.authService.getToken();
+
+    if (!usuario || !usuario.id) {
+        this.erroNotificacao = 'Usuário não identificado.';
+        return;
+    }
+
+    this.salvando = true;
+    this.erroNotificacao = '';
+
+    this.perfilService.salvarNotificacoes(
+        usuario.id,
+        this.notificacoesAtivas,
+        this.frequenciaNotificacao
+    ).subscribe({
+
+        next: () => {
+
+            this.configuracoes.salvarPreferencias(
+                this.temaSelecionado,
+                this.kpisSelecionados
+            );
+
+            localStorage.setItem(
+                'preferencias',
+                JSON.stringify({
+                    preferencias: {
+                        notificacoesAtivas: this.notificacoesAtivas,
+                        frequencia: this.frequenciaNotificacao
+                    }
+                })
+            );
+
+            this.salvando = false;
+
+            this.fechar.emit();
+
+        },
+
+        error: (erro) => {
+
+            console.error('Erro ao salvar notificações:', erro);
+
+            this.erroNotificacao =
+                'Não foi possível salvar as configurações.';
+
+            this.salvando = false;
+
+        }
+
+    });
+
+}
 
   cancelar() {
     this.fechar.emit();
   }
+
+  alterarNotificacoes(event: Event) {
+
+    const checkbox = event.target as HTMLInputElement;
+
+    this.notificacoesAtivas = checkbox.checked;
+
+}
+
+alterarFrequencia(event: Event) {
+
+    const select = event.target as HTMLSelectElement;
+
+    this.frequenciaNotificacao = select.value;
+
+}
+
+  
 }

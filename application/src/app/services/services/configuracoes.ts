@@ -5,7 +5,6 @@ import { Chart } from 'chart.js';
 
 export type Tema = 'claro' | 'escuro' | 'automatico';
 
-export type TamanhoFonte = 'pequena' | 'media' | 'grande';
 
 export interface KpiVisibilidade {
   totalTuristas: boolean;
@@ -23,7 +22,6 @@ export class ConfiguracoesService {
 
   tema: Tema = 'claro';
 
-  tamanhoFonte: TamanhoFonte = 'media';
 
   kpis: KpiVisibilidade = {
     totalTuristas: true,
@@ -40,20 +38,16 @@ export class ConfiguracoesService {
 
   salvarPreferencias(
     tema: Tema,
-    tamanhoFonte: TamanhoFonte,
     kpis: KpiVisibilidade
   ) {
     this.tema = tema;
-    this.tamanhoFonte = tamanhoFonte;
     this.kpis = { ...kpis };
 
     this.aplicarTema();
-    this.aplicarFonte();
     this.atualizarGraficos();
 
     localStorage.setItem('traveline-config', JSON.stringify({
       tema: this.tema,
-      tamanhoFonte: this.tamanhoFonte,
       kpis: this.kpis
     }));
   }
@@ -63,18 +57,6 @@ export class ConfiguracoesService {
   }
 
  
-
-  private aplicarFonte() {
-    const tamanhos = {
-      pequena: '14px',
-      media: '16px',
-      grande: '18px'
-    };
-
-    this.document.documentElement.style.fontSize =
-      tamanhos[this.tamanhoFonte];
-  }
-
   private carregarConfiguracoes() {
     const dados = localStorage.getItem('traveline-config');
 
@@ -84,10 +66,6 @@ export class ConfiguracoesService {
 
         if (['claro', 'escuro', 'automatico'].includes(config.tema)) {
           this.tema = config.tema;
-        }
-
-        if (['pequena', 'media', 'grande'].includes(config.tamanhoFonte)) {
-          this.tamanhoFonte = config.tamanhoFonte;
         }
 
         if (config.kpis) {
@@ -102,7 +80,6 @@ export class ConfiguracoesService {
     }
 
     this.aplicarTema();
-    this.aplicarFonte();
   }
 
   

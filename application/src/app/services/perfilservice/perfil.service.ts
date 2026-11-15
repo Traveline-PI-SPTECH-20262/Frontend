@@ -20,5 +20,21 @@ import API_URL from '../../config';
         nome,
         email
     });
+    }
+    
+    salvarNotificacoes(
+    idusuario: number,
+    notificacoesAtivas: boolean,
+    frequencia: string
+) {
+    return this.http.post(
+        `${this.endpoint}/notificacoes/${idusuario}`,
+        {
+            notificacoesAtivas,
+            frequencia
+        }
+    );
 }
+
+
 }
