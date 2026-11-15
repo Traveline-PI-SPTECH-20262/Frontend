@@ -29,6 +29,8 @@ export class Painel implements OnInit {
   excluindo = false;
 
   salvando = false;
+  deletando = false;
+  mensagemDelecao = '';
   mensagemEdicao = '';
 
   formulario: FormularioPerfil = {
@@ -98,6 +100,19 @@ export class Painel implements OnInit {
 
     this.mensagemEdicao = '';
     this.editando = true;
+  }
+
+  abrirDeletar(funcionario: any) {
+    this.funcionarioSelecionado = funcionario;
+
+    this.formulario = {
+      nome: funcionario.nome,
+      email: funcionario.email,
+      cargo: funcionario.cargo
+    };
+
+    this.mensagemDelecao = '';
+    this.deletando = true;
   }
 
   salvarEdicao(dados: FormularioPerfil) {

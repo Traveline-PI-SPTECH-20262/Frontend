@@ -1,0 +1,37 @@
+
+<app-modal
+    [aberto]="aberto"
+    titulo="Deletar perfil"
+    descricao="Tem certeza de que deseja deletar seu perfil? Essa ação não poderá ser desfeita."
+    (fechar)="cancelarDelecao()"
+>
+
+    @if (mensagemDelecao) {
+        <div class="mensagem-formulario">
+            {{ mensagemDelecao }}
+        </div>
+    }
+
+    <div class="acoes-modal">
+
+        <button
+            type="button"
+            class="botao-secundario"
+            (click)="cancelarDelecao()"
+            [disabled]="deletando"
+        >
+            Cancelar
+        </button>
+
+        <button
+            type="button"
+            class="botao-principal"
+            (click)="deletarPerfil()"
+            [disabled]="deletando"
+        >
+            {{ deletando ? 'Deletando...' : 'Deletar perfil' }}
+        </button>
+
+    </div>
+
+</app-modal>

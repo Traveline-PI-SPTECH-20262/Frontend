@@ -21,6 +21,10 @@ import API_URL from '../../config';
         email
     });
     }
+
+    postdeletarPerfil(idusuario: number) {
+    return this.http.delete(`${this.endpoint}/${idusuario}` );
+    }
     
     salvarNotificacoes(
     idusuario: number,

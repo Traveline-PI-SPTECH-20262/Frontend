@@ -26,9 +26,14 @@
             </div>
         </div>
 
+    <div class="botoes-perfil">
         <button type="button" class="botao-principal" (click)="abrirEdicao()">
             ✎ Alterar informações
         </button>
+        <button type="button" class="botao-principal botao-deletar" (click)="abrirDeletar()">
+            <i class="ph ph-trash"></i>
+        </button>
+    </div>
     </section>
 
     <section class="indicadores">
@@ -125,4 +130,13 @@
     (salvar)="salvarEdicao($event)"
 >
 </app-modal-editar-perfil>
+
+<app-modal-deletar-perfil
+    [aberto]="modalDelecaoAberto"
+    [deletando]="deletando"
+    [mensagemDelecao]="mensagemDelecao"
+    (cancelar)="cancelarExclusao()"
+    (deletar)="deletarPerfil()"
+>
+</app-modal-deletar-perfil>
 </main>
