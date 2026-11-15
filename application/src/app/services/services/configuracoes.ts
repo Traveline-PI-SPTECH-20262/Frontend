@@ -87,6 +87,9 @@ private atualizarGraficos() {
   const corTexto = getComputedStyle(this.document.documentElement)
     .getPropertyValue('--text-primary')
     .trim();
+  const corGrade = getComputedStyle(this.document.documentElement)
+    .getPropertyValue('--graph-line')
+    .trim();
 
   Object.values(Chart.instances).forEach((instancia) => {
     const chart = instancia as Chart;
@@ -99,7 +102,7 @@ private atualizarGraficos() {
 
       escala.ticks.color = corTexto;
 
-      escala.grid.color = corTexto;
+      escala.grid.color = corGrade;
 
       if (escala.title) {
         escala.title.color = corTexto;

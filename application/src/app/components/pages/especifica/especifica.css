@@ -5,7 +5,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    background-color: #f8f7fc;
+    background-color: var(--bg-primary);
 }
 
 .kpis {
@@ -29,8 +29,8 @@ main {
     min-width: 400px;
     padding: 1rem;
     border-radius: 10px;
-    background-color: white;
-    border: 1px solid #eee;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
@@ -43,11 +43,11 @@ main {
 .chart h2 {
     margin: 0 0 0.5rem;
     font-size: 1rem;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 h2 span {
-    color: #9a9999;
+    color: var(--text-secondary);
 }
 
 .titulo {
@@ -65,7 +65,7 @@ h2 span {
 }
 
 .carregando {
-    color: #777;
+    color: var(--text-secondary);
 }
 
 /* ---------- Calendário de sazonalidade ---------- */
@@ -75,7 +75,7 @@ h2 span {
     gap: 4px;
     align-items: center;
     font-size: 0.75rem;
-    color: #666;
+    color: var(--text-secondary);
     margin-top: 1rem;
 }
 
@@ -97,7 +97,7 @@ h2 span {
     gap: 1rem;
     margin-top: 1rem;
     font-size: 0.75rem;
-    color: #666;
+    color: var(--text-secondary);
 }
 
 .cor {

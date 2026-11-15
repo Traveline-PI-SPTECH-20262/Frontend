@@ -12,8 +12,8 @@ main {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    background-color: #f8f7fc;
-    color: #172033;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 .card-perfil {
@@ -23,8 +23,8 @@ main {
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    background-color: white;
-    border: 1px solid #eceaf3;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 18px;
     box-shadow: 0 4px 18px rgba(35, 25, 75, 0.04);
     width: 100%;
@@ -55,7 +55,7 @@ main {
 .perfil-dados h2 {
     margin: 0 0 8px;
     font-size: 1.5rem;
-    color: #172033;
+    color: var(--text-primary);
 }
 
 .etiqueta-cargo {
@@ -63,22 +63,22 @@ main {
     padding: 5px 12px;
     margin-bottom: 10px;
     border-radius: 30px;
-    background-color: #f0eaff;
-    color: #6426d9;
+    background-color: var(--bg-secondary);
+    color: var(--accent-color);
     font-size: 0.75rem;
     font-weight: 600;
 }
 
 .perfil-dados p {
     margin: 6px 0;
-    color: #647087;
+    color: var(--text-secondary);
     font-size: 0.875rem;
     overflow-wrap: anywhere;
 }
 
 .icone-dado {
     margin-right: 8px;
-    color: #6d28d9;
+    color: var(--accent-color);
     font-size: 17px;
 }
 
@@ -126,8 +126,8 @@ main {
     display: flex;
     align-items: center;
     gap: 0.875rem;
-    background-color: white;
-    border: 1px solid #eceaf3;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: 0 4px 18px rgba(35, 25, 75, 0.03);
 }
@@ -144,8 +144,8 @@ main {
 }
 
 .roxo {
-    background-color: #f0eaff;
-    color: #6d28d9;
+    background-color: var(--bg-secondary);
+    color: var(--accent-color);
 }
 
 .verde {
@@ -160,18 +160,18 @@ main {
 
 .card-indicador p {
     margin: 0 0 6px;
-    color: #647087;
+    color: var(--text-secondary);
     font-size: 0.8125rem;
 }
 
 .card-indicador h2 {
     margin: 0 0 4px;
-    color: #17152a;
+    color: var(--text-primary);
     font-size: 1.7rem;
 }
 
 .card-indicador span {
-    color: #8a91a1;
+    color: var(--text-secondary);
     font-size: 0.75rem;
 }
 
@@ -185,8 +185,8 @@ main {
 
 .card-informacoes {
     padding: 1.5rem;
-    background-color: white;
-    border: 1px solid #eceaf3;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
     border-radius: 16px;
     box-shadow: 0 4px 18px rgba(35, 25, 75, 0.03);
 }
@@ -201,7 +201,7 @@ main {
 .titulo-card h2 {
     margin: 0;
     font-size: 1.125rem;
-    color: #172033;
+    color: var(--text-primary);
 }
 
 .icone-titulo {
@@ -211,8 +211,8 @@ main {
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    background-color: #f0eaff;
-    color: #6d28d9;
+    background-color: var(--bg-secondary);
+    color: var(--accent-color);
     font-size: 20px;
 }
 
@@ -222,7 +222,7 @@ main {
     grid-template-columns: 35% 1fr;
     align-items: center;
     gap: 12px;
-    border-bottom: 1px solid #f0eef5;
+    border-bottom: 1px solid var(--border-color);
     font-size: 0.875rem;
 }
 
@@ -231,11 +231,11 @@ main {
 }
 
 .linha-informacao span {
-    color: #7a8293;
+    color: var(--text-secondary);
 }
 
 .linha-informacao strong {
-    color: #30364b;
+    color: var(--text-primary);
     font-weight: 500;
     overflow-wrap: anywhere;
 }

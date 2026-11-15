@@ -12,17 +12,18 @@ form {
 }
 
 .campo label {
-    color: #353047;
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 600;
 }
 
 .campo input {
+    color: var(--text-primary);
     width: 100%;
     padding: 13px 14px;
-    border: 1px solid #e1deeb;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    background-color: white;
+    background-color: var(--bg-card);
     outline: none;
     font-size: 14px;
     box-sizing: border-box;
@@ -45,7 +46,7 @@ form {
     gap: 12px;
     margin-top: 12px;
     padding-top: 20px;
-    border-top: 1px solid #eeeaf4;
+    border-top: 1px solid var(--border-color);
 }
 
 .botao-principal {
@@ -66,15 +67,15 @@ form {
 
 .botao-secundario {
     padding: 12px 20px;
-    border: 1px solid #ddd8e9;
+    border: 1px solid var(--border-color);
     border-radius: 10px;
-    background-color: white;
-    color: #4b4261;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
 }
 
 .botao-secundario:hover {
-    background-color: #f8f7fc;
+    background-color: var(--bg-primary);
 }

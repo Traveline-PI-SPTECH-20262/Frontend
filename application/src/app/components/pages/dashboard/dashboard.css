@@ -43,7 +43,7 @@ main {
 .destinations p {
     padding: 0.8rem 0;
     margin: 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
 }
 
@@ -68,14 +68,14 @@ main {
 .titulo h1 {
     margin: 0;
     font-size: 1.8rem;
-    color: var(--text-dark);
+    color: var(--text-primary);
 }
 
 .titulo button{
-    background-color: #eee;
+    background-color: var(--bg-secondary);
     border-radius: 10px;
     padding: 3px 10px 3px 10px;
-    color: #5b2a86;  
+    color: var(--accent-color);  
     font-size: medium;  
     transition: all 0.3s ease;
     cursor: pointer;
@@ -83,10 +83,10 @@ main {
 }
 
 #mini-button{
-    background-color: #eee;
+    background-color: var(--bg-secondary);
     border-radius: 10px;
     padding: 3px;
-    color: #5b2a86;  
+    color: var(--accent-color);  
     font-size: medium; 
     border: none;
     transition: all 0.3s ease;
@@ -95,13 +95,13 @@ main {
 
 .titulo button:hover{
     transform: translate(-2px);
-    background-color: #c6c3c3;
+    background-color: var(--accent-soft);
     
 
 }
 
 h2 span{
-    color: #9a9999;
+    color: var(--text-secondary);
 }
 
 table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
