@@ -124,3 +124,18 @@ app-header, .upload-container {
         padding: 8px 18px;
     }
 }
+
+.button-enviar:disabled, .button-remover:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.mensagem-upload {
+    margin-top: 10px;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.erro-upload {
+    color: #e54b4b;
+}

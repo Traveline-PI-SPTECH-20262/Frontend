@@ -6,13 +6,14 @@
     </app-header>
 
     <div class="upload-container">
-        <div class="zona-carregamento">
+        <div class="zona-carregamento" (dragover)="$event.preventDefault()" (drop)="receberArquivo($event, fileInput)">
         <h2>Clique ou arraste arquivos para upload</h2>
         <p>ou</p>
         <label for="fileInput" class="button-carregar"> Selecionar arquivo </label>
         <input
             #fileInput
             id="fileInput"
+            [disabled]="enviando"
             type="file"
             accept=".xlsx,.xls"
             (change)="onFileSelected($event)"
@@ -24,10 +25,13 @@
             <div>
             <strong>{{ selectedFile.name }}</strong>
             </div>
-            <button type="button" class="button-remover" (click)="removeFile(fileInput)">Remover</button>
+            <button type="button" class="button-remover" [disabled]="enviando" (click)="removeFile(fileInput)">Remover</button>
         </div>
         }
-        <button class="button-enviar">Enviar</button>
+        <button type="button" class="button-enviar" [disabled]="!selectedFile || enviando" (click)="enviarArquivo(fileInput)">{{enviando ? 'Enviando...' : 'Enviar'}}</button>
+        @if(mensagem){
+            <p class="mensagem-upload" [class.erro-upload]="erroEnvio" role="status">{{mensagem}}</p>
+        }
     </div>
     <app-historico-upload></app-historico-upload>
 </main>
