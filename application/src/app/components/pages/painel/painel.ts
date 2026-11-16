@@ -115,12 +115,31 @@ export class Painel implements OnInit {
     this.deletando = true;
   }
 
-  salvarEdicao(dados: FormularioPerfil) {
-    console.log('Editar funcionário:', this.funcionarioSelecionado.idusuario);
-    console.log('Dados:', dados);
 
-    this.editando = false;
-  }
+salvarEdicao(dados: FormularioPerfil) {
+    const idusuario = this.funcionarioSelecionado.idusuario;
+
+    this.salvando = true;
+
+    this.painelService.editarFuncionario(idusuario, dados).subscribe({
+        next: (resposta) => {
+            console.log('Funcionário atualizado:', resposta);
+
+            this.mensagemEdicao = 'Funcionário atualizado com sucesso!';
+
+            this.salvando = false;
+            this.editando = false;
+
+            this.carregarfuncionairos();
+        },
+        error: (erro) => {
+            console.error('Erro ao editar funcionário:', erro);
+
+            this.mensagemEdicao = 'Erro ao atualizar funcionário.';
+            this.salvando = false;
+        }
+    });
+}  
 
   cancelarEdicao() {
     this.editando = false;
@@ -135,16 +154,49 @@ export class Painel implements OnInit {
     this.visualizando = false;
   }
 
+
+  deletarPerfil() {
+      const idusuario = this.funcionarioSelecionado.idusuario;
+
+      if (!idusuario) {
+          return;
+      }
+
+      this.deletando = true;
+      this.mensagemDelecao = '';
+
+      this.painelService.deletarFuncionario(idusuario).subscribe({
+
+        next: (resposta) => {
+            console.log('Funcionário excluído:', resposta);
+
+            this.excluindo = false;
+            this.deletando = false;
+
+            this.carregarfuncionairos();
+        },
+
+          error: (erro) => {
+
+              console.error('Erro ao deletar funcionario:', erro);
+
+              this.mensagemDelecao = 'Não foi possível excluir o funcionario.';
+
+              this.deletando = false;
+
+              this.cdr.detectChanges();
+
+          }
+      });
+  }
+
   abrirExclusao(funcionario: any) {
     this.funcionarioSelecionado = funcionario;
     this.excluindo = true;
   }
 
   confirmarExclusao() {
-    console.log('Excluir funcionário:', this.funcionarioSelecionado.idusuario);
-
-    
-    this.excluindo = false;
+    this.deletarPerfil();
   }
 
   cancelarExclusao() {

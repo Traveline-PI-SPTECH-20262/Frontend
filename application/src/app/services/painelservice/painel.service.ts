@@ -14,4 +14,13 @@ import API_URL from '../../config';
     getfunc(idAgencia: Number): Observable<any> {
         return this.http.get(`${this.endpoint}/${idAgencia}`);
     }
+
+    editarFuncionario(idUsuario: number, dados: any): Observable<any> {
+        return this.http.put(`${this.endpoint}/${idUsuario}`, dados);
+    }
+
+    deletarFuncionario(idUsuario: number): Observable<any> {
+        return this.http.delete(`${this.endpoint}/${idUsuario}`);
+    }
+
 }
