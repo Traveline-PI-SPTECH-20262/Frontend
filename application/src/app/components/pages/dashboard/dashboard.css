@@ -85,13 +85,15 @@ main {
 #mini-button{
     background-color: var(--bg-secondary);
     border-radius: 10px;
-    padding: 3px;
+    padding: 3px 4px;
     color: var(--accent-color);  
-    font-size: medium; 
+    font-size: 1.25rem; 
     border: none;
     transition: all 0.3s ease;
     cursor: pointer;
 }
+
+
 
 .titulo button:hover{
     transform: translate(-2px);
