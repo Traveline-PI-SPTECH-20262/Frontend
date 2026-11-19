@@ -1,34 +1,41 @@
 <main>
-    <app-header 
+    <app-header
     titulo="Relatórios"
     descricao="Visualize o seu historio de Relatórios/notificações."
     ></app-header>
 
     <section class="relatorios-conteiner">
         <div class="titulo-filtro">
-            <select name="" id="">
-                <option value="">Procure por tag</option>
+            <select (change)="filtrar($event)">
+                <option value="">Todas as tags</option>
                 <option value="Oportunidade">Oportunidade</option>
                 <option value="Sazonalidade">Sazonalidade</option>
                 <option value="Erro">Erro</option>
             </select>
         </div>
 
-        @for(relatorioAtual of listarelatorios; track relatorioAtual.id){
+        @if (mensagemErro()) {
+            <p>{{ mensagemErro() }}</p>
+        }
+
+        @for (n of lista(); track n.idrelatorio) {
         <div class="relatorio">
             <div class="titulo">
-            <h2>{{relatorioAtual.titulo}}</h2>
-                    @if(relatorioAtual.mensagem == "Oportunidade"){
-                    <span class="oportunidade">{{relatorioAtual.mensagem}}</span>
-                }@else if(relatorioAtual.mensagem == "Sazonalidade"){
-                    <span class="sazonalidade">{{relatorioAtual.mensagem}}</span>
-                }@else if(relatorioAtual.mensagem == "Erro"){
-                    <span class="erro">{{relatorioAtual.mensagem}}</span>
+                <h2>{{ n.titulo }}</h2>
+                @if (n.mensagem == "Oportunidade") {
+                    <span class="oportunidade">{{ n.mensagem }}</span>
+                } @else if (n.mensagem == "Sazonalidade") {
+                    <span class="sazonalidade">{{ n.mensagem }}</span>
+                } @else if (n.mensagem == "Erro") {
+                    <span class="erro">{{ n.mensagem }}</span>
                 }
             </div>
-            <p>{{relatorioAtual.descricao}}</p>
-            <span>{{relatorioAtual.origem}}</span>
+            <p>{{ n.descricao }}</p>
+            <span>{{ n.dataCriacao }}</span>
+            <button type="button" (click)="excluir(n)">Excluir</button>
         </div>
-    }
+        } @empty {
+            <p>Nenhuma notificação por aqui.</p>
+        }
     </section>
 </main>
