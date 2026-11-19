@@ -1,19 +1,5 @@
-import { Chart } from 'chart.js';
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnChanges,
-  SimpleChanges
-} from '@angular/core';
-
-import {
-  ConfiguracoesService,
-  Tema,
-  KpiVisibilidade
-} from '../../services/services/configuracoes';
-
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { ConfiguracoesService, Tema, KpiVisibilidade } from '../../services/services/configuracoes';
 import { PerfilService } from '../../services/perfilservice/perfil.service';
 import { AuthService } from '../../services/userservices/auth.service';
 
@@ -24,158 +10,115 @@ import { AuthService } from '../../services/userservices/auth.service';
   templateUrl: './custom.html',
   styleUrl: './custom.css'
 })
-
 export class CustomComponent implements OnChanges {
-
   @Input() aberto: boolean = false;
-
   @Output() fechar = new EventEmitter<void>();
 
   temaSelecionado: Tema = 'claro';
-
-  notificacoesAtivas: boolean = true;
-
-  frequenciaNotificacao: string = 'diaria';
-
-  salvando: boolean = false;
-
-  erroNotificacao: string = '';
-
+  notificacoesAtivas = true;
+  frequenciaNotificacao = 'mensal';
+  salvando = false;
+  carregando = false;
+  preferenciasCarregadas = false;
+  erroNotificacao = '';
   kpisSelecionados: KpiVisibilidade = {
-    totalTuristas: true,
-    viaAerea: true,
-    viaTerrestre: true,
-    viaMaritima: true,
-    viaFluvial: true,
-    paisesEmissores: true
+    totalTuristas: true, viaAerea: true, viaTerrestre: true,
+    viaMaritima: true, viaFluvial: true, paisesEmissores: true
   };
 
   constructor(
     public configuracoes: ConfiguracoesService,
     private authService: AuthService,
-    private perfilService: PerfilService
+    private perfilService: PerfilService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['aberto'] && this.aberto) {
-      this.carregarRascunho();
-    }
+    if (changes['aberto'] && this.aberto) this.carregarRascunho();
   }
 
   carregarRascunho() {
-    this.temaSelecionado = this.configuracoes.tema;
-
-
-    this.kpisSelecionados = {
-      ...this.configuracoes.kpis
-    };
-
-    const dados = localStorage.getItem('preferencias');
-
-    if (dados) {
-
-      const resposta = JSON.parse(dados);
-
-      const preferencias = resposta.preferencias;
-
-     if (preferencias) {
-
-          this.notificacoesAtivas =
-             Boolean(preferencias.notificacoesAtivas);
-
-          this.frequenciaNotificacao =
-              preferencias.frequencia || 'diaria';
-
-     }
-
+    const usuario = this.authService.getToken();
+    this.erroNotificacao = '';
+    if (!usuario?.id) {
+      this.erroNotificacao = 'Usuário não identificado.';
+      return;
     }
+    this.preferenciasCarregadas = false;
+    this.carregando = true;
+    this.perfilService.getPreferencias(usuario.id).subscribe({
+      next: (dados) => {
+        this.preferenciasCarregadas = true;
+        this.temaSelecionado = 'escuro';
+        if (dados.temaClaro) this.temaSelecionado = 'claro';
+        this.notificacoesAtivas = Boolean(dados.notificacoesAtivas);
+        this.frequenciaNotificacao = dados.frequencia;
+        this.kpisSelecionados = {
+          totalTuristas: Boolean(dados.totalTuristas),
+          viaAerea: Boolean(dados.viaAerea),
+          viaTerrestre: Boolean(dados.viaTerrestre),
+          viaMaritima: Boolean(dados.viaMaritima),
+          viaFluvial: Boolean(dados.viaFluvial),
+          paisesEmissores: Boolean(dados.paisesEmissores)
+        };
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar preferências:', erro);
+        this.erroNotificacao = 'Não foi possível carregar as configurações.';
+        this.carregando = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
-  selecionarTema(tema: Tema) {
-    this.temaSelecionado = tema;
-  }
-
+  selecionarTema(tema: Tema) { this.temaSelecionado = tema; }
   alterarKpi(chave: keyof KpiVisibilidade, event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-
-    this.kpisSelecionados[chave] = checkbox.checked;
+    this.kpisSelecionados[chave] = (event.target as HTMLInputElement).checked;
   }
 
   salvar() {
-
     const usuario = this.authService.getToken();
-
-    if (!usuario || !usuario.id) {
-        this.erroNotificacao = 'Usuário não identificado.';
-        return;
+    if (!usuario?.id) {
+      this.erroNotificacao = 'Usuário não identificado.';
+      return;
     }
-
+    if (this.carregando || this.salvando || !this.preferenciasCarregadas) return;
     this.salvando = true;
     this.erroNotificacao = '';
-
-    this.perfilService.salvarNotificacoes(
-        usuario.id,
-        this.notificacoesAtivas,
-        this.frequenciaNotificacao
+    this.perfilService.salvarPreferencias(
+      usuario.id, this.temaSelecionado === 'claro', this.kpisSelecionados,
+      this.notificacoesAtivas, this.frequenciaNotificacao
     ).subscribe({
-
-        next: () => {
-
-            this.configuracoes.salvarPreferencias(
-                this.temaSelecionado,
-                this.kpisSelecionados
-            );
-
-            localStorage.setItem(
-                'preferencias',
-                JSON.stringify({
-                    preferencias: {
-                        notificacoesAtivas: this.notificacoesAtivas,
-                        frequencia: this.frequenciaNotificacao
-                    }
-                })
-            );
-
-            this.salvando = false;
-
-            this.fechar.emit();
-
-        },
-
-        error: (erro) => {
-
-            console.error('Erro ao salvar notificações:', erro);
-
-            this.erroNotificacao =
-                'Não foi possível salvar as configurações.';
-
-            this.salvando = false;
-
-        }
-
+      next: () => {
+        this.configuracoes.salvarPreferencias(this.temaSelecionado, this.kpisSelecionados);
+        this.authService.salvarPreferencias(JSON.stringify({
+          preferencias: {
+            temaClaro: this.temaSelecionado === 'claro',
+            ...this.kpisSelecionados,
+            notificacoesAtivas: this.notificacoesAtivas,
+            frequencia: this.frequenciaNotificacao
+          }
+        }));
+        this.salvando = false;
+        this.fechar.emit();
+        this.cdr.detectChanges();
+      },
+      error: (erro) => {
+        console.error('Erro ao salvar preferências:', erro);
+        this.erroNotificacao = 'Não foi possível salvar as configurações.';
+        this.salvando = false;
+        this.cdr.detectChanges();
+      }
     });
-
-}
-
-  cancelar() {
-    this.fechar.emit();
   }
 
+  cancelar() { this.fechar.emit(); }
   alterarNotificacoes(event: Event) {
-
-    const checkbox = event.target as HTMLInputElement;
-
-    this.notificacoesAtivas = checkbox.checked;
-
-}
-
-alterarFrequencia(event: Event) {
-
-    const select = event.target as HTMLSelectElement;
-
-    this.frequenciaNotificacao = select.value;
-
-}
-
-  
+    this.notificacoesAtivas = (event.target as HTMLInputElement).checked;
+  }
+  alterarFrequencia(event: Event) {
+    this.frequenciaNotificacao = (event.target as HTMLSelectElement).value;
+  }
 }

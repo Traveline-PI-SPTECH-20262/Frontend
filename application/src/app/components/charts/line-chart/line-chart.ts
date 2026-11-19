@@ -1,41 +1,25 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-line-chart',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [ BaseChartDirective ],
+  imports: [BaseChartDirective],
   templateUrl: './line-chart.html',
-  styleUrl: './line-chart.css',
+  styleUrl: './line-chart.css'
 })
 export class LineChart {
+  @Input() chartData: ChartConfiguration<'line'>['data'] = { labels: [], datasets: [] };
+  chartType: ChartConfiguration<'line'>['type'] = 'line';
   chartOptions: ChartConfiguration<'line'>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: 'x',
-    plugins: {
-      legend: { display: false }
-    },
+    color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(),
+    
+    plugins: { legend: { display: false } },
     scales: {
-      x: { grid: { display: true } },
-      y: { 
-        grid: { display: true }, 
-        }
+      x: { grid: { display: true, color: getComputedStyle(document.documentElement).getPropertyValue('--graph-line').trim() }, ticks: { autoSkip: false, precision: 0 }, beginAtZero: true },
+      y: { grid: { display: true, color: getComputedStyle(document.documentElement).getPropertyValue('--graph-line').trim() }, ticks: { autoSkip: false, precision: 0 }, beginAtZero: true }
     }
   };
-  chartLabels = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
-  chartData: ChartConfiguration<'line'>['data'] = {
-    labels: this.chartLabels,
-    datasets: [{
-      label: 'Chegadas de turistas por mês',
-      data: [2500, 1800, 1500, 2500, 1800, 1500, 2500, 1800, 2500, 1000, 2000, 1250],
-      backgroundColor: '#351486',
-      borderColor:'#8c62f7', 
-    }]
-  };
-
-  chartType: ChartConfiguration<'line'>['type'] = 'line';
 }

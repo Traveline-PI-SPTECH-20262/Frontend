@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChartConfiguration } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 
@@ -6,29 +6,17 @@ import { BaseChartDirective } from 'ng2-charts';
   selector: 'app-doughnut-chart',
   imports: [BaseChartDirective],
   templateUrl: './doughnut-chart.html',
-  styleUrl: './doughnut-chart.css',
+  styleUrl: './doughnut-chart.css'
 })
 export class DoughnutChart {
-    chartOptions: ChartConfiguration<'doughnut'>['options'] = {
+  @Input() chartData: ChartConfiguration<'doughnut'>['data'] = { labels: [], datasets: [] };
+  chartType: ChartConfiguration<'doughnut'>['type'] = 'doughnut';
+  chartOptions: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
     maintainAspectRatio: false,
-    indexAxis: 'y',
-    plugins: {
-      legend: {position: 'right',},
-    }
-  };
-  chartLabels = ["África","América","Ásia","Europa","Oceania"];
-
-  chartData: ChartConfiguration<'doughnut'>['data'] = {
-    labels: this.chartLabels,
-    datasets: [{
-      label: 'Países Emissores',
-      data:[2500, 2500, 2500, 2500, 1800],
-      backgroundColor: ['#8c62f7','#1c9b5f','#f59e0b','#de1717','#ec4899','#090610','#7f4c21','#36a6ce'],
-      borderRadius: 4
-    }]
-  };
-
-  chartType: ChartConfiguration<'doughnut'>['type'] = 'doughnut';
-}
+    color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(),
     
+    plugins: { legend: { position: 'right' } },
+    
+  };
+}

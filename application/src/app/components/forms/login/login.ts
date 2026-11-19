@@ -2,6 +2,7 @@ import { Component,ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/userservices/auth.service';
 import { Router } from '@angular/router';
+import { ConfiguracoesService, KpiVisibilidade } from '../../../services/services/configuracoes';
 import { ModalErro } from '../../modal/modal-erro/modal-erro';
 
 
@@ -27,7 +28,7 @@ export class Login {
     this.modalErroAberto = false;
   }
 
-  constructor(private authService: AuthService,private router: Router,private cdr: ChangeDetectorRef) {}
+  constructor(private authService: AuthService,private router: Router,private cdr: ChangeDetectorRef, private configuracoes: ConfiguracoesService) {}
 
   login() {
     console.log('Email:', this.email);
@@ -37,7 +38,7 @@ export class Login {
         const usuario = response.usuario;
         console.log('Login bem-sucedido:', response.usuario);
         console.log('teste:', response);
-        this.router.navigate(['/main/dashboard'])   
+   
         console.log('ID do usuário:', usuario.idusuario);
         const token = JSON.stringify({usuario,});
         const preferencias = JSON.stringify({preferencias: response.preferencias});
@@ -45,6 +46,17 @@ export class Login {
         if(response) {
           this.authService.salvarToken(token);
           this.authService.salvarPreferencias(preferencias);
+          const dados = response.preferencias;
+          const kpis: KpiVisibilidade = {
+            totalTuristas: Boolean(dados.totalTuristas),
+            viaAerea: Boolean(dados.viaAerea),
+            viaTerrestre: Boolean(dados.viaTerrestre),
+            viaMaritima: Boolean(dados.viaMaritima),
+            viaFluvial: Boolean(dados.viaFluvial),
+            paisesEmissores: Boolean(dados.paisesEmissores)
+          };
+          this.configuracoes.salvarPreferencias(dados.temaClaro ? 'claro' : 'escuro', kpis);
+          this.router.navigate(['/main/dashboard']);
         }
         
       },

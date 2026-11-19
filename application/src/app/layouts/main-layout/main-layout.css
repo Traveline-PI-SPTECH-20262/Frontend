@@ -1,11 +1,13 @@
 main {
     min-height: 100vh;
-    min-width: 100vw;
+    width: 100%;
+    min-width: 0;
     overflow: hidden;
     background-color: var(--bg-primary);
     display: flex;
 }
 
 div {
-    width: 100%;
+    flex: 1;
+    min-width: 0;
 }

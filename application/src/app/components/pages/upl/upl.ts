@@ -24,7 +24,8 @@ export class Upl {
 
     if (!arquivo) return;
 
-    if (!/\.(xlsx|xls)$/i.test(arquivo.name)) {
+    const nome = arquivo.name.toLowerCase();
+    if (!nome.endsWith('.xlsx') && !nome.endsWith('.xls')) {
       this.mensagem = 'Selecione um arquivo Excel (.xlsx ou .xls).';
       this.erroEnvio = true;
       return;

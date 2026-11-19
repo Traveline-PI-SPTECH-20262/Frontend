@@ -1,138 +1,73 @@
 <main>
-    <app-header titulo="Visão geral" descricao="Acompanhe os principais indicadores da sua agência.">
-    </app-header>
+    <app-header titulo="Visão geral" descricao="Acompanhe os principais indicadores da sua agência."></app-header>
 
-    <section class="kpis">
-        <div [hidden]="!configuracoes.kpis.totalTuristas">
-            <app-kpi-card titulo="Total de turistas" valor="745.871" variacao="+12%" icone="👤">
-            </app-kpi-card>
-        </div>
-        <div [hidden]="!configuracoes.kpis.viaAerea">
-            <app-kpi-card titulo="Via aérea" valor="28.615" variacao="+8%" icone="🛬">
-            </app-kpi-card>
-        </div>
-        <div [hidden]="!configuracoes.kpis.viaTerrestre">
-            <app-kpi-card titulo="Via terrestre" valor="156.853" variacao="+5%" icone="🚗">
-            </app-kpi-card>
-        </div>
-        <div [hidden]="!configuracoes.kpis.viaMaritima">
-            <app-kpi-card titulo="Via marítima" valor="495" variacao="+4%" icone="🛥️">
-            </app-kpi-card>
-        </div>
-        <div [hidden]="!configuracoes.kpis.viaFluvial">
-            <app-kpi-card titulo="Via fluvial" valor="1.136" variacao="+4%" icone="🌊">
-            </app-kpi-card>
-        </div>
-        <div [hidden]="!configuracoes.kpis.paisesEmissores">
-            <app-kpi-card titulo="Países emissores" valor="127" variacao="+4%" icone="🌎">
-            </app-kpi-card>
-        </div>
+    @if(carregando){
+        <p role="status">Carregando os dados da agência...</p>
+    } @else if(erro){
+        <p role="alert">{{erro}}</p>
+        <button type="button" (click)="carregar()">Tentar novamente</button>
+    } @else if(dados){
+            <section class="kpis">
+                @for(kpi of dados.kpis; track kpi.chave){
+                    <div [hidden]="!configuracoes.kpis[kpi.chave]">
+                        <app-kpi-card [titulo]="kpi.titulo" [valor]="numero(kpi.valor)" [icone]="kpi.icone" [detalhe]="detalheKpi(kpi.variacao)"></app-kpi-card>
+                    </div>
+                }
+            </section>
 
-    </section>
-
-    <section class="charts">
-
-        <div class="chart">
-            <div class="titulo">
-                <h2>Participação por continente <span>(2019-2021)</span></h2>
-                <button id="mini-button"  (click)="abrirAnalise('continentes')"><i class="ph ph-arrows-out"></i></button>
-            </div>
-            <app-doughnut-chart></app-doughnut-chart>
-        </div>
-
-        <div class="chart">
-            <div class="titulo">
-                <h2>Top 10 Países emissores <span>(2019-2021)</span></h2>
-                <button id="mini-button"  (click)="abrirAnalise('paises')"><i class="ph ph-arrows-out"></i></button>
-            </div>
-            <app-bar-chart></app-bar-chart>
-        </div>
-
-
-        <div class="chart">
-            <div class="titulo">
-                <h2>Chegadas por UF de entrada <span>(2019-2021)</span></h2>
-                <button id="mini-button"  (click)="abrirAnalise('ufs')"><i class="ph ph-arrows-out"></i></button>
-            </div>
-            <app-bar-standing-chart></app-bar-standing-chart>
-        </div>
-
-        <div class="chart">
-            <div class="titulo">
-                <h2>Sazonalidade das chegadas <span>(2019-2021)</span></h2>
-                <button id="mini-button" (click)="abrirAnalise('sazonalidade')"><i class="ph ph-arrows-out"></i></button>
-            </div>
-            <app-line-chart></app-line-chart>
-        </div>
-
-
-        <div class="graphic-table">
-            <div class="titulo">
-                <h2>Oportunidades por mercado emissor <span>(2019-2021)</span></h2>
-                <button (click)="irRecomendacao()">Ir para Recomendações</button>
-            </div>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>País</th>
-                        <th>Variação 2021/2020</th>
-                        <th>Participação 2021</th>
-                        <th>Tendência</th>
-                        <th>Oportunidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-    <td>Estados Unidos</td>
-    <td class="subiu">↑ +8.1%</td>
-    <td>28.4%</td>
-    <td class="subiu">Subir</td>
-    <td><span class="alta">Alta</span></td>
-</tr>
-<tr>
-    <td>Alemanha</td>
-    <td class="desceu">↓ -2.3%</td>
-    <td>14.1%</td>
-    <td class="desceu">Cair</td>
-    <td><span class="media">Média</span></td>
-</tr>
-<tr>
-    <td>Japão</td>
-    <td class="subiu">↑ +4.6%</td>
-    <td>12.3%</td>
-    <td class="subiu">Subir</td>
-    <td><span class="media">Média</span></td>
-</tr>
-<tr>
-    <td>Canadá</td>
-    <td class="subiu">↑ +6.0%</td>
-    <td>10.0%</td>
-    <td class="subiu">Subir</td>
-    <td><span class="alta">Alta</span></td>
-</tr>
-<tr>
-    <td>Reino Unido</td>
-    <td class="manteve">→ +3.4%</td>
-    <td>9.5%</td>
-    <td class="manteve">Manter</td>
-    <td><span class="media">Média</span></td>
-</tr>
-                </tbody>
-            </table>
-
-        </div>
-
-
-
-
-    </section>
-
-
+            <section class="charts">
+                <div class="chart" [class.grafico-vazio]="dados.semDados">
+                    <div class="titulo">
+                        <h2>Participação por continente <span>{{dados.semDados ? '' : '(' + dados.periodo + ')'}}</span></h2>
+                        <button type="button" id="mini-button" aria-label="Expandir continentes" (click)="abrirAnalise('continentes')"><i class="ph ph-arrows-out"></i></button>
+                    </div>
+                    <app-doughnut-chart [chartData]="continentes"></app-doughnut-chart>
+                </div>
+                <div class="chart" [class.grafico-vazio]="dados.semDados">
+                    <div class="titulo">
+                        <h2>Top 10 Países emissores <span>{{dados.semDados ? '' : '(' + dados.periodo + ')'}}</span></h2>
+                        <button type="button" id="mini-button" aria-label="Expandir países" (click)="abrirAnalise('paises')"><i class="ph ph-arrows-out"></i></button>
+                    </div>
+                    <app-bar-chart [chartData]="paises"></app-bar-chart>
+                </div>
+                <div class="chart" [class.grafico-vazio]="dados.semDados">
+                    <div class="titulo">
+                        <h2>Chegadas por UF de entrada <span>{{dados.semDados ? '' : '(' + dados.periodo + ')'}}</span></h2>
+                        <button type="button" id="mini-button" aria-label="Expandir UFs" (click)="abrirAnalise('ufs')"><i class="ph ph-arrows-out"></i></button>
+                    </div>
+                    <app-bar-standing-chart [chartData]="ufs"></app-bar-standing-chart>
+                </div>
+                <div class="chart" [class.grafico-vazio]="dados.semDados">
+                    <div class="titulo">
+                        <h2>Sazonalidade das chegadas <span>{{dados.semDados ? '' : '(' + dados.periodo + ')'}}</span></h2>
+                        <button type="button" id="mini-button" aria-label="Expandir sazonalidade" (click)="abrirAnalise('sazonalidade')"><i class="ph ph-arrows-out"></i></button>
+                    </div>
+                    <app-line-chart [chartData]="sazonalidade"></app-line-chart>
+                </div>
+                <div class="graphic-table">
+                    <div class="titulo">
+                        <h2>Oportunidades por mercado emissor <span>{{dados.semDados ? '' : '(' + dados.ano + ')'}}</span></h2>
+                        <button type="button" (click)="irRecomendacao()">Ir para Recomendações</button>
+                    </div>
+                    <table>
+                        <thead><tr>
+                            <th>País</th><th>Variação {{dados.semDados ? '' : dados.ano + '/' + dados.anoAnterior}}</th>
+                            <th>Participação {{dados.semDados ? '' : dados.ano}}</th><th>Tendência</th><th>Oportunidade</th>
+                        </tr></thead>
+                        <tbody>
+                            @for(item of dados.oportunidades; track item.pais){
+                                <tr>
+                                    <td>{{item.pais}}</td>
+                                    <td [class.subiu]="item.variacao !== null && item.variacao > 0" [class.desceu]="item.variacao !== null && item.variacao < 0">{{percentual(item.variacao)}}</td>
+                                    <td>{{numero(item.participacao)}}%</td>
+                                    <td>{{item.tendencia}}</td>
+                                    <td><span [class.alta]="item.oportunidade === 'Alta'" [class.media]="item.oportunidade === 'Média'">{{item.oportunidade}}</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        }
+    <app-modal-analise [aberto]="analiseAberta" [tipo]="tipoAnalise" (fechar)="fecharAnalise()"></app-modal-analise>
 </main>
-
-<app-modal-analise
-  [aberto]="analiseAberta"
-  [tipo]="tipoAnalise"
-  (fechar)="fecharAnalise()">
-</app-modal-analise>

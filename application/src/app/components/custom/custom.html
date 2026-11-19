@@ -12,7 +12,7 @@
       <button class="fechar" (click)="cancelar()">×</button>
     </div>
 
-    <div class="custom-conteudo">
+    <fieldset class="custom-conteudo" [disabled]="carregando || salvando">
 
 
 
@@ -132,7 +132,7 @@
 
           <div>
             <h3>Notificações</h3>
-            <p>Escolha como deseja receber alertas e atualizações.</p>
+            <p>Escolha suas preferências de notificações. Elas ficam salvas na sua conta.</p>
           </div>
 
         </div>
@@ -163,6 +163,7 @@
 
           <select [value]="frequenciaNotificacao" (change)="alterarFrequencia($event)" [disabled]="!notificacoesAtivas">
 
+            <option value="modoTeste">Modo de teste</option>
             <option value="diaria">Diária</option>
 
             <option value="semanal">Semanal</option>
@@ -180,7 +181,7 @@
         </div>
 
       </section>
-    </div>
+    </fieldset>
     <div class="custom-footer">
 
       <button class="btn-cancelar" (click)="cancelar()">
@@ -190,9 +191,9 @@
       <button
     class="btn-salvar"
     (click)="salvar()"
-    [disabled]="salvando">
+    [disabled]="salvando || carregando || !preferenciasCarregadas">
 
-    {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+    {{ carregando ? 'Carregando...' : (salvando ? 'Salvando...' : 'Salvar alterações') }}
 
 </button>
 
