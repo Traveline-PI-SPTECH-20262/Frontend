@@ -72,13 +72,13 @@
         }
 
         @if (semDados) {
-          <div class="vazio">Nenhum resultado encontrado. Experimente limpar os filtros.</div>
+          <div class="vazio">{{ carregando ? 'Carregando...' : erro || 'Nenhum resultado encontrado. Experimente limpar os filtros.' }}</div>
         } @else {
           <div class="analise-grid" [class.layout-lado]="tipo === 'continentes' || tipo === 'ufs'" [class.layout-empilhado]="tipo === 'paises' || tipo === 'sazonalidade'">
             <div class="painel painel-grafico">
               <div class="painel-titulo">
                 <h3>{{ tipo === 'continentes' ? 'Distribuição das chegadas' : tipo === 'sazonalidade' ? 'Evolução mensal' : 'Visualização das chegadas' }}</h3>
-                <span>Dados demonstrativos</span>
+                <span>Última base processada</span>
               </div>
               <div class="grafico" [class.grafico-rolagem]="tipo === 'paises' && visualizacao === 'todos'">
                 <div class="grafico-interno" [style.height.px]="tipo === 'paises' ? (linhasVisiveis.length > 10 ? linhasVisiveis.length * 29 + 45 : 350) : tipo === 'continentes' ? 300 : 330">

@@ -9,6 +9,7 @@ import { Painel } from './components/pages/painel/painel';
 import {Perfil} from './components/pages/perfil/perfil';
 import { Especifica } from './components/pages/especifica/especifica';
 import { LandingLayout } from './layouts/landing-layout/landing-layout';
+import { PainelAdm } from './components/pages/painel-adm/painel-adm';
 
 
 export const routes: Routes = [
@@ -51,7 +52,11 @@ export const routes: Routes = [
             {
                 path: 'especifica',
                 component: Especifica
-            }
+            },
+            {
+                path: 'painel-adm',
+                component: PainelAdm
+            },
         ]
     }
 ];

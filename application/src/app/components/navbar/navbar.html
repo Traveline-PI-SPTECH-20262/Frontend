@@ -4,16 +4,17 @@
     </div>
     <ul class="nav-links">
         <li><a [routerLink]="['/main/perfil']" routerLinkActive="active">Perfil</a></li>
-        <li><a [routerLink]="['/main/dashboard']" routerLinkActive="active">Visão Geral</a></li>
-        @if (tipoUsuario === 'Gerente') {
-            <li><a [routerLink]="['/main/painel']" routerLinkActive="active">Painel de Controle</a></li>
+        @if (tipoUsuario === 'Administrador') {
+            <li><a [routerLink]="['/main/painel-adm']" routerLinkActive="active">Painel Administrativo</a></li>
+        }@else{
+            <li><a [routerLink]="['/main/dashboard']" routerLinkActive="active">Visão Geral</a></li>
+            @if (tipoUsuario === 'Gerente') {
+                <li><a [routerLink]="['/main/painel']" routerLinkActive="active">Painel de Controle</a></li>
+            }
+            <li><a [routerLink]="['/main/recomendacoes']" routerLinkActive="active">Recomendações</a></li>
+            <li><a [routerLink]="['/main/relatorios']" routerLinkActive="active">Relatórios</a></li>
+            <li><a [routerLink]="['/main/upl']" routerLinkActive="active">Upload de arquivos</a></li>
         }
-        <li><a [routerLink]="['/main/recomendacoes']" routerLinkActive="active">Recomendações</a></li>
-        <li><a [routerLink]="['/main/relatorios']" routerLinkActive="active">Relatórios</a></li>
-        <li><a [routerLink]="['/main/upl']" routerLinkActive="active">Upload de arquivos</a></li>
-        <!--
-        <li><a [routerLink]="['/especifica']" routerLinkActive="active">Investimentos</a></li>
-        -->
     </ul>
     <button type="button" (click)="Logout()">
         Logout

@@ -56,7 +56,11 @@ export class Login {
             paisesEmissores: Boolean(dados.paisesEmissores)
           };
           this.configuracoes.salvarPreferencias(dados.temaClaro ? 'claro' : 'escuro', kpis);
-          this.router.navigate(['/main/dashboard']);
+          if (usuario.cargo === 'Administrador') {
+            this.router.navigate(['/main/painel-adm']);
+          }else{
+            this.router.navigate(['/main/dashboard']);
+          }
         }
         
       },

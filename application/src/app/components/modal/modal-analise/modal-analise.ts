@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../../services/userservices/auth.service';
+import { AnaliseService, RegistroAnalise } from '../../../services/analiseservice/analise.service';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, ChangeDetectorRef } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
@@ -6,7 +9,6 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 
 export type TipoAnalise = 'paises' | 'continentes' | 'ufs' | 'sazonalidade';
 
-type Registro = { ano: number; pais: string; continente: string; uf: string; mes: number; chegadas: number };
 type Linha = { nome: string; valor: number; participacao: number };
 
 @Component({
@@ -16,7 +18,7 @@ type Linha = { nome: string; valor: number; participacao: number };
   templateUrl: './modal-analise.html',
   styleUrl: './modal-analise.css'
 })
-export class ModalAnalise implements OnChanges {
+export class ModalAnalise implements OnChanges, OnDestroy {
   @Input() aberto = false;
   @Input() tipo: TipoAnalise = 'paises';
   @Output() fechar = new EventEmitter<void>();
@@ -30,16 +32,20 @@ export class ModalAnalise implements OnChanges {
 
   readonly meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
   readonly cores: Record<string, string> = {
-    'América': '#1c9b5f', 'Europa': '#de1717', 'África': '#8c62f7',
+    'América': '#1c9b5f', 'América do Sul': '#16a34a', 'América do Norte': '#2563eb',
+    'América Central e Caribe': '#14b8a6', 'Europa': '#de1717', 'África': '#8c62f7',
     'Ásia': '#f59e0b', 'Oceania': '#ec4899'
   };
   readonly roxo = '#895cf5';
-  readonly ufs = ['SP', 'RJ', 'PR', 'BA', 'RS', 'SC', 'MG', 'PE', 'CE', 'DF'];
-  readonly anos = [2021, 2020, 2019];
-  readonly continentes = ['América', 'Europa', 'África', 'Ásia', 'Oceania'];
+  ufs: string[] = [];
+  anos: number[] = [];
+  continentes: string[] = [];
 
-  // Mock interno: substitua esta propriedade pela resposta do backend futuramente.
-  readonly dados: Registro[] = this.criarDadosMock();
+  dadosPaises: RegistroAnalise[] = [];
+  dadosUfs: RegistroAnalise[] = [];
+  carregando = false;
+  erro = '';
+  private consulta?: Subscription;
 
   linhas: Linha[] = [];
   total = 0;
@@ -77,9 +83,70 @@ export class ModalAnalise implements OnChanges {
       ? this.linhas.slice(0, 10) : this.linhas;
   }
 
+  constructor(
+    private analiseService: AnaliseService,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
   ngOnChanges(): void {
+    this.consulta?.unsubscribe();
+    if (!this.aberto) return;
+
+    this.dadosPaises = [];
+    this.dadosUfs = [];
+    this.anos = [];
+    this.ufs = [];
+    this.continentes = [];
+    this.erro = '';
     this.limpar();
+
+    const usuario = this.authService.getToken();
+    if (!usuario?.idAgencia) return;
+
+    this.carregando = true;
+    this.consulta = this.analiseService.getAnalise(usuario.idAgencia).subscribe({
+      next: (dados) => {
+        this.dadosPaises = dados.paises;
+        this.dadosUfs = dados.ufs;
+        this.carregarFiltros();
+        this.carregando = false;
+        this.atualizar();
+        this.cdr.detectChanges();
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar análise:', erro);
+        this.erro = 'Não foi possível carregar a análise.';
+        this.carregando = false;
+        this.atualizar();
+        this.cdr.detectChanges();
+      }
+    });
   }
+
+  ngOnDestroy(): void {
+    this.consulta?.unsubscribe();
+  }
+
+  carregarFiltros(): void {
+    let dados = this.dadosPaises;
+    if (this.tipo === 'ufs' || this.tipo === 'sazonalidade') dados = this.dadosUfs;
+
+    for (const linha of dados) {
+      if (!this.anos.includes(linha.ano)) this.anos.push(linha.ano);
+    }
+    for (const linha of this.dadosPaises) {
+      const continente = linha.continente || 'Não informado';
+      if (!this.continentes.includes(continente)) this.continentes.push(continente);
+    }
+    for (const linha of this.dadosUfs) {
+      if (linha.uf && !this.ufs.includes(linha.uf)) this.ufs.push(linha.uf);
+    }
+    this.anos.sort(function (a, b) { return b - a; });
+    this.continentes.sort();
+    this.ufs.sort();
+  }
+
 
   limpar(): void {
     this.ano = 'todos';
@@ -92,36 +159,58 @@ export class ModalAnalise implements OnChanges {
   }
 
   atualizar(): void {
-    const filtrados = this.dados.filter(d =>
-      (this.ano === 'todos' || d.ano === Number(this.ano)) &&
-      (this.continente === 'todos' || d.continente === this.continente) &&
-      (this.uf === 'todas' || d.uf === this.uf) &&
-      (this.tipo !== 'paises' || d.pais.toLocaleLowerCase('pt-BR').includes(this.busca.trim().toLocaleLowerCase('pt-BR')))
-    );
+    let dados = this.dadosPaises;
+    if (this.tipo === 'ufs' || this.tipo === 'sazonalidade') dados = this.dadosUfs;
 
-    const campo: keyof Registro = this.tipo === 'paises' ? 'pais'
-      : this.tipo === 'continentes' ? 'continente'
-      : this.tipo === 'ufs' ? 'uf' : 'mes';
-
-    const grupos = new Map<string, number>();
-    for (const d of filtrados) {
-      const nome = String(d[campo]);
-      grupos.set(nome, (grupos.get(nome) || 0) + d.chegadas);
+    const filtrados: RegistroAnalise[] = [];
+    for (const linha of dados) {
+      if (this.ano !== 'todos' && linha.ano !== Number(this.ano)) continue;
+      if ((this.tipo === 'paises' || this.tipo === 'continentes') &&
+          this.continente !== 'todos' && (linha.continente || 'Não informado') !== this.continente) continue;
+      if ((this.tipo === 'ufs' || this.tipo === 'sazonalidade') &&
+          this.uf !== 'todas' && linha.uf !== this.uf) continue;
+      if (this.tipo === 'paises' &&
+          !String(linha.pais).toLocaleLowerCase('pt-BR').includes(this.busca.trim().toLocaleLowerCase('pt-BR'))) continue;
+      filtrados.push(linha);
     }
 
-    this.total = [...grupos.values()].reduce((soma, valor) => soma + valor, 0);
-    this.linhas = [...grupos].map(([nome, valor]) => ({
-      nome: campo === 'mes' ? this.meses[Number(nome) - 1] : nome,
-      valor,
-      participacao: this.total ? valor / this.total * 100 : 0
-    }));
+    this.total = 0;
+    this.linhas = [];
+    for (const linha of filtrados) {
+      let nome = linha.pais || 'Não informado';
+      if (this.tipo === 'continentes') nome = linha.continente || 'Não informado';
+      if (this.tipo === 'ufs') nome = linha.uf || 'Não informado';
+      if (this.tipo === 'sazonalidade') nome = this.meses[linha.mes - 1];
+
+      let grupo = this.linhas.find(function (item) { return item.nome === nome; });
+      if (!grupo) {
+        grupo = { nome: nome, valor: 0, participacao: 0 };
+        this.linhas.push(grupo);
+      }
+      grupo.valor += linha.chegadas;
+      this.total += linha.chegadas;
+    }
+
+    for (const linha of this.linhas) {
+      if (this.total > 0) linha.participacao = linha.valor / this.total * 100;
+    }
 
     if (this.tipo === 'sazonalidade') {
+      // Mantém janeiro a dezembro, inclusive meses sem movimento.
+      if (filtrados.length > 0) {
+        for (const mes of this.meses) {
+          if (!this.linhas.some(function (linha) { return linha.nome === mes; })) {
+            this.linhas.push({ nome: mes, valor: 0, participacao: 0 });
+          }
+        }
+      }
       this.linhas.sort((a, b) => this.meses.indexOf(a.nome) - this.meses.indexOf(b.nome));
     } else if (this.ordenacao === 'alfabetica') {
       this.linhas.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
     } else {
-      this.linhas.sort((a, b) => this.ordenacao === 'maior' ? b.valor - a.valor : a.valor - b.valor);
+      this.linhas.sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+      if (this.ordenacao === 'maior') this.linhas.sort((a, b) => b.valor - a.valor);
+      if (this.ordenacao === 'menor') this.linhas.sort((a, b) => a.valor - b.valor);
     }
 
     this.semDados = this.linhas.length === 0;
@@ -158,11 +247,12 @@ export class ModalAnalise implements OnChanges {
       responsive: true,
       maintainAspectRatio: false,
       indexAxis: this.tipo === 'paises' ? 'y' : 'x',
+      color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary').trim(),
       plugins: { legend: { display: false } },
       ...(this.tipo === 'continentes' ? { cutout: '70%' } : {
         scales: {
           x: { grid: { display: false }, ticks: { autoSkip: this.tipo !== 'paises' } },
-          y: { grid: { display: this.tipo !== 'paises' }, ticks: { autoSkip: false } }
+          y: { grid: { display: this.tipo !== 'paises', color: getComputedStyle(document.documentElement).getPropertyValue('--graph-line').trim() }, ticks: { autoSkip: false } }
         }
       })
     };
@@ -182,35 +272,4 @@ export class ModalAnalise implements OnChanges {
     URL.revokeObjectURL(url);
   }
 
-  private criarDadosMock(): Registro[] {
-    const paises = [
-      ['Argentina', 'América'], ['França', 'Europa'], ['Japão', 'Ásia'],
-      ['Estados Unidos', 'América'], ['África do Sul', 'África'], ['Alemanha', 'Europa'],
-      ['China', 'Ásia'], ['Chile', 'América'], ['Austrália', 'Oceania'],
-      ['Portugal', 'Europa'], ['Uruguai', 'América'], ['Itália', 'Europa'],
-      ['Paraguai', 'América'], ['Espanha', 'Europa'], ['Canadá', 'América'],
-      ['México', 'América'], ['Reino Unido', 'Europa'], ['Coreia do Sul', 'Ásia'],
-      ['Colômbia', 'América'], ['Peru', 'América'], ['Bolívia', 'América'],
-      ['Suíça', 'Europa'], ['Índia', 'Ásia'], ['Angola', 'África'],
-      ['Nova Zelândia', 'Oceania'], ['Bélgica', 'Europa'], ['Equador', 'América'],
-      ['Marrocos', 'África'], ['Israel', 'Ásia'], ['Países Baixos', 'Europa']
-    ];
-    const dados: Registro[] = [];
-    for (let ano = 2019; ano <= 2021; ano++) {
-      for (let i = 0; i < paises.length; i++) {
-        for (let mes = 1; mes <= 12; mes++) {
-          dados.push({
-            ano,
-            pais: paises[i][0],
-            continente: paises[i][1],
-            uf: this.ufs[(i + mes + ano) % this.ufs.length],
-            mes,
-            chegadas: Math.round((2600 - i * 55) * (ano === 2020 ? .65 : ano === 2021 ? .82 : 1) *
-              (0.75 + ((mes * 7 + i) % 9) / 18))
-          });
-        }
-      }
-    }
-    return dados;
-  }
 }

@@ -29,7 +29,14 @@ export class Dashboard implements OnInit {
   ufs: ChartConfiguration<'bar'>['data'] = { labels: [], datasets: [] };
   sazonalidade: ChartConfiguration<'line'>['data'] = { labels: [], datasets: [] };
   cores: Record<string, string> = {
-    'América': '#1c9b5f', 'Europa': '#de1717', 'África': '#8c62f7', 'Ásia': '#f59e0b', 'Oceania': '#ec4899'
+    'América': '#1c9b5f',
+    'América do Sul': '#16a34a',
+    'América do Norte': '#2563eb',
+    'América Central e Caribe': '#14b8a6',
+    'Europa': '#ef4444',
+    'Ásia': '#f59e0b',
+    'Oceania': '#ec4899',
+    'África': '#8b5cf6'
   };
 
   constructor(

@@ -52,7 +52,7 @@
                     <table>
                         <thead><tr>
                             <th>País</th><th>Variação {{dados.semDados ? '' : dados.ano + '/' + dados.anoAnterior}}</th>
-                            <th>Participação {{dados.semDados ? '' : dados.ano}}</th><th>Tendência</th><th>Oportunidade</th>
+                            <th>Participação {{dados.semDados ? '' : dados.ano}}</th><th>Oportunidade</th>
                         </tr></thead>
                         <tbody>
                             @for(item of dados.oportunidades; track item.pais){
@@ -60,7 +60,6 @@
                                     <td>{{item.pais}}</td>
                                     <td [class.subiu]="item.variacao !== null && item.variacao > 0" [class.desceu]="item.variacao !== null && item.variacao < 0">{{percentual(item.variacao)}}</td>
                                     <td>{{numero(item.participacao)}}%</td>
-                                    <td>{{item.tendencia}}</td>
                                     <td><span [class.alta]="item.oportunidade === 'Alta'" [class.media]="item.oportunidade === 'Média'">{{item.oportunidade}}</span></td>
                                 </tr>
                             }

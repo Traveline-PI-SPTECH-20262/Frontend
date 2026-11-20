@@ -22,7 +22,6 @@ export interface Oportunidade {
   pais: string;
   variacao: number | null;
   participacao: number;
-  tendencia: string;
   oportunidade: string;
 }
 

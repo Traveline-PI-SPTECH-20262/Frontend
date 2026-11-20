@@ -1,83 +1,47 @@
 <main>
-    <app-header
-        titulo = "Recomendações";
-        descricao = "Veja as suas recomendações...">
-    </app-header>   
+    <app-header titulo="Recomendações" descricao="Veja as recomendações da última base processada da sua agência."></app-header>
 
     <section class="conteiner-recomendacoes">
-            <div id="tabela-coteiner">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>País</th>
-                            <th>Variação 2021/2020</th>
-                            <th>Participação 2021</th>
-                            <th>Tendência</th>
-                            <th>Oportunidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    @for(recomendacoesAtual of recomendacoes; track recomendacoesAtual.id){
-                        @if(recomendacoesAtual.id%2==0){
-                            <tr style="background-color: rgba(168, 167, 167, 0.559);">
-                                <td>{{recomendacoesAtual.pais}}</td>
-                                
-                                @if(recomendacoesAtual.variacao_2021_2020.includes('+')){
-                                    <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
-                                }@else{
-                            <td     class="desceu">{{recomendacoesAtual.variacao_2021_2020}}</td>
-                                }
-
-                                <td>{{recomendacoesAtual.participacao_2021}}</td>
-
-                                @if (recomendacoesAtual.tendencia === 'Subir') {
-                                    <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
-                                } @else if (recomendacoesAtual.tendencia === 'Manter') {
-                                    <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
-                                } @else {
-                                    <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
-                                }
-                                    @if (recomendacoesAtual.oportunidade === 'Alta') {
-                                        <td><span class="alta">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    } @else if (recomendacoesAtual.oportunidade === 'Média') {
-                                        <td><span class="media">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    } @else if (recomendacoesAtual.oportunidade === 'Baixa') {
-                                        <td><span class="baixa">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    }
+        @if(carregando){
+            <p role="status">Carregando...</p>
+        }
+        @if(erro){
+            <p role="alert">{{erro}}</p>
+        }
+        <div class="lista-recomendacoes">
+            @for(lista of listas; track lista.titulo){
+                <section class="grupo-recomendacoes">
+                    <h2>{{lista.titulo}}</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Local</th>
+                                <th>Turistas</th>
+                                <th>Participação</th>
+                                <th>Nível</th>
+                                <th>Mês de pico</th>
                             </tr>
-                            }@else{
+                        </thead>
+                        <tbody>
+                            @for(item of lista.itens; track item.id; let posicao = $index){
                                 <tr>
-                                    <td>{{recomendacoesAtual.pais}}</td>
-                                    
-                                    @if(recomendacoesAtual.variacao_2021_2020.includes('+')){
-                                        <td class="subiu">{{recomendacoesAtual.variacao_2021_2020}}</td>
-                                    }@else{
-                                        <td class="desceu">{{recomendacoesAtual.variacao_2021_2020}}</td>
-                                    }
-
-                                    <td>{{recomendacoesAtual.participacao_2021}}</td>
-
-                                    @if (recomendacoesAtual.tendencia === 'Subir') {
-                                        <td class="subiu"><span id="iconezinho">↗</span>{{ recomendacoesAtual.tendencia }}</td>
-                                    } @else if (recomendacoesAtual.tendencia === 'Manter') {
-                                        <td class="estavel"><span id="iconezinho">→</span>{{ recomendacoesAtual.tendencia }}</td>
-                                    } @else {
-                                        <td class="desceu"><span id="iconezinho">↘</span>{{ recomendacoesAtual.tendencia }}</td>
-                                    }
-                                    @if (recomendacoesAtual.oportunidade === 'Alta') {
-                                        <td><span class="alta">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    } @else if (recomendacoesAtual.oportunidade === 'Média') {
-                                        <td><span class="media">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    } @else if (recomendacoesAtual.oportunidade === 'Baixa') {
-                                        <td><span class="baixa">{{ recomendacoesAtual.oportunidade }}</span></td>
-                                    }
+                                    <td>{{posicao + 1}}</td>
+                                    <td>{{item.nome}}</td>
+                                    <td>{{numero(item.total)}}</td>
+                                    <td>{{percentual(item.participacao)}}</td>
+                                    <td>
+                                        <span [class.alta]="item.nivel === 'ALTO'"
+                                              [class.media]="item.nivel === 'MÉDIO'"
+                                              [class.baixa]="item.nivel === 'BAIXO'">{{item.nivel}}</span>
+                                    </td>
+                                    <td>{{item.sazonalidade}}</td>
                                 </tr>
                             }
-                    }
-                    </tbody>
-                        </table>
-            </div>
+                        </tbody>
+                    </table>
+                </section>
+            }
+        </div>
     </section>
-
-
 </main>

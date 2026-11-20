@@ -1,0 +1,232 @@
+main,
+main * {
+    box-sizing: border-box;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 1.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.conteiner-painel-adm {
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; 
+    gap: 1rem;
+}
+
+.card-painel-adm{
+    width: 100%;
+    height: auto;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--bg-secondary);
+}
+.modos {
+    display: flex;
+    gap: 8px;
+}
+
+.modos button, .botao-principal, .botao-secundario {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.modos button, .botao-secundario {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.modos .ativo, .botao-principal {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+.botao-secundario:hover {
+    background-color: var(--accent-soft);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.botao-excluir {
+    padding: 10px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  background: #dc2626;
+  color: white;
+  border: none;
+}
+
+.botao-excluir:hover {
+  background: #b91c1c;
+}
+
+.selecionar-agencia {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.selecionar-agencia .campo {
+    width: 320px;
+    max-width: 100%;
+}
+
+.selecionar-agencia > span, .titulo-usuarios > span {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.gerenciamento {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.card-gerenciar {
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 24px;
+}
+
+.card-gerenciar h2 {
+    font-size: 1.2rem;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.campo label {
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.campo input, .campo select {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.campo input:focus, .campo select:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.linha-campos {
+    display: flex;
+    gap: 16px;
+}
+
+.linha-campos .campo {
+    flex: 1;
+}
+
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.titulo-usuarios {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.lista-usuarios {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background-color: var(--bg-card);
+}
+
+.dados-usuario {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.dados-usuario h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.dados-usuario p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.cargo {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+    font-size: 0.75rem;
+}
+
+.mensagem {
+    color: var(--accent-color);
+    font-size: 0.85rem;
+}
+
+
+
