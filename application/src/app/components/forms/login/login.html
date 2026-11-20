@@ -23,7 +23,7 @@
 
         <input
             id="senhaLogin"
-            type="password"
+            [type]="verSenha ? 'text' : 'password'"
             name="senha"
             [(ngModel)]="senha"
             placeholder="Digite sua senha"
@@ -31,9 +31,9 @@
     </div>
 
     <div class="opcoes-login">
-        <label class="lembrar-dispositivo">
-            <input type="checkbox" name="remember">
-            <span>Lembrar dispositivo</span>
+        <label class="ver-senha">
+            <input type="checkbox" name="verSenha" [(ngModel)]="verSenha">
+            <span>Ver senha</span>
         </label>
 
         <a class="recuperar-senha" href="#">

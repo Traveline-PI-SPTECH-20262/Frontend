@@ -11,6 +11,10 @@ export class RegisterService {
 
   constructor(private http: HttpClient) {}
 
+  getCargos(): Observable<{ idCargo: number, cargo: string }[]> {
+    return this.http.get<{ idCargo: number, cargo: string }[]>(`${API_URL}:3000/user/cargos`);
+  }
+
   registerUser(userData: any): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post(this.endpoint, userData, { headers });

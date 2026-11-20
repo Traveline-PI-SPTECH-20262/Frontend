@@ -23,7 +23,8 @@
     color: #334155;
 }
 
-.campo-formulario input {
+.campo-formulario input,
+.campo-formulario select {
     width: 100%;
     height: 44px;
     padding: 0 14px;
@@ -46,7 +47,8 @@
     color: #94a3b8;
 }
 
-.campo-formulario input:focus {
+.campo-formulario input:focus,
+.campo-formulario select:focus {
     border-color: #8b5cf6;
     box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
 }
@@ -73,4 +75,19 @@
     background: linear-gradient(135deg, #6d28d9, #7c3aed);
     transform: translateY(-1px);
     box-shadow: 0 6px 18px rgba(124, 58, 237, 0.2);
+}
+
+.ver-senha {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 14px;
+    font-size: 0.82rem;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.ver-senha input {
+    accent-color: #7c3aed;
+    cursor: pointer;
 }

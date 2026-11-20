@@ -13,8 +13,10 @@ export class Register {
   nome: string = '';
   email: string = '';
   senha: string = '';
+  verSenha = false;
   codigoAtivacao: string = '';
-  cargo: string = '';
+  idCargo: number | null = null;
+  cargos: { idCargo: number, cargo: string }[] = [];
 
 
   modalErroAberto = false;
@@ -31,13 +33,23 @@ export class Register {
   
   constructor(private registerService: RegisterService, private cdr: ChangeDetectorRef) {}
 
+  ngOnInit() {
+    this.registerService.getCargos().subscribe({
+      next: (cargos) => {
+        this.cargos = cargos;
+        this.cdr.detectChanges();
+      },
+      error: (erro) => console.error('Erro ao carregar cargos:', erro)
+    });
+  }
+
   register() {
     const userData = {
       nome: this.nome,
       email: this.email,
       senha: this.senha,
       codigoAtivacao: this.codigoAtivacao,
-      cargo: this.cargo
+      idCargo: this.idCargo
     };
 
     this.registerService.registerUser(userData).subscribe({

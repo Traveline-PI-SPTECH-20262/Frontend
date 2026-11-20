@@ -34,13 +34,12 @@
     <div class="campo-formulario">
         <label for="cargoFuncionario">Cargo</label>
 
-        <input
-            id="cargoFuncionario"
-            type="text"
-            name="cargo"
-            [(ngModel)]="cargo"
-            placeholder="Ex.: Analista"
-            required>
+        <select id="cargoFuncionario" name="idCargo" [(ngModel)]="idCargo" required>
+            <option [ngValue]="null" disabled>Selecione seu cargo</option>
+            @for (cargo of cargos; track cargo.idCargo) {
+                <option [ngValue]="cargo.idCargo">{{ cargo.cargo }}</option>
+            }
+        </select>
     </div>
 
     <div class="campo-formulario">
@@ -60,12 +59,17 @@
 
         <input
             id="senhaCadastro"
-            type="password"
+            [type]="verSenha ? 'text' : 'password'"
             name="senha"
             [(ngModel)]="senha"
             placeholder="Crie uma senha forte"
             required>
     </div>
+
+    <label class="ver-senha">
+        <input type="checkbox" name="verSenha" [(ngModel)]="verSenha">
+        <span>Ver senha</span>
+    </label>
 
     <button
         type="button"

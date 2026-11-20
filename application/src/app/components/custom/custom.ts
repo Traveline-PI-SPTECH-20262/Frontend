@@ -15,8 +15,6 @@ export class CustomComponent implements OnChanges {
   @Output() fechar = new EventEmitter<void>();
 
   temaSelecionado: Tema = 'claro';
-  notificacoesAtivas = true;
-  frequenciaNotificacao = 'mensal';
   salvando = false;
   carregando = false;
   preferenciasCarregadas = false;
@@ -51,8 +49,6 @@ export class CustomComponent implements OnChanges {
         this.preferenciasCarregadas = true;
         this.temaSelecionado = 'escuro';
         if (dados.temaClaro) this.temaSelecionado = 'claro';
-        this.notificacoesAtivas = Boolean(dados.notificacoesAtivas);
-        this.frequenciaNotificacao = dados.frequencia;
         this.kpisSelecionados = {
           totalTuristas: Boolean(dados.totalTuristas),
           viaAerea: Boolean(dados.viaAerea),
@@ -88,17 +84,14 @@ export class CustomComponent implements OnChanges {
     this.salvando = true;
     this.erroNotificacao = '';
     this.perfilService.salvarPreferencias(
-      usuario.id, this.temaSelecionado === 'claro', this.kpisSelecionados,
-      this.notificacoesAtivas, this.frequenciaNotificacao
+      usuario.id, this.temaSelecionado === 'claro', this.kpisSelecionados
     ).subscribe({
       next: () => {
         this.configuracoes.salvarPreferencias(this.temaSelecionado, this.kpisSelecionados);
         this.authService.salvarPreferencias(JSON.stringify({
           preferencias: {
             temaClaro: this.temaSelecionado === 'claro',
-            ...this.kpisSelecionados,
-            notificacoesAtivas: this.notificacoesAtivas,
-            frequencia: this.frequenciaNotificacao
+            ...this.kpisSelecionados
           }
         }));
         this.salvando = false;
@@ -115,10 +108,4 @@ export class CustomComponent implements OnChanges {
   }
 
   cancelar() { this.fechar.emit(); }
-  alterarNotificacoes(event: Event) {
-    this.notificacoesAtivas = (event.target as HTMLInputElement).checked;
-  }
-  alterarFrequencia(event: Event) {
-    this.frequenciaNotificacao = (event.target as HTMLSelectElement).value;
-  }
 }

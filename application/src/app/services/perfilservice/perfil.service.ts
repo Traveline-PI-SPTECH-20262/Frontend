@@ -31,7 +31,7 @@ import API_URL from '../../config';
         return this.http.get(`${this.endpoint}/preferencias/${idusuario}`);
     }
 
-    salvarPreferencias(idusuario: number, temaClaro: boolean, kpis: KpiVisibilidade, notificacoesAtivas: boolean, frequencia: string) {
-        return this.http.post(`${this.endpoint}/preferencias/${idusuario}`, { temaClaro, ...kpis, notificacoesAtivas, frequencia });
+    salvarPreferencias(idusuario: number, temaClaro: boolean, kpis: KpiVisibilidade) {
+        return this.http.post(`${this.endpoint}/preferencias/${idusuario}`, { temaClaro, ...kpis });
     }
 }

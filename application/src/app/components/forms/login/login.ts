@@ -14,6 +14,7 @@ import { ModalErro } from '../../modal/modal-erro/modal-erro';
 })
 export class Login {
   senha: string = '';
+  verSenha = false;
   email: string = '';
 
   modalErroAberto = false;

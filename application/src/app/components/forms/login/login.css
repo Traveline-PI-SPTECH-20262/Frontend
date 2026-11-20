@@ -62,7 +62,7 @@
     margin: 2px 0 24px;
 }
 
-.lembrar-dispositivo {
+.ver-senha {
     display: flex;
     align-items: center;
     gap: 7px;
@@ -72,7 +72,7 @@
     cursor: pointer;
 }
 
-.lembrar-dispositivo input {
+.ver-senha input {
     accent-color: #7c3aed;
     cursor: pointer;
 }
