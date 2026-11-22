@@ -1,9 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core'; // ALTERADO
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../header/header';
 import { Register } from '../../forms/register/register';
 import { RegisterAgencia } from '../../forms/register-agencia/register-agencia';
 import { Modal } from '../../modal/modal';
+import { AdminService } from '../../../services/adminservice/admin.service'; // NOVO
+
+// NOVO
+interface Usuario {
+  idusuario: number;
+  nome: string;
+  email: string;
+  cargo: string;
+  idAgencia: number;
+}
 
 @Component({
   selector: 'app-painel-adm',
@@ -11,7 +21,7 @@ import { Modal } from '../../modal/modal';
   templateUrl: './painel-adm.html',
   styleUrl: './painel-adm.css'
 })
-export class PainelAdm {
+export class PainelAdm implements OnInit { // ALTERADO
   modo = 'cadastrar';
   idAgencia = 1;
   editandoUsuario = false;
@@ -25,16 +35,42 @@ export class PainelAdm {
     { idAgencia: 3, nome: 'Mundo Viagens', cnpj: '34.567.890/0001-12', email: 'contato@mundoviagens.com', telefone: '(21) 99999-3333', dataCadastro: '2026-10-10', codigoAtivacao: 'MUNDO003' }
   ];
 
-  usuarios = [
-    { idusuario: 1, nome: 'Guilherme Silva', email: 'guilherme@travelineturismo.com', cargo: 'Administrador', idAgencia: 1 },
-    { idusuario: 2, nome: 'Ana Souza', email: 'ana@travelineturismo.com', cargo: 'Analista', idAgencia: 1 },
-    { idusuario: 3, nome: 'Carlos Oliveira', email: 'carlos@globaltravel.com', cargo: 'Gerente', idAgencia: 2 },
-    { idusuario: 4, nome: 'Mariana Costa', email: 'mariana@globaltravel.com', cargo: 'Analista', idAgencia: 2 },
-    { idusuario: 5, nome: 'Pedro Santos', email: 'pedro@mundoviagens.com', cargo: 'Administrador', idAgencia: 3 }
-  ];
+  usuarios: Usuario[] = []; // ALTERADO (antes era o array com dados fixos)
+
+  // NOVO
+  cargosPermitidos = ['Gerente', 'Analista'];
+  erroEdicao = '';
+  salvando = false;
+  usuarioExcluir: Usuario | null = null;
+  erroExclusao = '';
+  excluindo = false;
 
   formularioAgencia = { ...this.agencias[0] };
   formularioUsuario = { nome: '', email: '', cargo: '' };
+
+  // NOVO
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef) {}
+
+  // NOVO
+  ngOnInit() {
+    this.carregarUsuarios();
+  }
+
+  // NOVO
+  carregarUsuarios() {
+    const agenciaConsultada = this.idAgencia;
+    this.adminService.listarUsuarios(agenciaConsultada).subscribe({
+      next: (lista) => {
+        if (agenciaConsultada !== this.idAgencia) return; // ignora resposta de agência antiga
+        this.usuarios = lista;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.mensagemUsuario = 'Não foi possível carregar os usuários.';
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   get usuariosAgencia() {
     const usuarios = [];
@@ -59,6 +95,7 @@ export class PainelAdm {
         this.formularioAgencia = { ...agencia };
       }
     }
+    this.carregarUsuarios(); // NOVO
   }
 
   salvarAgencia() {
@@ -84,26 +121,71 @@ export class PainelAdm {
           cargo: usuario.cargo
         };
         this.mensagemUsuario = '';
+        this.erroEdicao = ''; // NOVO
         this.editandoUsuario = true;
       }
     }
   }
 
+  // ALTERADO (antes estava vazio e só fechava o modal)
   salvarUsuario() {
-    for (const usuario of this.usuarios) {
-      if (usuario.idusuario === this.idUsuario && usuario.idAgencia === this.idAgencia) {
-      
+    if (this.salvando) return;
+    this.salvando = true;
+    this.erroEdicao = '';
+
+    this.adminService.editarUsuario(this.idUsuario, this.formularioUsuario).subscribe({
+      next: (resposta) => {
+        this.salvando = false;
+        this.mensagemUsuario = resposta.message;
+        this.cancelarEdicaoUsuario();
+        this.carregarUsuarios();
+      },
+      error: (erro) => {
+        this.salvando = false;
+        this.erroEdicao = erro.error?.message || 'Erro ao atualizar o usuário.';
+        this.cdr.detectChanges();
       }
-    }
-    this.cancelarEdicaoUsuario();
+    });
   }
 
   cancelarEdicaoUsuario() {
     this.editandoUsuario = false;
     this.idUsuario = 0;
+    this.erroEdicao = ''; // NOVO
   }
 
   deletarAgencia(){}
 
-  deletarUsuario(){}
+  // NOVO
+  pedirExclusao(usuario: Usuario) {
+    this.usuarioExcluir = usuario;
+    this.erroExclusao = '';
+  }
+
+  // NOVO
+  cancelarExclusao() {
+    this.usuarioExcluir = null;
+    this.erroExclusao = '';
+  }
+
+  // ALTERADO (antes era deletarUsuario(){} vazio)
+  deletarUsuario() {
+    if (!this.usuarioExcluir || this.excluindo) return;
+    this.excluindo = true;
+    this.erroExclusao = '';
+
+    this.adminService.deletarUsuario(this.usuarioExcluir.idusuario).subscribe({
+      next: (resposta) => {
+        this.excluindo = false;
+        this.mensagemUsuario = resposta.message;
+        this.usuarioExcluir = null;
+        this.carregarUsuarios();
+      },
+      error: (erro) => {
+        this.excluindo = false;
+        this.erroExclusao = erro.error?.message || 'Erro ao deletar o usuário.';
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

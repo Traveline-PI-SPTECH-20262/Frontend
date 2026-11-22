@@ -95,10 +95,13 @@
                                 <p>{{usuario.email}}</p>
                                 <span class="cargo">{{usuario.cargo}}</span>
                             </div>
-                            <span>
-                                <button type="button" class="botao-excluir" (click)="deletarUsuario()">Deletar</button>
-                                <button type="button" class="botao-secundario" (click)="editarUsuario(usuario.idusuario)">Editar</button>
-                            </span>
+                            <!-- ALTERADO: botões só aparecem para quem não é Administrador; Deletar abre a confirmação -->
+                            @if(usuario.cargo !== 'Administrador'){
+                                <span>
+                                    <button type="button" class="botao-excluir" (click)="pedirExclusao(usuario)">Deletar</button>
+                                    <button type="button" class="botao-secundario" (click)="editarUsuario(usuario.idusuario)">Editar</button>
+                                </span>
+                            }
                         </div>
                     }@empty{
                         <p>Nenhum usuário nesta agência.</p>
@@ -121,15 +124,40 @@
         </div>
         <div class="campo">
             <label for="cargoUsuarioAdm">Cargo</label>
+            <!-- ALTERADO: só Gerente e Analista -->
             <select id="cargoUsuarioAdm" name="cargoUsuario" [(ngModel)]="formularioUsuario.cargo" required>
-                <option value="Administrador">Administrador</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Analista">Analista</option>
+                @for(cargo of cargosPermitidos; track cargo){
+                    <option [value]="cargo">{{cargo}}</option>
+                }
             </select>
         </div>
+        <!-- NOVO: mensagem de erro -->
+        @if(erroEdicao){
+            <p class="mensagem" role="alert">{{erroEdicao}}</p>
+        }
         <div class="acoes">
             <button type="button" class="botao-secundario" (click)="cancelarEdicaoUsuario()">Cancelar</button>
-            <button type="submit" class="botao-principal" [disabled]="usuarioForm.invalid">Salvar alterações</button>
+            <!-- ALTERADO: desabilita enquanto salva -->
+            <button type="submit" class="botao-principal" [disabled]="usuarioForm.invalid || salvando">
+                {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+            </button>
         </div>
     </form>
+</app-modal>
+
+<!-- NOVO: modal de confirmação de exclusão -->
+<app-modal
+    [aberto]="usuarioExcluir !== null"
+    titulo="Deletar usuário"
+    [descricao]="'Tem certeza de que deseja deletar ' + (usuarioExcluir?.nome ?? '') + '? Essa ação não poderá ser desfeita.'"
+    (fechar)="cancelarExclusao()">
+    @if(erroExclusao){
+        <p class="mensagem" role="alert">{{erroExclusao}}</p>
+    }
+    <div class="acoes">
+        <button type="button" class="botao-secundario" (click)="cancelarExclusao()" [disabled]="excluindo">Cancelar</button>
+        <button type="button" class="botao-excluir" (click)="deletarUsuario()" [disabled]="excluindo">
+            {{ excluindo ? 'Deletando...' : 'Deletar' }}
+        </button>
+    </div>
 </app-modal>
