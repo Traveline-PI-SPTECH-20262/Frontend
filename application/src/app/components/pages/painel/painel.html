@@ -15,6 +15,9 @@
                 <option value=""></option>
             </select>
         </div>
+        <button (click)="abrirCadastro()">
+            Adicionar funcionário
+        </button>
 
         <section class="painel-func-contener">
             @for (funcionario of funcionarios; track funcionario.idusuario) {

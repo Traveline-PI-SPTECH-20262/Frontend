@@ -27,6 +27,7 @@ export class Painel implements OnInit {
   editando = false;
   visualizando = false;
   excluindo = false;
+  cadastrando = false;
 
   salvando = false;
   deletando = false;
@@ -201,5 +202,13 @@ salvarEdicao(dados: FormularioPerfil) {
 
   cancelarExclusao() {
     this.excluindo = false;
+  }
+
+  abrirCadastro() {
+    this.cadastrando = true;
+  }
+
+  cancelarCadastro() {
+      this.cadastrando = false;
   }
 }
