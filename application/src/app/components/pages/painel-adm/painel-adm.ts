@@ -4,6 +4,8 @@ import { Header } from '../../header/header';
 import { Register } from '../../forms/register/register';
 import { RegisterAgencia } from '../../forms/register-agencia/register-agencia';
 import { Modal } from '../../modal/modal';
+import { OnInit } from '@angular/core';
+import { AgenciaService } from '../../../services/admAgenciaservice/admAgencia.service';
 
 @Component({
   selector: 'app-painel-adm',
@@ -11,7 +13,7 @@ import { Modal } from '../../modal/modal';
   templateUrl: './painel-adm.html',
   styleUrl: './painel-adm.css'
 })
-export class PainelAdm {
+export class PainelAdm implements OnInit {
   modo = 'cadastrar';
   idAgencia = 1;
   editandoUsuario = false;
@@ -62,12 +64,20 @@ export class PainelAdm {
   }
 
   salvarAgencia() {
-    for (let indice = 0; indice < this.agencias.length; indice++) {
-      if (this.agencias[indice].idAgencia === this.idAgencia) {
-        this.agencias[indice] = { ...this.formularioAgencia };
-        this.mensagemAgencia = 'Dados da agência atualizados.';
+    this.agenciaService.atualizarAgencia(
+      this.idAgencia,
+      this.formularioAgencia
+    ).subscribe({
+      next: () => {
+        this.mensagemAgencia = 'Dados da agência atualizados com sucesso!';
+
+        this.carregarAgencias();
+      },
+      error: (erro) => {
+        console.error('Erro ao atualizar agência:', erro);
+        this.mensagemAgencia = 'Não foi possível atualizar os dados da agência.';
       }
-    }
+    });
   }
 
   cancelarEdicaoAgencia() {
@@ -103,7 +113,66 @@ export class PainelAdm {
     this.idUsuario = 0;
   }
 
-  deletarAgencia(){}
+  deletarAgencia() {
+    const confirmar = confirm('Tem certeza que deseja desativar esta agência?');
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.agenciaService.deletarAgencia(this.idAgencia).subscribe({
+      next: () => {
+        this.agencias = this.agencias.filter(
+          agencia => agencia.idAgencia !== this.idAgencia
+        );
+
+        this.mensagemAgencia = 'Agência desativada com sucesso!';
+
+        if (this.agencias.length > 0) {
+          this.idAgencia = this.agencias[0].idAgencia;
+          this.formularioAgencia = { ...this.agencias[0] };
+        } else {
+          this.idAgencia = 0;
+          this.formularioAgencia = {
+            idAgencia: 0,
+            nome: '',
+            cnpj: '',
+            email: '',
+            telefone: '',
+            dataCadastro: '',
+            codigoAtivacao: ''
+          };
+        }
+      },
+      error: (erro) => {
+        console.error('Erro ao desativar agência:', erro);
+        this.mensagemAgencia = 'Não foi possível desativar a agência.';
+      }
+    });
+  }
 
   deletarUsuario(){}
+
+  constructor(private agenciaService: AgenciaService) {}
+
+  ngOnInit() {
+    this.carregarAgencias();
+  }
+
+  carregarAgencias() {
+    this.agenciaService.listarAgencias().subscribe({
+      next: (dados) => {
+        this.agencias = dados;
+
+        if (this.agencias.length > 0) {
+          this.idAgencia = this.agencias[0].idAgencia;
+          this.selecionarAgencia();
+        }
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar agências:', erro);
+        this.mensagemAgencia = 'Não foi possível carregar as agências.';
+      }
+    });
+  }
 }
