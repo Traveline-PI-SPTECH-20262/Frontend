@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import API_URL from '../../config';
 import { KpiVisibilidade } from '../services/configuracoes';
@@ -25,6 +25,13 @@ export interface Oportunidade {
   oportunidade: string;
 }
 
+export interface FiltrosDashboard {
+  ano: number | null;
+  continente: string | null;
+  anosDisponiveis: number[];
+  continentesDisponiveis: string[];
+}
+
 export interface DashboardDados {
   planilha: {
     idplanilha: number;
@@ -35,6 +42,7 @@ export interface DashboardDados {
   periodo: string;
   ano: number;
   anoAnterior: number;
+  filtros?: FiltrosDashboard;
   kpis: DashboardKpi[];
   continentes: LinhaGrafico[];
   paises: LinhaGrafico[];
@@ -47,7 +55,11 @@ export interface DashboardDados {
 export class DashboardService {
   constructor(private http: HttpClient) {}
 
-  getGeral(idAgencia: number): Observable<DashboardDados> {
-    return this.http.get<DashboardDados>(`${API_URL}:3000/dashboard/geral/${idAgencia}`);
+  getGeral(idAgencia: number, filtros: { ano?: number | string; continente?: string } = {}): Observable<DashboardDados> {
+    let params = new HttpParams();
+    if (filtros.ano) params = params.set('ano', String(filtros.ano));
+    if (filtros.continente) params = params.set('continente', filtros.continente);
+
+    return this.http.get<DashboardDados>(`${API_URL}:3000/dashboard/geral/${idAgencia}`, { params });
   }
 }

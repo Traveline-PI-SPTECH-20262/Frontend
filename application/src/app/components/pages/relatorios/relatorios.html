@@ -1,34 +1,55 @@
+
 <main>
-    <app-header 
-    titulo="Relatórios"
-    descricao="Visualize o seu historio de Relatórios/notificações."
+    <app-header
+        titulo="Relatórios"
+        descricao="Visualize o seu histórico de relatórios e notificações."
     ></app-header>
 
     <section class="relatorios-conteiner">
+
         <div class="titulo-filtro">
-            <select name="" id="">
-                <option value="">Procure por tag</option>
+            <select [(ngModel)]="tagSelecionada">
+                <option value="">Todas as tags</option>
                 <option value="Oportunidade">Oportunidade</option>
                 <option value="Sazonalidade">Sazonalidade</option>
                 <option value="Erro">Erro</option>
             </select>
         </div>
 
-        @for(relatorioAtual of listarelatorios; track relatorioAtual.id){
-        <div class="relatorio">
-            <div class="titulo">
-            <h2>{{relatorioAtual.titulo}}</h2>
-                    @if(relatorioAtual.mensagem == "Oportunidade"){
-                    <span class="oportunidade">{{relatorioAtual.mensagem}}</span>
-                }@else if(relatorioAtual.mensagem == "Sazonalidade"){
-                    <span class="sazonalidade">{{relatorioAtual.mensagem}}</span>
-                }@else if(relatorioAtual.mensagem == "Erro"){
-                    <span class="erro">{{relatorioAtual.mensagem}}</span>
-                }
+        @for(relatorioAtual of relatoriosFiltrados; track relatorioAtual.id) {
+
+            <div class="relatorio">
+
+                <div class="titulo">
+                    <h2>{{relatorioAtual.titulo}}</h2>
+
+                    @if(relatorioAtual.mensagem == "Oportunidade") {
+                        <span class="oportunidade">
+                            {{relatorioAtual.mensagem}}
+                        </span>
+                    } @else if(relatorioAtual.mensagem == "Sazonalidade") {
+                        <span class="sazonalidade">
+                            {{relatorioAtual.mensagem}}
+                        </span>
+                    } @else if(relatorioAtual.mensagem == "Erro") {
+                        <span class="erro">
+                            {{relatorioAtual.mensagem}}
+                        </span>
+                    }
+                </div>
+
+                <p>{{relatorioAtual.descricao}}</p>
+
+                <span class="origem">
+                    {{relatorioAtual.origem}}
+                </span>
+
             </div>
-            <p>{{relatorioAtual.descricao}}</p>
-            <span>{{relatorioAtual.origem}}</span>
-        </div>
-    }
+
+        } @empty {
+            <p>Nenhum relatório com essa tag.</p>
+        }
+
     </section>
 </main>
+

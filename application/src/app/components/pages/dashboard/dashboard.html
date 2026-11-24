@@ -1,6 +1,30 @@
 <main>
     <app-header titulo="Visão geral" descricao="Acompanhe os principais indicadores da sua agência."></app-header>
 
+    <section class="filtros-dashboard">
+    <label>
+        Ano
+        <select [(ngModel)]="anoSelecionado" (ngModelChange)="carregar()" [disabled]="carregando">
+            <option [ngValue]="''">Todos os anos</option>
+            @for(ano of anosDisponiveis; track ano){
+                <option [ngValue]="ano">{{ano}}</option>
+            }
+        </select>
+    </label>
+
+    <label>
+        Continente
+        <select [(ngModel)]="continenteSelecionado" (ngModelChange)="carregar()" [disabled]="carregando">
+            <option [ngValue]="''">Todos os continentes</option>
+            @for(continente of continentesDisponiveis; track continente){
+                <option [ngValue]="continente">{{continente}}</option>
+            }
+        </select>
+    </label>
+
+    <button type="button" (click)="limparFiltros()" [disabled]="carregando">Limpar filtros</button>
+</section>
+
     @if(carregando){
         <p role="status">Carregando os dados da agência...</p>
     } @else if(erro){

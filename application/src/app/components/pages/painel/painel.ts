@@ -1,5 +1,6 @@
 
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Header } from '../../header/header';
 import { PainelService } from '../../../services/painelservice/painel.service';
 import { UsuarioModel } from '../../../models/usuario.model';
@@ -14,7 +15,7 @@ import {
 
 @Component({
   selector: 'app-painel',
-  imports: [Header, ModalEditarPerfil, Modal],
+  imports: [Header, ModalEditarPerfil, Modal, FormsModule],
   templateUrl: './painel.html',
   styleUrl: './painel.css',
 })
@@ -23,6 +24,33 @@ export class Painel implements OnInit {
   funcionarios: any[] = [];
 
   funcionarioSelecionado: any = {};
+
+  // Filtros
+  busca = '';
+  cargoFiltro = '';
+
+  normalizar(texto: string): string {
+    return (texto || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
+
+  get funcionariosFiltrados(): any[] {
+    const termo = this.normalizar(this.busca.trim());
+
+    return this.funcionarios.filter((f) => {
+      const nomeOk = !termo || this.normalizar(f.nome).includes(termo);
+      const cargoOk = !this.cargoFiltro || f.cargo === this.cargoFiltro;
+
+      return nomeOk && cargoOk;
+    });
+  }
+
+  limparFiltros() {
+    this.busca = '';
+    this.cargoFiltro = '';
+  }
 
   editando = false;
   visualizando = false;
@@ -88,7 +116,7 @@ export class Painel implements OnInit {
     });
   }
 
-  
+
   abrirEdicao(funcionario: any) {
     this.funcionarioSelecionado = funcionario;
 
@@ -143,7 +171,6 @@ export class Painel implements OnInit {
   confirmarExclusao() {
     console.log('Excluir funcionário:', this.funcionarioSelecionado.idusuario);
 
-    
     this.excluindo = false;
   }
 

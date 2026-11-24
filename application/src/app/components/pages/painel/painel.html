@@ -1,62 +1,120 @@
+
 <main>
-    <app-header titulo="Painel" descricao="Veja todos os seus funcionarios aqui!!"> </app-header>
+    <app-header
+        titulo="Painel"
+        descricao="Veja todos os seus funcionários aqui!"
+    ></app-header>
 
     <section class="painel">
+
         <div class="filtros">
-            <input type="text" name="" id="" placeholder="Pesquise o funcionario:" />
-            <select name="" id="">
-                <option value="">Filtre por departamento:</option>
-                <option value=""></option>
-                <option value=""></option>
+
+            <input
+                type="text"
+                placeholder="Pesquise o funcionário:"
+                [(ngModel)]="busca"
+            />
+
+            <select [(ngModel)]="cargoFiltro">
+                <option value="">Filtre por cargo:</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Analista">Analista</option>
             </select>
-            <select name="" id="">
-                <option value="">Filtre por status:</option>
-                <option value=""></option>
-                <option value=""></option>
-            </select>
+
+            <button type="button" (click)="limparFiltros()">
+                Limpar
+            </button>
+
         </div>
 
         <section class="painel-func-contener">
-            @for (funcionario of funcionarios; track funcionario.idusuario) {
-            <div class="func">
-                <div class="avatar">
-                    {{ funcionario?.nome?.charAt(0)?.toUpperCase() || 'U' }}
-                </div>
-                <div class="inf-funcionario">
-                    <h2>{{ funcionario.nome }}</h2>
-                    <p>{{ funcionario.cargo }}</p>
-                    <span>{{ funcionario.email }}</span>
 
-                    <div class="acoes">
-                        <div class="acoes-alinhador">
-                            <h5>Ações:</h5>
-                            <span class="acoes-buttons">
-                                <button id="edit" title="Editar" (click)="abrirEdicao(funcionario)">✎</button>
+            @for (funcionario of funcionariosFiltrados; track funcionario.idusuario) {
 
-                                <button id="delete" title="Excluir" (click)="abrirExclusao(funcionario)">
-                                    🗑️
-                                </button>
+                <div class="func">
 
-                                <button id="view" title="Visualizar" (click)="abrirVisualizacao(funcionario)">
-                                    👁️
-                                </button>
-                            </span>
-                        </div>
+                    <div class="avatar">
+                        {{ funcionario?.nome?.charAt(0)?.toUpperCase() || 'U' }}
                     </div>
-                </div>
-            </div>
-            }
-        </section>
-    </section>
-    <app-modal-editar-perfil [aberto]="editando" [formulario]="formulario" [salvando]="salvando"
-        [mensagemEdicao]="mensagemEdicao" (cancelar)="cancelarEdicao()" (salvar)="salvarEdicao($event)">
-    </app-modal-editar-perfil>
 
+                    <div class="inf-funcionario">
+
+                        <h2>{{ funcionario.nome }}</h2>
+
+                        <p>{{ funcionario.cargo }}</p>
+
+                        <span>{{ funcionario.email }}</span>
+
+                        <div class="acoes">
+
+                            <div class="acoes-alinhador">
+
+                                <h5>Ações:</h5>
+
+                                <span class="acoes-buttons">
+
+                                    <button
+                                        id="edit"
+                                        title="Editar"
+                                        (click)="abrirEdicao(funcionario)"
+                                    >
+                                        ✎
+                                    </button>
+
+                                    <button
+                                        id="delete"
+                                        title="Excluir"
+                                        (click)="abrirExclusao(funcionario)"
+                                    >
+                                        🗑️
+                                    </button>
+
+                                    <button
+                                        id="view"
+                                        title="Visualizar"
+                                        (click)="abrirVisualizacao(funcionario)"
+                                    >
+                                        👁️
+                                    </button>
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            } @empty {
+
+                <p>Nenhum funcionário encontrado com esses filtros.</p>
+
+            }
+
+        </section>
+
+    </section>
+
+    <app-modal-editar-perfil
+        [aberto]="editando"
+        [formulario]="formulario"
+        [salvando]="salvando"
+        [mensagemEdicao]="mensagemEdicao"
+        (cancelar)="cancelarEdicao()"
+        (salvar)="salvarEdicao($event)"
+    >
+    </app-modal-editar-perfil>
 
     <!-- MODAL DE VISUALIZAÇÃO -->
 
-    <app-modal [aberto]="visualizando" titulo="Informações do funcionário"
-        descricao="Visualize os dados do funcionário." (fechar)="fecharVisualizacao()">
+    <app-modal
+        [aberto]="visualizando"
+        titulo="Informações do funcionário"
+        descricao="Visualize os dados do funcionário."
+        (fechar)="fecharVisualizacao()"
+    >
 
         <div class="informacoes-funcionario">
 
@@ -81,17 +139,25 @@
             </p>
 
             <div class="botoes-modal">
+
                 <button (click)="fecharVisualizacao()">
                     Fechar
                 </button>
+
             </div>
 
         </div>
 
     </app-modal>
 
-    <app-modal [aberto]="excluindo" titulo="Excluir funcionário" descricao="Confirme a exclusão do funcionário."
-        (fechar)="cancelarExclusao()">
+    <!-- MODAL DE EXCLUSÃO -->
+
+    <app-modal
+        [aberto]="excluindo"
+        titulo="Excluir funcionário"
+        descricao="Confirme a exclusão do funcionário."
+        (fechar)="cancelarExclusao()"
+    >
 
         <div class="exclusao-funcionario">
 
@@ -108,7 +174,10 @@
                     Cancelar
                 </button>
 
-                <button class="botao-excluir" (click)="confirmarExclusao()">
+                <button
+                    class="botao-excluir"
+                    (click)="confirmarExclusao()"
+                >
                     Excluir funcionário
                 </button>
 
