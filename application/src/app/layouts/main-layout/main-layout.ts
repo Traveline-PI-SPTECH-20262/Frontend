@@ -17,7 +17,7 @@ export class MainLayout implements OnInit {
 
   ngOnInit(): void {
     if (this.router.url === '/') {
-      window.location.href = `${API_URL}:4000`;
+      window.location.href = `${API_URL}:4200`;
     }
   }
 
