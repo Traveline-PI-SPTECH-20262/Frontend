@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UploadService } from '../../services/uploadservice/upload.service';
 
 interface Carregamento {
@@ -22,11 +22,15 @@ interface Carregamento {
 export class HistoricoUpload implements OnInit {
 
   constructor(private uploadService: UploadService) {}
-  carregamentos: Carregamento[] = [];
+  carregamentos = signal<Carregamento[]>([]);
 
   ngOnInit(): void {
-    this.uploadService.buscarHistorico().subscribe(
-      (response) => {
+    this.buscarHistorico();
+  }
+
+  buscarHistorico() {
+    this.uploadService.buscarHistorico().subscribe({
+      next: (response) => {
         console.log('Histórico de uploads:', response.historico);
         const lista: Carregamento[] = []
         for (const item of response.historico) {
@@ -45,11 +49,11 @@ export class HistoricoUpload implements OnInit {
           };
           lista.push(carregamento);
         }
-        this.carregamentos = lista;
+        this.carregamentos.set(lista);
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao buscar histórico de uploads:', error);
       }
-    );
+    });
   }
 }
