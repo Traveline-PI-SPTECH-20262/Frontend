@@ -11,7 +11,7 @@ import { AgenciaService } from '../../../services/admAgenciaservice/admAgencia.s
   selector: 'app-painel-adm',
   imports: [Header, Register, RegisterAgencia, FormsModule, Modal],
   templateUrl: './painel-adm.html',
-  styleUrl: './painel-adm.css'
+  styleUrl: './painel-adm.css',
 })
 export class PainelAdm implements OnInit {
   modo = 'cadastrar';
@@ -22,17 +22,71 @@ export class PainelAdm implements OnInit {
   mensagemUsuario = '';
 
   agencias = [
-    { idAgencia: 1, nome: 'Traveline Turismo', cnpj: '12.345.678/0001-90', email: 'contato@travelineturismo.com', telefone: '(11) 99999-1111', dataCadastro: '2026-10-01', codigoAtivacao: 'TRAVELINE001' },
-    { idAgencia: 2, nome: 'Global Travel', cnpj: '23.456.789/0001-01', email: 'guilhermesdomingues31@gmail.com', telefone: '(11) 99999-2222', dataCadastro: '2026-10-05', codigoAtivacao: 'GLOBAL002' },
-    { idAgencia: 3, nome: 'Mundo Viagens', cnpj: '34.567.890/0001-12', email: 'contato@mundoviagens.com', telefone: '(21) 99999-3333', dataCadastro: '2026-10-10', codigoAtivacao: 'MUNDO003' }
+    {
+      idAgencia: 1,
+      nome: 'Traveline Turismo',
+      cnpj: '12.345.678/0001-90',
+      email: 'contato@travelineturismo.com',
+      telefone: '(11) 99999-1111',
+      dataCadastro: '2026-10-01',
+      codigoAtivacao: 'TRAVELINE001',
+    },
+    {
+      idAgencia: 2,
+      nome: 'Global Travel',
+      cnpj: '23.456.789/0001-01',
+      email: 'guilhermesdomingues31@gmail.com',
+      telefone: '(11) 99999-2222',
+      dataCadastro: '2026-10-05',
+      codigoAtivacao: 'GLOBAL002',
+    },
+    {
+      idAgencia: 3,
+      nome: 'Mundo Viagens',
+      cnpj: '34.567.890/0001-12',
+      email: 'contato@mundoviagens.com',
+      telefone: '(21) 99999-3333',
+      dataCadastro: '2026-10-10',
+      codigoAtivacao: 'MUNDO003',
+    },
   ];
 
   usuarios = [
-    { idusuario: 1, nome: 'Guilherme Silva', email: 'guilherme@travelineturismo.com', cargo: 'Administrador', idAgencia: 1 },
-    { idusuario: 2, nome: 'Ana Souza', email: 'ana@travelineturismo.com', cargo: 'Analista', idAgencia: 1 },
-    { idusuario: 3, nome: 'Carlos Oliveira', email: 'carlos@globaltravel.com', cargo: 'Gerente', idAgencia: 2 },
-    { idusuario: 4, nome: 'Mariana Costa', email: 'mariana@globaltravel.com', cargo: 'Analista', idAgencia: 2 },
-    { idusuario: 5, nome: 'Pedro Santos', email: 'pedro@mundoviagens.com', cargo: 'Administrador', idAgencia: 3 }
+    {
+      idusuario: 1,
+      nome: 'Guilherme Silva',
+      email: 'guilherme@travelineturismo.com',
+      cargo: 'Administrador',
+      idAgencia: 1,
+    },
+    {
+      idusuario: 2,
+      nome: 'Ana Souza',
+      email: 'ana@travelineturismo.com',
+      cargo: 'Analista',
+      idAgencia: 1,
+    },
+    {
+      idusuario: 3,
+      nome: 'Carlos Oliveira',
+      email: 'carlos@globaltravel.com',
+      cargo: 'Gerente',
+      idAgencia: 2,
+    },
+    {
+      idusuario: 4,
+      nome: 'Mariana Costa',
+      email: 'mariana@globaltravel.com',
+      cargo: 'Analista',
+      idAgencia: 2,
+    },
+    {
+      idusuario: 5,
+      nome: 'Pedro Santos',
+      email: 'pedro@mundoviagens.com',
+      cargo: 'Administrador',
+      idAgencia: 3,
+    },
   ];
 
   formularioAgencia = { ...this.agencias[0] };
@@ -64,10 +118,7 @@ export class PainelAdm implements OnInit {
   }
 
   salvarAgencia() {
-    this.agenciaService.atualizarAgencia(
-      this.idAgencia,
-      this.formularioAgencia
-    ).subscribe({
+    this.agenciaService.atualizarAgencia(this.idAgencia, this.formularioAgencia).subscribe({
       next: () => {
         this.mensagemAgencia = 'Dados da agência atualizados com sucesso!';
 
@@ -76,7 +127,7 @@ export class PainelAdm implements OnInit {
       error: (erro) => {
         console.error('Erro ao atualizar agência:', erro);
         this.mensagemAgencia = 'Não foi possível atualizar os dados da agência.';
-      }
+      },
     });
   }
 
@@ -91,7 +142,7 @@ export class PainelAdm implements OnInit {
         this.formularioUsuario = {
           nome: usuario.nome,
           email: usuario.email,
-          cargo: usuario.cargo
+          cargo: usuario.cargo,
         };
         this.mensagemUsuario = '';
         this.editandoUsuario = true;
@@ -102,7 +153,6 @@ export class PainelAdm implements OnInit {
   salvarUsuario() {
     for (const usuario of this.usuarios) {
       if (usuario.idusuario === this.idUsuario && usuario.idAgencia === this.idAgencia) {
-      
       }
     }
     this.cancelarEdicaoUsuario();
@@ -122,9 +172,7 @@ export class PainelAdm implements OnInit {
 
     this.agenciaService.deletarAgencia(this.idAgencia).subscribe({
       next: () => {
-        this.agencias = this.agencias.filter(
-          agencia => agencia.idAgencia !== this.idAgencia
-        );
+        this.agencias = this.agencias.filter((agencia) => agencia.idAgencia !== this.idAgencia);
 
         this.mensagemAgencia = 'Agência desativada com sucesso!';
 
@@ -140,18 +188,18 @@ export class PainelAdm implements OnInit {
             email: '',
             telefone: '',
             dataCadastro: '',
-            codigoAtivacao: ''
+            codigoAtivacao: '',
           };
         }
       },
       error: (erro) => {
         console.error('Erro ao desativar agência:', erro);
         this.mensagemAgencia = 'Não foi possível desativar a agência.';
-      }
+      },
     });
   }
 
-  deletarUsuario(){}
+  deletarUsuario() {}
 
   constructor(private agenciaService: AgenciaService) {}
 
@@ -172,7 +220,35 @@ export class PainelAdm implements OnInit {
       error: (erro) => {
         console.error('Erro ao carregar agências:', erro);
         this.mensagemAgencia = 'Não foi possível carregar as agências.';
-      }
+      },
+    });
+  }
+
+  gerarNovoTokenAgencia() {
+    const confirmar = confirm(
+      'Tem certeza que deseja gerar um novo token? O código anterior deixará de ser válido.',
+    );
+
+    if (!confirmar) {
+      return;
+    }
+
+    this.agenciaService.gerarNovoToken(this.idAgencia).subscribe({
+      next: (resposta) => {
+        this.formularioAgencia.codigoAtivacao = resposta.token;
+
+        //atuaiza agencia na lista
+        const agencia = this.agencias.find((agencia) => agencia.idAgencia === this.idAgencia);
+
+        if (agencia) {
+          agencia.codigoAtivacao = resposta.token;
+        }
+        this.mensagemAgencia = 'Novo token gerado com sucesso!';
+      },
+      error: (erro) => {
+        console.error('Erro ao gerar novo token:', erro);
+        this.mensagemAgencia = erro.error?.mensagem || 'Não foi possível gerar um novo token.';
+      },
     });
   }
 }

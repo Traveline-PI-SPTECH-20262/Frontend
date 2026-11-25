@@ -70,8 +70,8 @@
 
                             <div class="codigo-acoes">
                                 <input id="codigoAgenciaAdm" name="codigoAgencia" [(ngModel)]="formularioAgencia.codigoAtivacao" readonly />
-                                <button type="button" class="botao-gerar-token" disabled>
-                                    Gerar novo token
+                                <button type="button" class="botao-gerar-token" (click)="gerarNovoTokenAgencia()">
+                                    Novo token
                                 </button>
                             </div>
                         </div>

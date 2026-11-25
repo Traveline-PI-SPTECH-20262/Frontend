@@ -4,31 +4,34 @@ import { Observable } from 'rxjs';
 import API_URL from '../../config';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AgenciaService {
-
-  private endpoint = `${API_URL}:3000/agencia`;
+  //private endpoint = `${API_URL}:3000/agencia`;
 
   constructor(private http: HttpClient) {}
 
   listarAgencias(): Observable<any> {
-    return this.http.get(this.endpoint);
+    return this.http.get(`${API_URL}:3000/agencia`);
   }
 
   buscarAgencia(id: number): Observable<any> {
-    return this.http.get(`${this.endpoint}/${id}`);
+    return this.http.get(`${API_URL}:3000/agencia/${id}`);
   }
 
   cadastrarAgencia(dados: any): Observable<any> {
-    return this.http.post(this.endpoint, dados);
+    return this.http.post(`${API_URL}:3000/agencia`, dados);
   }
 
   atualizarAgencia(id: number, dados: any): Observable<any> {
-    return this.http.put(`${this.endpoint}/${id}`, dados);
+    return this.http.put(`${API_URL}:3000/agencia/${id}`, dados);
   }
 
   deletarAgencia(id: number): Observable<any> {
-    return this.http.delete(`${this.endpoint}/${id}`);
+    return this.http.delete(`${API_URL}:3000/agencia/${id}`);
+  }
+
+  gerarNovoToken(id: number): Observable<any> {
+    return this.http.patch(`${API_URL}:3000/agencia/${id}/token`, {});
   }
 }
