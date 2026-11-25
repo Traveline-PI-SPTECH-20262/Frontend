@@ -9,19 +9,15 @@
     <p class="aviso-exemplo">Dados de exemplo</p>
 
     <ul class="lista-carregamentos" tabindex="0" aria-label="Histórico de arquivos enviados">
-        @for(carregamentoAtual of carregamentos; track carregamentoAtual.id){
+        @for(carregamentoAtual of carregamentos; track carregamentoAtual.idplanilha){
             <li class="card-carregamento">
                 <div class="arquivo-info">
                     <span>Nome do arquivo</span>
-                    <h3>{{carregamentoAtual.arquivo}}</h3>
-                </div>
-                <div class="responsavel-info">
-                    <span>Enviado por</span>
-                    <p>{{carregamentoAtual.responsavel}}</p>
+                    <h3>{{carregamentoAtual.nome}}</h3>
                 </div>
                 <div class="data-info">
                     <span>Data do carregamento</span>
-                    <p>{{carregamentoAtual.data}}</p>
+                    <p>{{carregamentoAtual.criado_em}}</p>
                 </div>
             </li>
         } @empty {

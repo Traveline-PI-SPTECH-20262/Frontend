@@ -19,4 +19,10 @@ export class UploadService {
     formulario.append('arquivo', arquivo);
     return this.http.post(this.endpoint, formulario);
   }
+
+  buscarHistorico(): Observable<any> {
+    const usuario = this.authService.getToken();
+    const idAgencia = String(usuario?.idAgencia || 0);
+    return this.http.get(`${this.endpoint}/historico/${idAgencia}`);
+  }
 }
