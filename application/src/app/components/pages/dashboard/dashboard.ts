@@ -11,10 +11,11 @@ import { ConfiguracoesService } from '../../../services/services/configuracoes';
 import { AuthService } from '../../../services/userservices/auth.service';
 import { DashboardService, DashboardDados, LinhaGrafico } from '../../../services/dashboardservice/dashboard.service';
 import { ModalAnalise, TipoAnalise } from '../../modal/modal-analise/modal-analise';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [LineChart, KpiCard, Header, BarChart, DoughnutChart, BarStandingChart, ModalAnalise],
+  imports: [LineChart, KpiCard, Header, BarChart, DoughnutChart, BarStandingChart, ModalAnalise, FormsModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -24,6 +25,11 @@ export class Dashboard implements OnInit {
   erro = '';
   analiseAberta = false;
   tipoAnalise: TipoAnalise = 'paises';
+  // Filtros da dashboard
+  anoSelecionado: number | '' = '';
+  continenteSelecionado = '';
+  anosDisponiveis: number[] = [];
+  continentesDisponiveis: string[] = [];
   continentes: ChartConfiguration<'doughnut'>['data'] = { labels: [], datasets: [] };
   paises: ChartConfiguration<'bar'>['data'] = { labels: [], datasets: [] };
   ufs: ChartConfiguration<'bar'>['data'] = { labels: [], datasets: [] };
@@ -58,14 +64,25 @@ export class Dashboard implements OnInit {
     }
     this.carregando = true;
     this.erro = '';
-    this.dashboardService.getGeral(usuario.idAgencia).subscribe({
-      next: (dados) => {
-        this.dados = dados;
-        if (dados.semDados) this.dados = this.dadosVazios();
-        this.montarGraficos(this.dados);
-        this.carregando = false;
-        this.cdr.detectChanges();
-      },
+    this.dashboardService.getGeral(usuario.idAgencia, {
+  ano: this.anoSelecionado,
+  continente: this.continenteSelecionado
+}).subscribe({
+  next: (dados) => {
+
+    if (dados.filtros) {
+      this.anosDisponiveis = dados.filtros.anosDisponiveis;
+      this.continentesDisponiveis = dados.filtros.continentesDisponiveis;
+    }
+
+    this.dados = dados;
+
+    if (dados.semDados) this.dados = this.dadosVazios();
+
+    this.montarGraficos(this.dados);
+    this.carregando = false;
+    this.cdr.detectChanges();
+  },
       error: (erro) => {
         this.erro = erro.error?.mensagem || 'Não foi possível carregar a dashboard.';
         this.carregando = false;
@@ -74,6 +91,12 @@ export class Dashboard implements OnInit {
     });
   }
 
+    limparFiltros() {
+    this.anoSelecionado = '';
+    this.continenteSelecionado = '';
+    this.carregar();
+  }
+  
   dadosVazios(): DashboardDados {
     return {
       planilha: null, semDados: true, periodo: '', ano: 0, anoAnterior: 0,

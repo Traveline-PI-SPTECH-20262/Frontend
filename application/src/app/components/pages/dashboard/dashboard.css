@@ -184,3 +184,26 @@ app-doughnut-chart, app-bar-chart, app-bar-standing-chart, app-line-chart {
         grid-column: auto;
     }
 }
+
+.filtros-dashboard {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.filtros-dashboard label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+}
+
+.filtros-dashboard select {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+}
