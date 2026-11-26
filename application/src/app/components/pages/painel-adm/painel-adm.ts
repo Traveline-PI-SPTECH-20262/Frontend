@@ -5,6 +5,7 @@ import { Register } from '../../forms/register/register';
 import { RegisterAgencia } from '../../forms/register-agencia/register-agencia';
 import { Modal } from '../../modal/modal';
 import { AdminService } from '../../../services/adminservice/admin.service'; // NOVO
+import { AgenciaService } from '../../../services/admAgenciaservice/admAgencia.service';
 
 // NOVO
 interface Usuario {
@@ -49,7 +50,7 @@ export class PainelAdm implements OnInit { // ALTERADO
   formularioUsuario = { nome: '', email: '', cargo: '' };
 
   // NOVO
-  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef) {}
+  constructor(private adminService: AdminService, private cdr: ChangeDetectorRef, private agenciaService: AgenciaService) {}
 
   // NOVO
   ngOnInit() {
@@ -188,4 +189,49 @@ export class PainelAdm implements OnInit { // ALTERADO
       }
     });
   }
+carregarAgencias() {
+ this.agenciaService.listarAgencias().subscribe({
+ next: (dados) => {
+ this.agencias = dados;
+
+ if (this.agencias.length > 0) {
+ this.idAgencia = this.agencias[0].idAgencia;
+ this.selecionarAgencia();
+ }
+ },
+ error: (erro) => {
+ console.error('Erro ao carregar agências:', erro);
+ this.mensagemAgencia = 'Não foi possível carregar as agências.';
+ },
+ });
+ }
+
+ gerarNovoTokenAgencia() {
+ const confirmar = confirm(
+ 'Tem certeza que deseja gerar um novo token? O código anterior deixará de ser válido.',
+ );
+
+ if (!confirmar) {
+ return;
+ }
+
+ this.agenciaService.gerarNovoToken(this.idAgencia).subscribe({
+ next: (resposta) => {
+ this.formularioAgencia.codigoAtivacao = resposta.token;
+
+ //atuaiza agencia na lista
+ const agencia = this.agencias.find((agencia) => agencia.idAgencia === this.idAgencia);
+
+ if (agencia) {
+ agencia.codigoAtivacao = resposta.token;
+ }
+ this.mensagemAgencia = 'Novo token gerado com sucesso!';
+ },
+ error: (erro) => {
+ console.error('Erro ao gerar novo token:', erro);
+ this.mensagemAgencia = erro.error?.mensagem || 'Não foi possível gerar um novo token.';
+ },
+ });
+ }
+
 }
