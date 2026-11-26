@@ -39,7 +39,7 @@ export class HistoricoUpload implements OnInit {
           const carregamento: Carregamento = {
             idplanilha: item.idplanilha,
             caminho: item.caminho,
-            nome: item.nome,
+            nome: 'Arquivo ' + item.idplanilha,
             dataHora: item.dataHora,
             situacao: item.situacao,
             dataInicio: item.dataInicio,
