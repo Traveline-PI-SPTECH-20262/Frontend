@@ -30,7 +30,9 @@
         }@else if(modo === 'cadastrar'){
             <div class="card-painel-adm">
                 <h2>Cadastrar Agências</h2>
-                <app-register-agencia></app-register-agencia>
+                <app-register-agencia
+                    (agenciaCadastrada)="carregarAgencias()">
+                </app-register-agencia>
             </div>
             <div class="card-painel-adm">
                 <h2>Cadastrar Usuários</h2>
@@ -47,7 +49,7 @@
                     <div class="linha-campos">
                         <div class="campo">
                             <label for="cnpjAgenciaAdm">CNPJ</label>
-                            <input id="cnpjAgenciaAdm" name="cnpjAgencia" [(ngModel)]="formularioAgencia.cnpj" maxlength="18" required />
+                            <input disabled id="cnpjAgenciaAdm" name="cnpjAgencia" [(ngModel)]="formularioAgencia.cnpj" maxlength="18" required readonly />
                         </div>
                         <div class="campo">
                             <label for="telefoneAgenciaAdm">Telefone</label>
@@ -61,11 +63,17 @@
                     <div class="linha-campos">
                         <div class="campo">
                             <label for="dataAgenciaAdm">Data de cadastro</label>
-                            <input disabled id="dataAgenciaAdm" type="date" name="dataAgencia" [(ngModel)]="formularioAgencia.dataCadastro" />
+                            <input disabled id="dataAgenciaAdm" type="date" name="dataAgencia" [(ngModel)]="formularioAgencia.dataCadastro" readonly />
                         </div>
-                        <div class="campo">
+                        <div class="campo campo-codigo">
                             <label for="codigoAgenciaAdm">Código de ativação</label>
-                            <input id="codigoAgenciaAdm" name="codigoAgencia" [(ngModel)]="formularioAgencia.codigoAtivacao" maxlength="45" required />
+
+                            <div class="codigo-acoes">
+                                <input id="codigoAgenciaAdm" name="codigoAgencia" [(ngModel)]="formularioAgencia.codigoAtivacao" readonly />
+                                <button type="button" class="botao-gerar-token" (click)="gerarNovoTokenAgencia()">
+                                    Novo token
+                                </button>
+                            </div>
                         </div>
                     </div>
                     @if(mensagemAgencia){

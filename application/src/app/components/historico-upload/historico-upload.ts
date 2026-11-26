@@ -1,4 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
+import { UploadService } from '../../services/uploadservice/upload.service';
+
+interface Carregamento {
+  idplanilha: number;
+  caminho: string;
+  nome: string;
+  dataHora: any;
+  situacao: string;
+  dataInicio: any;
+  dataConclusao: any;
+  agencia_idAgencia: number;
+  criado_em: any;
+}
 
 @Component({
   selector: 'app-historico-upload',
@@ -6,10 +19,41 @@ import { Component } from '@angular/core';
   templateUrl: './historico-upload.html',
   styleUrl: './historico-upload.css',
 })
-export class HistoricoUpload {
-  carregamentos = [
-    { id: 1, data: '13/11/2026', arquivo: 'Chegadas_de_turistas_2021.xlsx', responsavel: 'Mariana Silva' },
-    { id: 2, data: '12/11/2026', arquivo: 'Turistas_por_estado_2020.xlsx', responsavel: 'Lucas Santos' },
-    { id: 3, data: '10/11/2026', arquivo: 'Base_turismo_internacional_2019.xlsx', responsavel: 'Ana Oliveira' },
-  ];
+export class HistoricoUpload implements OnInit {
+
+  constructor(private uploadService: UploadService) {}
+  carregamentos = signal<Carregamento[]>([]);
+
+  ngOnInit(): void {
+    this.buscarHistorico();
+  }
+
+  buscarHistorico() {
+    this.uploadService.buscarHistorico().subscribe({
+      next: (response) => {
+        console.log('Histórico de uploads:', response.historico);
+        const lista: Carregamento[] = []
+        for (const item of response.historico) {
+          const dataParteUm = item.criado_em.split('T')[0];
+          const dataParteDois = item.criado_em.split('T')[1].split('.')[0];
+          const carregamento: Carregamento = {
+            idplanilha: item.idplanilha,
+            caminho: item.caminho,
+            nome: item.nome,
+            dataHora: item.dataHora,
+            situacao: item.situacao,
+            dataInicio: item.dataInicio,
+            dataConclusao: item.dataConclusao,
+            agencia_idAgencia: item.agencia_idAgencia,
+            criado_em: `${dataParteUm} ${dataParteDois}`
+          };
+          lista.push(carregamento);
+        }
+        this.carregamentos.set(lista);
+      },
+      error: (error) => {
+        console.error('Erro ao buscar histórico de uploads:', error);
+      }
+    });
+  }
 }

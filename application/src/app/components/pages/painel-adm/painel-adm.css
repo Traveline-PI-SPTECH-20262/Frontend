@@ -229,4 +229,38 @@ form {
 }
 
 
+.campo-codigo {
+    flex: 1.5;
+}
 
+.codigo-acoes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.codigo-acoes input {
+    flex: 1;
+    min-width: 0;
+    background-color: var(--bg-secondary);
+    cursor: default;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.botao-gerar-token {
+    padding: 11px 14px;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    background-color: var(--accent-soft);
+    color: var(--accent-color);
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.botao-gerar-token:hover:not(:disabled) {
+    background-color: var(--accent-color);
+    color: white;
+}
